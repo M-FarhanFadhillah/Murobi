@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('listmasjid');
 });
 
 Route::get('/temp', function () {
@@ -24,5 +24,5 @@ Route::get('/test', function () {
     return view('ziswafusers');
 });
 Route::get('/nav', function () {
-    return view('activity');
+    return view('ziswafusers');
 });

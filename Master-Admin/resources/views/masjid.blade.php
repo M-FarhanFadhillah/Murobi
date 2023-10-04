@@ -1,7 +1,6 @@
 @extends('layouts.tempNav')
 @section('container')
 <div class="row">
-  <div class="col-sm-6 .col-sm-8"></div>
   <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-mosque"></i> Masjid</h3></div>
 </div>
 <hr>

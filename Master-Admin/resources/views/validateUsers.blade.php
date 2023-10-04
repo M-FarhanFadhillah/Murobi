@@ -1,7 +1,7 @@
 @extends('layouts.tempNav')
 @section('container')
 <div class="row">
-    <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-user-group"></i> Daftar Pengguna</h3></div>
+    <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-address-card"></i> Validasi Pendaftaran</h3></div>
 </div>
 <hr>
 <div class="container">
