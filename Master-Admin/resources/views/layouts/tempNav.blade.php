@@ -19,6 +19,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -189,7 +190,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
+        <a href="#" class="nav-link link-body-emphasis" aria-current="page">
             <i class="fa-solid fa-house pe-none me-2"></i>
           Beranda
         </a>
@@ -201,7 +202,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-body-emphasis">
+        <a href="#" class="nav-link active link-body-emphasis">
             <i class="fa-solid fa-mosque pe-none me-2"></i>
           Masjid
         </a>
@@ -221,7 +222,7 @@
     </div>
   </div>
   <div class="b-example-divider b-example-vr"></div>
-  <div class="container-fluid mt-3">
+  <div class="container-fluid mt-3" style="overflow: auto">
     @yield('container')
   </div>
 </main>

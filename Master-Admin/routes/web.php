@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/temp', function () {
     return view('template-sidebar');
 });
 Route::get('/test', function () {
-    return view('education');
+    return view('ziswafusers');
 });
 Route::get('/nav', function () {
-    return view('tempNav');
+    return view('activity');
 });
