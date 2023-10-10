@@ -13,7 +13,7 @@
       <div class="card-body">
         <h5 class="card-title">Daftar Masjid</h5>
         <p class="card-text">Lihat masjid yang telah berkolaborasi dengan aplikasi.</p>
-        <a href="#" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
+        <a href="/listmasjid" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         10 Masjid telah bergabung
@@ -28,7 +28,7 @@
       <div class="card-body">
         <h5 class="card-title">Banner</h5>
         <p class="card-text">Tambahkan promosi yang ingin ditampilkan di aplikasi.</p>
-        <a href="#" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
+        <a href="/banner" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         Saat ini 3 Banner Aktif
@@ -43,7 +43,7 @@
       <div class="card-body">
         <h5 class="card-title">Edukasi</h5>
         <p class="card-text">Siarkan pembelajaran muslim lebih luas di aplikasi.</p>
-        <a href="#" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
+        <a href="/edu" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         10 Konten Saat ini aktif
@@ -60,7 +60,7 @@
       <div class="card-body">
         <h5 class="card-title">Laporan Keuangan</h5>
         <p class="card-text">Informasikan laporan keuangan masjidmu di aplikasi.</p>
-        <a href="#" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
+        <a href="/financereport" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         Diperbarui 2 hari lalu
@@ -75,7 +75,7 @@
       <div class="card-body">
         <h5 class="card-title">Kegiatan</h5>
         <p class="card-text">Informasikan kegiatan terbaru masjidmu di aplikasi.</p>
-        <a href="#" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
+        <a href="/activity" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         Saat ini 3 Kegiatan Aktif

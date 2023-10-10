@@ -3,7 +3,6 @@
 <div class="row">
     <div class="col">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
-            <a href="#"><button type="button" class="btn btn-outline-secondary"><i class="fas fa-arrow-left fa-sm fa-fw"></i> Kembali</button></a>
             <img src="/img/masjid.jpg" class="d-block w-100 mt-1" alt="Masjid">
             <h3 class="text-center mt-1">Masjid A</h3>
             <table class="table table-borderless">

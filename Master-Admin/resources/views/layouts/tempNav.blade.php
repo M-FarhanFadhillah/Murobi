@@ -190,19 +190,19 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link link-body-emphasis" aria-current="page">
+        <a href="home" class="nav-link {{ ($title === "Dashboard") ? 'active ' : '' }} link-body-emphasis" aria-current="page">
             <i class="fa-solid fa-house pe-none me-2"></i>
           Beranda
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link link-body-emphasis">
+        <a href="users" class="nav-link {{ ($title === "Pengguna") ? 'active ' : '' }} link-body-emphasis">
             <i class="fa-solid fa-user-group pe-none me-2"></i>
           Pengguna
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link active link-body-emphasis">
+        <a href="masjid" class="nav-link {{ ($title === "Masjid") ? 'active ' : '' }} link-body-emphasis">
             <i class="fa-solid fa-mosque pe-none me-2"></i>
           Masjid
         </a>

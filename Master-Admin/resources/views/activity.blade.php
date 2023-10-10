@@ -13,7 +13,7 @@
       <div class="card-body">
         <h5 class="card-title">Masjid A</h5>
         <p class="card-text">Jl. Nangka, Sepang Jaya, Kec. Kedaton, Kota Bandar Lampung, Lampung 35141</p>
-        <a href="#" class="btn btn-outline-success">Kegiatan <i class="fa-solid fa-right-long fa-fade"></i></a>
+        <a href="/activitylist" class="btn btn-outline-success">Kegiatan <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         1 Kegiatan Aktif
