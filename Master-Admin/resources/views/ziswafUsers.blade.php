@@ -8,6 +8,7 @@
     <table class="table text-center">
         <thead>
             <th scope="col">ID Transanksi</th>
+            <th scope="col">Nama</th>
             <th scope="col">Tertuju</th>
             <th scope="col">Kategori</th>
             <th scope="col">Nominal</th>
@@ -16,6 +17,7 @@
         <tbody class="table-group-divider">
             <tr>
                 <td>INF202310035717</td>
+                <td>Syahril Fajri Pratama</td>
                 <td>Masjid A</td>
                 <td>Infaq</td>
                 <td>Rp 4.000.000</td>

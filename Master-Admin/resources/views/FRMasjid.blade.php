@@ -42,8 +42,9 @@
                     <option value="Desember">Desember</option>
                   </select>
             </div>
-            <div class="col-auto"><button type="button" class="btn btn-outline-info">Tampilkan</button></div>
+            <div class="col-auto"><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan"><i class="fa-solid fa-chevron-right"></i></button></div>
             <div class="col-auto"><button type="button" class="btn btn-outline-success"><i class="fa-solid fa-download"></i> Download Laporan</button></div>
+            <div class="col-auto"><button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-plus"></i> Tambah Pemasukan/Pengeluaran</button></div>
         </div>
     </div>
 </div>

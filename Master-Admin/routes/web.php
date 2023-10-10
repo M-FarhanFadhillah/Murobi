@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('listmasjid');
+    return view('Frmasjid');
 });
 
 Route::get('/temp', function () {
