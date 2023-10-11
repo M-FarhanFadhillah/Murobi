@@ -35,7 +35,6 @@ Route::get('/masjid', [masjidController::class, 'index']);
 Route::get('/listmasjid', [masjidController::class, 'listMasjid']);
 Route::get('/users', [userController::class, 'index']);
 Route::get('/listUser', [userController::class, 'listUser']);
-Route::get('/listUser/{id}', [userController::class, 'userSpesific']);
 Route::get('/validateRegist', [userController::class, 'validateUser']);
 Route::get('/banner', [bannerController::class, 'index']);
 Route::get('/edu', [educationController::class, 'index']);
