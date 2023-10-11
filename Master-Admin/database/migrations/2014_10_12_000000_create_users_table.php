@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Untuk Mengetahui Tipe data yg ada di Laravel -> Coloumn Method
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
