@@ -183,21 +183,131 @@ class IbadahPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromRGBO(170, 245, 179, 1),
-            Color.fromRGBO(165, 210, 238, 1)
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomLeft,
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(170, 245, 179, 1),
+              Color.fromRGBO(165, 210, 238, 1)
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+          ),
         ),
-      ),
-      child: SingleChildScrollView(
-        child: Container(
-          
-        )
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Text(
+                  "ZISWAF",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 20,
+                    color: Color(0xff000000),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16.0),
+                  decoration: BoxDecoration(
+                    // Add your BoxDecoration properties here
+                    color: Color.fromARGB(255, 139, 206,
+                        158), // For example, set a background color
+                    borderRadius:
+                        BorderRadius.circular(10.0), // Add rounded corners
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Transform.scale(
+                        scale: 0.8,
+                        child: Image(
+                          image: AssetImage("assets/images/masjid1.png"),
+                        ),
+                      ),
+                      Container(
+                        width: 1,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Color(0xff000000),
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.zero,
+                          border:
+                              Border.all(color: Color(0x4d9e9e9e), width: 1),
+                        ),
+                      ),
+                      Container(
+                        width: 200,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                        ),
+                        child: Stack(
+                          alignment: Alignment.topLeft,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(135, 0, 0, 10),
+                              child:
+
+                                  ///***If you have exported images you must have to copy those images in assets/images directory.
+                                  Image(
+                                image: AssetImage("assets/images/moon3.png"),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.13,
+                                width: MediaQuery.of(context).size.width,
+                                fit: BoxFit.scaleDown,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.fromLTRB(3, 20, 0, 0),
+                              child: Text(
+                                "ZAKAT",
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.clip,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14,
+                                  color: Color(0xff000000),
+                                ),
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.fromLTRB(3, 35, 0, 0),
+                              child: Text(
+                                "Text",
+                                textAlign: TextAlign.start,
+                                overflow: TextOverflow.clip,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14,
+                                  color: Color(0xff000000),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -266,10 +376,9 @@ class ZiswafPages extends StatelessWidget {
                     width: 1, // Width of the vertical line
                     color: const Color.fromARGB(
                         255, 0, 38, 6), // Color of the vertical line
-                        margin: const EdgeInsets.only(right: 16.0),
+                    margin: const EdgeInsets.only(right: 16.0),
                   ),
-                  const Column(
-                    children: [
+                  const Column(children: [
                     Text(
                       'Zakat',
                       style: TextStyle(
@@ -325,10 +434,9 @@ class ZiswafPages extends StatelessWidget {
                     width: 1, // Width of the vertical line
                     color: const Color.fromARGB(
                         255, 0, 38, 6), // Color of the vertical line
-                        margin: const EdgeInsets.only(right: 16.0),
+                    margin: const EdgeInsets.only(right: 16.0),
                   ),
-                  const Column(
-                    children: [
+                  const Column(children: [
                     Text(
                       'INFAQ',
                       style: TextStyle(
@@ -384,10 +492,9 @@ class ZiswafPages extends StatelessWidget {
                     width: 1, // Width of the vertical line
                     color: const Color.fromARGB(
                         255, 0, 38, 6), // Color of the vertical line
-                        margin: const EdgeInsets.only(right: 16.0),
+                    margin: const EdgeInsets.only(right: 16.0),
                   ),
-                  const Column(
-                    children: [
+                  const Column(children: [
                     Text(
                       'SHODAQOH',
                       style: TextStyle(
@@ -443,10 +550,9 @@ class ZiswafPages extends StatelessWidget {
                     width: 1, // Width of the vertical line
                     color: const Color.fromARGB(
                         255, 0, 38, 6), // Color of the vertical line
-                        margin: const EdgeInsets.only(right: 16.0),
+                    margin: const EdgeInsets.only(right: 16.0),
                   ),
-                  const Column(
-                    children: [
+                  const Column(children: [
                     Text(
                       'WAKAF',
                       style: TextStyle(
