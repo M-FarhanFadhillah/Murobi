@@ -11,4 +11,12 @@ class absensi_sholat extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function waktu_sholat(){
+        return $this->belongsTo(waktu_sholat::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
 }

@@ -15,8 +15,13 @@ class BannerController extends Controller
      */
     public function index()
     {
+        $aktif_banner = banner::where('status', true);
+        $non_aktif = banner::where('status', false);
         return view('banner',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "aktif"=> $aktif_banner->get(),
+            "non"=> $non_aktif->get(),
+            "data"=> banner::all()
         ]);
     }
 

@@ -36,9 +36,13 @@
                                 <i class="fa-solid fa-info"></i>
                             </button>
                         </a>
-                        <a href="#"><button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Absensi Sholat"><i class="fa-solid fa-list-check"></i></button></a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#infoSholat-{{ $user->id }}"><button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Absensi Sholat"><i class="fa-solid fa-list-check"></i></button></a>
                         <a href="#"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Reset Paswword"><i class="fa-solid fa-rotate-right"></i></button></a>
-                        <a href="#"><button type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Pengguna"><i class="fa-solid fa-trash"></i></button></a>
+                        <form action="/listUser" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button onclick="return confirm('Anda yakin ingin menghapus data?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Pengguna"><i class="fa-solid fa-trash"></i></button>
+                        </form>
                     </div>
                 </td>
             </tr>
@@ -83,6 +87,49 @@
     </div>
   </div>
 {{-- Modal Details --}}
+@foreach ($data as $item)
+<div class="modal fade" id="infoSholat-{{ $item->id }}" tabindex="-1" aria-labelledby="infoSholatLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="infoSholatLabel">Absensi Sholat {{ $item->name }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table text-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">Subuh</th>
+                        <th scope="col">Dzuhur</th>
+                        <th scope="col">Ashar</th>
+                        <th scope="col">Mahgrib</th>
+                        <th scope="col">Isya</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Masjid</td>
+                        <td>Masjid</td>
+                        <td>Masjid</td>
+                        <td>Masjid</td>
+                        <td>Masjid</td>
+                      </tr>
+                      <tr>
+                        <td>Berjamaah</td>
+                        <td>Berjamaah</td>
+                        <td>Berjamaah</td>
+                        <td>Berjamaah</td>
+                        <td>Berjamaah</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+@endforeach 
+{{-- Modal Absensi Sholat --}}
 @foreach ($data as $item)
 <div class="modal fade" id="infoAccount-{{ $item->id }}" tabindex="-1" aria-labelledby="infoAccountLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
