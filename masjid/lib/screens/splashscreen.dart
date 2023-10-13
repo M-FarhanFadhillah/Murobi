@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
           children: [
             ///***If you have exported images you must have to copy those images in assets/images directory.
             Image(
-              image: AssetImage("/images/SplashScreen.png"),
+              image: AssetImage("assets/images/SplashScreen.png"),
               height: 250,
               width: 250,
               fit: BoxFit.cover,
