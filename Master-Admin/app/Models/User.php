@@ -39,4 +39,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function absensi_sholat(){
+        return $this->hasMany(absensi_sholat::class, 'users_id');
+    }
 }

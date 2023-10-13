@@ -11,4 +11,7 @@ class waktu_sholat extends Model
     protected $guarded = [
         'id'
     ];
+    public function absensi_sholat(){
+        return $this->hasMany(absensi_sholat::class, 'waktu_sholat_id');
+    }
 }

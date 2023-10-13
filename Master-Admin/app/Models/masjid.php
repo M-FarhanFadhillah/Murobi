@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class masjid extends Model
 {
     use HasFactory;
+
+    protected $guarded = [
+        'id'
+    ];
 }

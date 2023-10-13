@@ -21,8 +21,15 @@ class MasjidController extends Controller
     }
     public function listMasjid()
     {
+        
+        $list = masjid::latest();
+        if(request('search')){
+            $list->where('masjid_name','like', '%' . request('search') . '%');
+        }
         return view('listmasjid',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "data" => masjid::all(),
+            "listMasjid" => $list->get()
         ]);
     }
     
