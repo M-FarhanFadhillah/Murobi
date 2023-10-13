@@ -97,38 +97,43 @@ class BerandaPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromRGBO(170, 245, 179, 1),
-            Color.fromRGBO(165, 210, 238, 1)
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomLeft,
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(170, 245, 179, 1),
+              Color.fromRGBO(165, 210, 238, 1)
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+          ),
         ),
-      ),
-      child: const SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Text(
-                  'Edit Here...',
+                const Text(
+                  "Beranda",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.red,
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 20,
+                    color: Color(0xff000000),
                   ),
-                ),
-                Icon(
-                  Icons.notifications,
-                  color: Colors.red,
                 ),
               ],
             ),
-          ]),
+          ),
         ),
       ),
     );
@@ -140,38 +145,43 @@ class EdukasiPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromRGBO(170, 245, 179, 1),
-            Color.fromRGBO(165, 210, 238, 1)
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomLeft,
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(170, 245, 179, 1),
+              Color.fromRGBO(165, 210, 238, 1)
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+          ),
         ),
-      ),
-      child: const SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Text(
-                  'Edit Here...',
+                const Text(
+                  "Edukasi",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.red,
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 20,
+                    color: Color(0xff000000),
                   ),
-                ),
-                Icon(
-                  Icons.notifications,
-                  color: Colors.red,
                 ),
               ],
             ),
-          ]),
+          ),
         ),
       ),
     );
@@ -180,6 +190,54 @@ class EdukasiPages extends StatelessWidget {
 
 class IbadahPages extends StatelessWidget {
   const IbadahPages({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(170, 245, 179, 1),
+              Color.fromRGBO(165, 210, 238, 1)
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Text(
+                  "Ibadah",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 20,
+                    color: Color(0xff000000),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ZiswafPages extends StatelessWidget {
+  const ZiswafPages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -220,11 +278,8 @@ class IbadahPages extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(top: 16.0),
                   decoration: BoxDecoration(
-                    // Add your BoxDecoration properties here
-                    color: Color.fromARGB(255, 139, 206,
-                        158), // For example, set a background color
-                    borderRadius:
-                        BorderRadius.circular(10.0), // Add rounded corners
+                    color: Color.fromARGB(255, 139, 206,158), 
+                    borderRadius: BorderRadius.circular(10.0), 
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -239,7 +294,7 @@ class IbadahPages extends StatelessWidget {
                       ),
                       Container(
                         width: 1,
-                        height: 100,
+                        height: 145,
                         decoration: BoxDecoration(
                           color: Color(0xff000000),
                           shape: BoxShape.rectangle,
@@ -258,11 +313,8 @@ class IbadahPages extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           children: [
                             Padding(
-                              padding: EdgeInsets.fromLTRB(135, 0, 0, 10),
-                              child:
-
-                                  ///***If you have exported images you must have to copy those images in assets/images directory.
-                                  Image(
+                              padding: EdgeInsets.fromLTRB(135, 0, 0, 0),
+                              child: Image(
                                 image: AssetImage("assets/images/moon3.png"),
                                 height:
                                     MediaQuery.of(context).size.height * 0.13,
@@ -287,12 +339,12 @@ class IbadahPages extends StatelessWidget {
                             const Padding(
                               padding: EdgeInsets.fromLTRB(3, 35, 0, 0),
                               child: Text(
-                                "Text",
+                                "Zakat adalah sejumlah harta yang wajib dikeluarkan oleh umat Muslim untuk diberikan kepada golongan yang berhak menerima, seperti fakir miskin dan semacamnya, sesuai dengan yang ditetapkan oleh syariah",
                                 textAlign: TextAlign.start,
                                 overflow: TextOverflow.clip,
+                                softWrap: true,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontStyle: FontStyle.normal,
+                                  fontFamily: 'poppins',
                                   fontSize: 14,
                                   color: Color(0xff000000),
                                 ),
@@ -313,315 +365,48 @@ class IbadahPages extends StatelessWidget {
   }
 }
 
-class ZiswafPages extends StatelessWidget {
-  const ZiswafPages({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromRGBO(170, 245, 179, 1),
-            Color.fromRGBO(165, 210, 238, 1)
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomLeft,
-        ),
-      ),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(children: [
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'ZISWAF',
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16.0),
-              decoration: BoxDecoration(
-                // Add your BoxDecoration properties here
-                color: const Color.fromARGB(
-                    255, 139, 206, 158), // For example, set a background color
-                borderRadius:
-                    BorderRadius.circular(10.0), // Add rounded corners
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      "https://raw.githubusercontent.com/ahmadalfarizi2017051060/assets-super-masjid/main/mosque1.png",
-                      height: 120,
-                      width: 120,
-                    ),
-                  ),
-                  Container(
-                    height: 150, // Adjust the height as needed
-                    width: 1, // Width of the vertical line
-                    color: const Color.fromARGB(
-                        255, 0, 38, 6), // Color of the vertical line
-                    margin: const EdgeInsets.only(right: 16.0),
-                  ),
-                  const Column(children: [
-                    Text(
-                      'Zakat',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Selengkapnya',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      '',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ])
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16.0),
-              decoration: BoxDecoration(
-                // Add your BoxDecoration properties here
-                color: const Color.fromARGB(
-                    255, 139, 206, 158), // For example, set a background color
-                borderRadius:
-                    BorderRadius.circular(10.0), // Add rounded corners
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      "https://raw.githubusercontent.com/ahmadalfarizi2017051060/assets-super-masjid/main/mosque1.png",
-                      height: 120,
-                      width: 120,
-                    ),
-                  ),
-                  Container(
-                    height: 150, // Adjust the height as needed
-                    width: 1, // Width of the vertical line
-                    color: const Color.fromARGB(
-                        255, 0, 38, 6), // Color of the vertical line
-                    margin: const EdgeInsets.only(right: 16.0),
-                  ),
-                  const Column(children: [
-                    Text(
-                      'INFAQ',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Selengkapnya',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      '',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ])
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16.0),
-              decoration: BoxDecoration(
-                // Add your BoxDecoration properties here
-                color: const Color.fromARGB(
-                    255, 139, 206, 158), // For example, set a background color
-                borderRadius:
-                    BorderRadius.circular(10.0), // Add rounded corners
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      "https://raw.githubusercontent.com/ahmadalfarizi2017051060/assets-super-masjid/main/mosque1.png",
-                      height: 120,
-                      width: 120,
-                    ),
-                  ),
-                  Container(
-                    height: 150, // Adjust the height as needed
-                    width: 1, // Width of the vertical line
-                    color: const Color.fromARGB(
-                        255, 0, 38, 6), // Color of the vertical line
-                    margin: const EdgeInsets.only(right: 16.0),
-                  ),
-                  const Column(children: [
-                    Text(
-                      'SHODAQOH',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Selengkapnya',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      '',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ])
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16.0),
-              decoration: BoxDecoration(
-                // Add your BoxDecoration properties here
-                color: const Color.fromARGB(
-                    255, 139, 206, 158), // For example, set a background color
-                borderRadius:
-                    BorderRadius.circular(10.0), // Add rounded corners
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      "https://raw.githubusercontent.com/ahmadalfarizi2017051060/assets-super-masjid/main/mosque1.png",
-                      height: 120,
-                      width: 120,
-                    ),
-                  ),
-                  Container(
-                    height: 150, // Adjust the height as needed
-                    width: 1, // Width of the vertical line
-                    color: const Color.fromARGB(
-                        255, 0, 38, 6), // Color of the vertical line
-                    margin: const EdgeInsets.only(right: 16.0),
-                  ),
-                  const Column(children: [
-                    Text(
-                      'WAKAF',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Selengkapnya',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      '',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ])
-                ],
-              ),
-            ),
-          ]),
-        ),
-      ),
-    );
-  }
-}
-
 class QurbanPages extends StatelessWidget {
   const QurbanPages({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromRGBO(170, 245, 179, 1),
-            Color.fromRGBO(165, 210, 238, 1)
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomLeft,
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(170, 245, 179, 1),
+              Color.fromRGBO(165, 210, 238, 1)
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+          ),
         ),
-      ),
-      child: const SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Text(
-                  'Edit Here...',
+                const Text(
+                  "Qurban",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.red,
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 20,
+                    color: Color(0xff000000),
                   ),
-                ),
-                Icon(
-                  Icons.notifications,
-                  color: Colors.red,
                 ),
               ],
             ),
-          ]),
+          ),
         ),
       ),
     );
@@ -634,26 +419,50 @@ class KeuanganPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromRGBO(170, 245, 179, 1),
-            Color.fromRGBO(165, 210, 238, 1)
-          ], // Warna gradient yang Anda inginkan
-          begin: Alignment.topLeft, // Posisi awal gradient
-          end: Alignment.bottomLeft, // Posisi akhir gradient
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(170, 245, 179, 1),
+              Color.fromRGBO(165, 210, 238, 1)
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomLeft,
+          ),
         ),
-      ),
-      child: const Center(
-        child: Text(
-          'Laporan Keuangan',
-          style: TextStyle(
-            fontSize: 24,
-            color: Colors.white,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Text(
+                  "Laporan Keuangan",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 20,
+                    color: Color(0xff000000),
+                  ),
+                ),
+                Transform.scale(
+                  scale: 1.0,
+                  child: Image(
+                    image: AssetImage("assets/images/tempLaporan.png"),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }
