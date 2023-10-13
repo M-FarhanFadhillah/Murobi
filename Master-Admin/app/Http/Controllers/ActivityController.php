@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\activity;
 use App\Http\Requests\StoreactivityRequest;
 use App\Http\Requests\UpdateactivityRequest;
+use App\Models\masjid;
 
 class ActivityController extends Controller
 {
@@ -15,8 +16,13 @@ class ActivityController extends Controller
      */
     public function index()
     {
+        $masjid = masjid::latest();
+        if(request('search')){
+            $masjid->where('masjid_name','like', '%' . request('search') . '%');
+        }
         return view('activity',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "list_masjid"=> $masjid->get()
         ]);
     }
     public function listActivity()

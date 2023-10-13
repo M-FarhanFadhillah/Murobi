@@ -16,7 +16,7 @@
         <a href="/listmasjid" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
-        10 Masjid telah bergabung
+        {{ $j_masjid }} Masjid telah bergabung
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
         <a href="/banner" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
-        Saat ini 3 Banner Aktif
+        Saat ini {{ $j_banner }} Banner Aktif
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
         <a href="/edu" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
-        10 Konten Saat ini aktif
+        {{ $j_edu }} Konten tersedia
       </div>
     </div>
   </div>

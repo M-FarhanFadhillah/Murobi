@@ -97,7 +97,7 @@
                                     @case(1)
                                     Promo
                                     @break
-                                    @case(3)
+                                    @case(2)
                                     Kegiatan
                                     @break
                                     @endswitch
@@ -115,12 +115,12 @@
     </div>
 </div>
 @endforeach 
-{{-- Modal Tambah Masjid --}}
+{{-- Modal Tambah Banner --}}
 <div class="modal fade" id="addBanner" tabindex="-1" aria-labelledby="addBannerLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addBannerLabel">Tamnah Banner</h1>
+          <h1 class="modal-title fs-5" id="addBannerLabel">Tambah Banner</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

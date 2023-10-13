@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\lap_keu;
 use App\Http\Requests\Storelap_keuRequest;
 use App\Http\Requests\Updatelap_keuRequest;
+use App\Models\masjid;
 
 class LapKeuController extends Controller
 {
@@ -15,8 +16,13 @@ class LapKeuController extends Controller
      */
     public function index()
     {
+        $masjid = masjid::latest();
+        if(request('search')){
+            $masjid->where('masjid_name','like', '%' . request('search') . '%');
+        }
         return view('financereport',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "list_masjid"=> $masjid->get()
         ]);
     }
     public function lapkeu()

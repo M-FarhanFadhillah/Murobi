@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('jenis_education_id');
             $table->string('judul');
-            $table->text('deskripsi');
+            // 0 : Anak-Anak, 1 : Dewasa, 2 : Orang Tua
+            $table->integer('kategori');
             $table->string('content');
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }

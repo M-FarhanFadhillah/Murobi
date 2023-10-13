@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\banner;
+use App\Models\education;
 use App\Models\masjid;
 use App\Http\Requests\StoremasjidRequest;
 use App\Http\Requests\UpdatemasjidRequest;
@@ -16,7 +18,10 @@ class MasjidController extends Controller
     public function index()
     {
         return view('masjid',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "j_masjid" => masjid::all()->count(),
+            "j_edu" => education::all()->count(),
+            "j_banner" => banner::where('status',true)->count()
         ]);
     }
     public function listMasjid()

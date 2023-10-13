@@ -10,7 +10,9 @@ class userController extends Controller
 {
     public function index(){
         return view('users',[
-            "title" => "Pengguna"
+            "title" => "Pengguna",
+            "user_aktif" => User::where('status',1)->count(),
+            "pendaftar" => User::where('status',0)->count()
         ]);
     }
     public function listUser(){

@@ -2,17 +2,26 @@
 @section('container')
 <div class="row">
   <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-wallet"></i> Laporan Keuangan</h3></div>
+  <div class="col">
+    <form action="/financereport">
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="Cari Masjid..." name="search">
+          <button class="btn btn-outline-secondary" type="submit">Cari</button>
+      </div>
+  </form>
+  </div>
 </div>
 <hr>
 <div class="row">
+  @foreach ($list_masjid as $item)
   <div class="col-6 mt-3">
     <div class="card text-center">
       <div class="card-header">
         <h3><img src="/img/masjid.jpg" class="d-block w-100" alt="Masjid"></h3>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Masjid A</h5>
-        <p class="card-text">Jl. Nangka, Sepang Jaya, Kec. Kedaton, Kota Bandar Lampung, Lampung 35141</p>
+        <h5 class="card-title">{{ $item->masjid_name }}</h5>
+        <p class="card-text">{{ $item->alamat }}</p>
         <a href="/lapkeu" class="btn btn-outline-success">Laporan Keuangan <i class="fa-solid fa-chevron-right"></i></a>
         <a href="/ziswaf" class="btn btn-outline-info">Laporan ZISWAF <i class="fa-solid fa-chevron-right"></i></a>
       </div>
@@ -21,21 +30,6 @@
       </div>
     </div>
   </div>
-  <div class="col-6 mt-3">
-    <div class="card text-center">
-      <div class="card-header">
-        <h3><img src="/img/masjid.jpg" class="d-block w-100" alt="Masjid"></h3>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Masjid A</h5>
-        <p class="card-text">Jl. Nangka, Sepang Jaya, Kec. Kedaton, Kota Bandar Lampung, Lampung 35141</p>
-        <a href="#" class="btn btn-outline-success">Laporan Keuangan <i class="fa-solid fa-chevron-right"></i></a>
-        <a href="#" class="btn btn-outline-info">Laporan ZISWAF <i class="fa-solid fa-chevron-right"></i></a>
-      </div>
-      <div class="card-footer text-body-secondary">
-        Diperbarui 3 Hari yang lalu
-      </div>
-    </div>
-  </div>
+  @endforeach
 </div>
 @endsection

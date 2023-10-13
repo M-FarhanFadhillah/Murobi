@@ -16,7 +16,10 @@ class EducationController extends Controller
     public function index()
     {
         return view('education',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "buku" => education::where('jenis_education_id', 1)->get(),
+            "video" => education::where('jenis_education_id', 2)->get(),
+            "data"=> education::all()
         ]);
     }
 
