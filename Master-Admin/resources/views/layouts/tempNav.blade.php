@@ -196,13 +196,13 @@
         </a>
       </li>
       <li>
-        <a href="users" class="nav-link {{ ($title === "Pengguna") ? 'active ' : '' }} link-body-emphasis">
+        <a href="/users" class="nav-link {{ ($title === "Pengguna") ? 'active ' : '' }} link-body-emphasis">
             <i class="fa-solid fa-user-group pe-none me-2"></i>
           Pengguna
         </a>
       </li>
       <li>
-        <a href="masjid" class="nav-link {{ ($title === "Masjid") ? 'active ' : '' }} link-body-emphasis">
+        <a href="/masjid" class="nav-link {{ ($title === "Masjid") ? 'active ' : '' }} link-body-emphasis">
             <i class="fa-solid fa-mosque pe-none me-2"></i>
           Masjid
         </a>

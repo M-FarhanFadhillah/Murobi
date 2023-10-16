@@ -29,6 +29,11 @@ Route::get('/', function () {
         "title" => "Login",
     ]);
 });
+Route::get('/test', function () {
+    return view('FRZiswafmasjid',[
+        "title" => "Masjid",
+    ]);
+});
 
 Route::get('/home', [userController::class, 'dashboard']);
 Route::get('/masjid', [masjidController::class, 'index']);
@@ -39,8 +44,10 @@ Route::get('/validateRegist', [userController::class, 'validateUser']);
 Route::get('/banner', [bannerController::class, 'index']);
 Route::get('/edu', [educationController::class, 'index']);
 Route::get('/financereport', [LapKeuController::class, 'index']);
-Route::get('/lapkeu', [LapKeuController::class, 'lapkeu']);
-Route::get('/ziswaf', [LapKeuController::class, 'ziswaf']);
+Route::get('/lapkeu/{id}/{masjid_name}', [LapKeuController::class, 'lapkeu']);
+Route::get('/ziswaf/{id}/{masjid_name}', [LapKeuController::class, 'ziswaf']);
+// Route::get('/ziswaf', [LapKeuController::class, 'ziswaf']);
 Route::get('/activity', [activityController::class, 'index']);
-Route::get('/activitylist', [activityController::class, 'listActivity']);
+Route::get('/activity/{id}/{masjid_name}', [activityController::class, 'listActivity']);
+// Route::get('/activitylist', [activityController::class, 'listActivity']);
 

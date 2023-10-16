@@ -70,7 +70,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="InputHP1" class="form-label">No. HP</label>
-                  <input type="text" class="form-control" id="InputHP1" aria-describedby="HPHelp">
+                  <input type="tel" class="form-control" id="InputHP1" aria-describedby="HPHelp">
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Foto Profil</label>

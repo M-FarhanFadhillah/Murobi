@@ -42,4 +42,7 @@ class User extends Authenticatable
     public function absensi_sholat(){
         return $this->hasMany(absensi_sholat::class, 'users_id');
     }
+    public function data_ziswaf(){
+        return $this->hasMany(data_ziswaf::class, 'users_id');
+    }
 }

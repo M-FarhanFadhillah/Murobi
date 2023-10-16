@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('ketua_masjid');
             $table->integer('kapasitas');
+            $table->float('saldo_awal', 20, 2); //pindah ke masjid
+            $table->float('kas', 20, 2);
             $table->timestamps();
         });
     }

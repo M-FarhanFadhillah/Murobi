@@ -1,7 +1,7 @@
 @extends('layouts.tempNav')
 @section('container')
 <div class="row">
-  <div class="col"><h3><i class="fa-solid fa-circle-dollar-to-slot"></i> Laporan ZISWAF Masjid A</h3></div>
+  <div class="col"><h3><i class="fa-solid fa-circle-dollar-to-slot"></i> Laporan ZISWAF Masjid {{ $data_t->masjid->masjid_name }}</h3></div>
 </div>
 <hr>
 <div class="row">
@@ -58,21 +58,69 @@
             <th scope="col">Aksi</th>
         </thead>
         <tbody class="table-group-divider">
+            @foreach ($data_j as $item)
             <tr>
-                <td>INF202310035717</td>
-                <td>Syahril Fajri Pratama</td>
-                <td>1140025535439 (Bank Mandiri)</td>
-                <td>Infaq</td>
-                <td>Rp 4.000.000</td>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->no_rek }} ({{ $item->asal_bank }})</td>
+                <td>{{ $item->jenis_ziswaf->jenis_ziswaf }}</td>
+                <td>Rp {{ $item->nominal }}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                        <a href="#"><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi"><i class="fa-solid fa-list"></i></button></a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#infoZiswaf-{{ $item->id }}" ><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi"><i class="fa-solid fa-list"></i></button></a>
                         <a href="#"><button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Cetak Laporan"><i class="fa-solid fa-file-pdf"></i></button></a>
                     </div>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table> 
 </div> 
-
+{{-- Modal Details --}}
+@foreach ($data_j as $item)
+<div class="modal fade" id="infoZiswaf-{{ $item->id }}" tabindex="-1" aria-labelledby="infoZiswafLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="infoZiswafLabel">Detail Informasi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table text-center">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">ID</th>
+                                <td>{{ $item->id }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nama Pengirim</th>
+                                <td>{{ $item->user->name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Masjid Tujuan</th>
+                                <td>{{ $item->masjid->masjid_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Kategori</th>
+                                <td>{{ $item->jenis_ziswaf->jenis_ziswaf }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">No Rekening (Asal Bank)</th>
+                                <td>{{ $item->no_rek }} ({{ $item->asal_bank }})</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nominal</th>
+                                <td>Rp {{ $item->nominal }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 @endsection

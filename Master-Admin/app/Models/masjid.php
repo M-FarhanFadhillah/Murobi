@@ -12,4 +12,14 @@ class masjid extends Model
     protected $guarded = [
         'id'
     ];
+    public function lap_keu(){
+        return $this->hasMany(lap_keu::class, 'masjid_id');
+    }
+    public function activity(){
+        return $this->hasMany(activity::class, 'masjid_id');
+    }
+    public function data_ziswaf(){
+        return $this->hasMany(data_ziswaf::class, 'masjid_id');
+    }
+    
 }

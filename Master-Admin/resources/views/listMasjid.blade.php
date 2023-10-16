@@ -49,25 +49,33 @@
         <div class="modal-body">
             <form>
                 <div class="mb-3">
-                  <label for="InputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
+                  <label for="InputNameMasjid" class="form-label">Nama Masjid</label>
+                  <input type="text" class="form-control" id="InputNameMasjid" aria-describedby="nameHelp">
                 </div>
                 <div class="mb-3">
-                  <label for="InputName1" class="form-label">Nama</label>
-                  <input type="text" class="form-control" id="InputName1" aria-describedby="nameHelp">
+                  <label for="InputAlamat" class="form-label">Alamat</label>
+                  <input type="text" class="form-control" id="InputAlamat" aria-describedby="AlamatHelp">
                 </div>
                 <div class="mb-3">
-                  <label for="InputHP1" class="form-label">No. HP</label>
-                  <input type="text" class="form-control" id="InputHP1" aria-describedby="HPHelp">
+                  <label for="InputKetuaMasjid" class="form-label">Ketua Masjid</label>
+                  <input type="text" class="form-control" id="InputKetuaMasjid" aria-describedby="KetuaMasjidHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Foto Profil</label>
+                  <label for="InputKapasitas" class="form-label">Kapasitas Masjid</label>
+                  <input type="number" class="form-control" id="InputKapasitas" aria-describedby="KapasitasHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="InputSaldo" class="form-label">Saldo Saat ini</label>
+                  <input type="number" class="form-control" id="InputSaldo" aria-describedby="SaldoHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="InputKas" class="form-label">Kas Saat ini</label>
+                  <input type="number" class="form-control" id="InputKas" aria-describedby="KasHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Foto Cover Masjid</label>
                     <input class="form-control" type="file" id="formFile">
                   </div>
-                <div class="mb-3">
-                  <label for="InputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="InputPassword1">
-                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
         </div>
@@ -119,7 +127,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 @endforeach 
 @endsection

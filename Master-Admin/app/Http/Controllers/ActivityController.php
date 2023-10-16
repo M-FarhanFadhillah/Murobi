@@ -25,10 +25,16 @@ class ActivityController extends Controller
             "list_masjid"=> $masjid->get()
         ]);
     }
-    public function listActivity()
+    public function listActivity($id)
     {
+        $data = masjid::where('id', $id);
+        $kegiatan = activity::where('masjid_id', $id);
+        $data_kegiatan = activity::all();
         return view('masjidactivity',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "data"=> $data->first(),
+            "kegiatan"=> $kegiatan->get(),
+            "data_kegiatan"=>$data_kegiatan
         ]);
     }
 

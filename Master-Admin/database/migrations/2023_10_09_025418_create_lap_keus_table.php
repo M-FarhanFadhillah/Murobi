@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('lap_keus', function (Blueprint $table) {
             $table->id();
-            //0 : Debit, 1 : Kredit
+            $table->foreignId('masjid_id');
+            //0 : Debit (UM), 1 : Kredit (UK)
             $table->integer('cashflow');
             $table->string('note');
             $table->date('date');
-            $table->float('saldo_awal', 20, 2);
-            $table->float('kas', 20, 2);
+            // $table->float('saldo_awal', 20, 2); //pindah ke masjid
+            $table->float('nominal', 20, 2);
+            // $table->float('kas', 20, 2); //pindah ke masjid
             $table->timestamps();
         });
     }

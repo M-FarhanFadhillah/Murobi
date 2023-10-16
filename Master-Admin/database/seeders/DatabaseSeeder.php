@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\activity;
+use App\Models\data_ziswaf;
+use App\Models\jenis_ziswaf;
 use App\Models\User;
 use App\Models\banner;
 use App\Models\masjid;
@@ -10,6 +13,7 @@ use App\Models\education;
 use App\Models\jenis_education;
 use App\Models\waktu_sholat;
 use App\Models\absensi_sholat;
+use App\Models\lap_keu;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -148,28 +152,120 @@ class DatabaseSeeder extends Seeder
             'masjid_pict'=>'test123',
             'alamat'=>'Pesawaran, Lampung',
             'ketua_masjid'=>'Muhammad Fakhri',
-            'kapasitas'=>500
+            'kapasitas'=>500,
+            'saldo_awal'=>35000000.00,
+            'kas'=>35000000.00
         ]);
         masjid::create([
             'masjid_name'=>'An-Nahl',
             'masjid_pict'=>'test123',
             'alamat'=>'Bandar Lampung, Lampung',
             'ketua_masjid'=>'Ahmad Faridz',
-            'kapasitas'=>1500
+            'kapasitas'=>1500,
+            'saldo_awal'=>8000000.00,
+            'kas'=>8000000.00
         ]);
         masjid::create([
             'masjid_name'=>'Al-Wasii',
             'masjid_pict'=>'test123',
             'alamat'=>'Bandar Lampung, Lampung',
             'ketua_masjid'=>'Ahmad Al-Farizi',
-            'kapasitas'=>700
+            'kapasitas'=>700,
+            'saldo_awal'=>13000000.00,
+            'kas'=>13000000.00
         ]);
         masjid::create([
             'masjid_name'=>'Al-Muttaqin',
             'masjid_pict'=>'test123',
             'alamat'=>'Palembang, Sumatera Selatan',
             'ketua_masjid'=>'Zikrullah',
-            'kapasitas'=>1200
+            'kapasitas'=>1200,
+            'saldo_awal'=>10000000.00,
+            'kas'=>10000000.00
+        ]);
+
+        data_ziswaf::create([
+            'masjid_id'=>1,
+            'users_id'=>1,
+            'jenis_ziswaf_id'=>1,
+            'asal_bank'=>'Bank Mandiri',
+            'no_rek'=>1234,
+            'nominal'=>10000000.00,
+        ]);
+        data_ziswaf::create([
+            'masjid_id'=>1,
+            'users_id'=>1,
+            'jenis_ziswaf_id'=>2,
+            'asal_bank'=>'Bank Mandiri',
+            'no_rek'=>1234,
+            'nominal'=>10000000.00,
+        ]);
+        data_ziswaf::create([
+            'masjid_id'=>1,
+            'users_id'=>1,
+            'jenis_ziswaf_id'=>3,
+            'asal_bank'=>'Bank Mandiri',
+            'no_rek'=>1234,
+            'nominal'=>10000000.00,
+        ]);
+        data_ziswaf::create([
+            'masjid_id'=>1,
+            'users_id'=>1,
+            'jenis_ziswaf_id'=>4,
+            'asal_bank'=>'Bank Mandiri',
+            'no_rek'=>1234,
+            'nominal'=>10000000.00,
+        ]);
+
+        activity::create([
+            'masjid_id'=> 1,
+            'activity_name'=>'Pengajian Bersama',
+            'decription'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus temporibus, a non sequi ad voluptas ipsam accusantium ipsum ut?',
+            'pict'=>'test123',
+            'categories'=> 0
+        ]);
+        activity::create([
+            'masjid_id'=> 1,
+            'activity_name'=>'Kajian Bersama',
+            'decription'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus temporibus, a non sequi ad voluptas ipsam accusantium ipsum ut?',
+            'pict'=>'test123',
+            'categories'=> 1
+        ]);
+        activity::create([
+            'masjid_id'=> 2,
+            'activity_name'=>'Tabligh Akbar',
+            'decription'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus temporibus, a non sequi ad voluptas ipsam accusantium ipsum ut?',
+            'pict'=>'test123',
+            'categories'=> 2
+        ]);
+        activity::create([
+            'masjid_id'=> 3,
+            'activity_name'=>'Bazaar UMKM',
+            'decription'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse voluptatibus temporibus, a non sequi ad voluptas ipsam accusantium ipsum ut?',
+            'pict'=>'test123',
+            'categories'=> 2
+        ]);
+
+        lap_keu::create([
+            'masjid_id'=> 1,
+            'cashflow'=>1,
+            'note'=>'Beli Semen 2 Sak',
+            'date'=> '2023-10-15',
+            'nominal'=>1000000.00
+        ]);
+        lap_keu::create([
+            'masjid_id'=> 1,
+            'cashflow'=>0,
+            'note'=>'Uang Kaleng',
+            'date'=> '2023-10-16',
+            'nominal'=>500000.00
+        ]);
+        lap_keu::create([
+            'masjid_id'=> 1,
+            'cashflow'=>0,
+            'note'=>'Uang Kaleng',
+            'date'=> '2023-10-17',
+            'nominal'=>700000.00
         ]);
             
         banner::create([
@@ -220,6 +316,23 @@ class DatabaseSeeder extends Seeder
         jenis_education::create([
             'jenis_edukasi'=>'Video',
             'slug'=>'video'
+        ]);
+
+        jenis_ziswaf::create([
+            'jenis_ziswaf'=>'Zakat',
+            'slug'=>'zakat'
+        ]);
+        jenis_ziswaf::create([
+            'jenis_ziswaf'=>'Infaq',
+            'slug'=>'infaq'
+        ]);
+        jenis_ziswaf::create([
+            'jenis_ziswaf'=>'Shodaqoh',
+            'slug'=>'shodaqoh'
+        ]);
+        jenis_ziswaf::create([
+            'jenis_ziswaf'=>'Wakaf',
+            'slug'=>'wakaf'
         ]);
         
     }

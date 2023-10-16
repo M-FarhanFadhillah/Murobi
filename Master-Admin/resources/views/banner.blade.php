@@ -126,24 +126,25 @@
         <div class="modal-body">
             <form>
                 <div class="mb-3">
-                  <label for="InputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
+                  <label for="InputJudul" class="form-label">Judul Banner</label>
+                  <input type="text" class="form-control" id="InputJudul" aria-describedby="judulHelp">
                 </div>
                 <div class="mb-3">
-                  <label for="InputName1" class="form-label">Nama</label>
-                  <input type="text" class="form-control" id="InputName1" aria-describedby="nameHelp">
+                    <label for="InputKategori" class="form-label">Kategori</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option value="0">Informatif</option>
+                        <option value="1">Promo</option>
+                        <option value="2">Kegiatan</option>
+                    </select>
                 </div>
-                <div class="mb-3">
-                  <label for="InputHP1" class="form-label">No. HP</label>
-                  <input type="text" class="form-control" id="InputHP1" aria-describedby="HPHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Foto Profil</label>
-                    <input class="form-control" type="file" id="formFile">
+                  <div class="mb-3">
+                    <label for="FormControlDeskripsi" class="form-label">Deskripsi Banner</label>
+                    <textarea class="form-control" id="FormControlDeskripsi" rows="3"></textarea>
                   </div>
+                  
                 <div class="mb-3">
-                  <label for="InputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="InputPassword1">
+                    <label for="formFile" class="form-label">Cover</label>
+                    <input class="form-control" type="file" id="formFile">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

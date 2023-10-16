@@ -22,7 +22,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ $item->masjid_name }}</h5>
         <p class="card-text">{{ $item->alamat }}</p>
-        <a href="/activitylist" class="btn btn-outline-success">Kegiatan <i class="fa-solid fa-right-long fa-fade"></i></a>
+        <a href="/activity/{{ $item->id }}/{{ $item->masjid_name }}" class="btn btn-outline-success">Kegiatan <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         1 Kegiatan Aktif

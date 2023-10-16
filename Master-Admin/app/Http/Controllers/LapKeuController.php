@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\data_ziswaf;
 use App\Models\lap_keu;
 use App\Http\Requests\Storelap_keuRequest;
 use App\Http\Requests\Updatelap_keuRequest;
@@ -25,16 +26,26 @@ class LapKeuController extends Controller
             "list_masjid"=> $masjid->get()
         ]);
     }
-    public function lapkeu()
+    public function lapkeu($id)
     {
+        $data = masjid::where('id', $id)->first();
+        $lapkeu = lap_keu::where('masjid_id', $id);
         return view('FRMasjid',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "data" => $data,
+            "lapkeu"=> $lapkeu->get()
         ]);
     }
-    public function ziswaf()
+    public function ziswaf($id)
     {
+        //tunggal
+        $data_t = data_ziswaf::where('masjid_id', $id)->first();
+        //jamak
+        $data_j = data_ziswaf::where('masjid_id', $id);
         return view('FRZiswafmasjid',[
-            "title" => "Masjid"
+            "title" => "Masjid",
+            "data_j"=> $data_j->get(),
+            "data_t"=> $data_t
         ]);
     }
 

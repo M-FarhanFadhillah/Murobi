@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('masjid_id');
             $table->string('activity_name');
             $table->string('decription');
             //0 : Kegiatan Besar, 1 : Kegiatan Sedang, 2 : Kegiatan Kecil

@@ -22,8 +22,8 @@
       <div class="card-body">
         <h5 class="card-title">{{ $item->masjid_name }}</h5>
         <p class="card-text">{{ $item->alamat }}</p>
-        <a href="/lapkeu" class="btn btn-outline-success">Laporan Keuangan <i class="fa-solid fa-chevron-right"></i></a>
-        <a href="/ziswaf" class="btn btn-outline-info">Laporan ZISWAF <i class="fa-solid fa-chevron-right"></i></a>
+        <a href="/lapkeu/{{ $item->id }}/{{ $item->masjid_name }}" class="btn btn-outline-success">Laporan Keuangan <i class="fa-solid fa-chevron-right"></i></a>
+        <a href="/ziswaf/{{ $item->id }}/{{ $item->masjid_name }}" class="btn btn-outline-info">Laporan ZISWAF <i class="fa-solid fa-chevron-right"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
         Diperbarui 3 Hari yang lalu
