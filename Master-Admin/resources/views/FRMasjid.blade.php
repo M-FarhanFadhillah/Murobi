@@ -84,6 +84,7 @@
     </table> 
 </div> 
 {{-- Modal Tambah Banner --}}
+{{-- Updated --}}
 <div class="modal fade" id="addCashflow" tabindex="-1" aria-labelledby="addCashflowLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
