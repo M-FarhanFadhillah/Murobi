@@ -7,9 +7,11 @@ Widget build(BuildContext context) {
       scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
     ),
     home: Scaffold(
-      body: ListView(children: [
-        Login(),
-      ]),
+      body: SafeArea(
+        child: ListView(children: [
+          Login(),
+        ]),
+      ),
     ),
   );
 }
