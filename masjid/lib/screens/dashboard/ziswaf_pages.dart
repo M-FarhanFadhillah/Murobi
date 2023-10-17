@@ -87,10 +87,7 @@ class CustomViewZiswaf extends StatelessWidget {
       },
       child: GestureDetector(
         onTap: () {
-          if (title == "Zakat") {
-          } else if (title == "Infaq") {
-          } else if (title == "Shodaqoh") {
-          } else if (title == "Wakaf") {}
+          Navigator.pushNamed(context, '/zakatPage', arguments: title);
         },
         child: Container(
           margin: const EdgeInsets.only(top: 16.0),
