@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masjid/screens/splashscreen.dart';
 
 class ZiswafPages extends StatelessWidget {
   const ZiswafPages({super.key});
@@ -28,7 +27,7 @@ class ZiswafPages extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Text(
+                Text(
                   "ZISWAF",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
@@ -45,6 +44,21 @@ class ZiswafPages extends StatelessWidget {
                   description:
                       "Zakat adalah sejumlah harta yang wajib dikeluarkan oleh umat Muslim untuk diberikan kepada golongan yang berhak menerima, seperti fakir miskin dan semacamnya, sesuai dengan yang ditetapkan oleh syariah",
                 ),
+                CustomViewZiswaf(
+                  title: "Infaq",
+                  description:
+                      "Infaq sesungguhnya diambil dari kata anfaqa-yunfiqu yang berarti membiayai atau membelanjakan.",
+                ),
+                CustomViewZiswaf(
+                  title: 'Shodaqoh',
+                  description:
+                      "SEDEKAH (shadaqah/shodaqoh) adalah pemberian sesuatu kepada fakir miskin atau yang berhak menerimanya, di luar kewajiban zakat dan zakat fitrah sesuai dengan kemampuan pemberi.",
+                ),
+                CustomViewZiswaf(
+                  title: "Wakaf",
+                  description:
+                      "Wakaf adalah Sedekah Jariyah, yakni menyedekahkan harta kita untuk kepentingan ummat. Harta Wakaf tidak boleh berkurang nilainya, tidak boleh dijual dan tidak boleh diwariskan. Karena wakaf pada hakikatnya adalah menyerahkan kepemilikan harta manusia menjadi milik Allah atas nama ummat.",
+                ),
               ],
             ),
           ),
@@ -55,101 +69,104 @@ class ZiswafPages extends StatelessWidget {
 }
 
 class CustomViewZiswaf extends StatelessWidget {
-  late final String title;
+  final String title;
   final String description;
 
   CustomViewZiswaf({
+    super.key,
     required this.title,
     required this.description,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => SplashScreen(),
-          ),
-        );
+    return WillPopScope(
+      onWillPop: () async {
+        // param = "";
+        return true;
       },
-      child: Container(
-        margin: const EdgeInsets.only(top: 16.0),
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 139, 206, 158),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Transform.scale(
-              scale: 0.8,
-              child: Image(
-                image: AssetImage("assets/images/masjid1.png"),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/zakatPage', arguments: title);
+        },
+        child: Container(
+          margin: const EdgeInsets.only(top: 16.0),
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 139, 206, 158),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Transform.scale(
+                scale: 0.8,
+                child: Image(
+                  image: AssetImage("assets/images/masjid1.png"),
+                ),
               ),
-            ),
-            Container(
-              width: 1,
-              height: 145,
-              decoration: BoxDecoration(
-                color: Color(0xff000000),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.zero,
-                border: Border.all(color: Color(0x4d9e9e9e), width: 1),
+              Container(
+                width: 1,
+                height: 145,
+                decoration: BoxDecoration(
+                  color: Color(0xff000000),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.zero,
+                  border: Border.all(color: Color(0x4d9e9e9e), width: 1),
+                ),
               ),
-            ),
-            Container(
-              width: 200,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-              ),
-              child: Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(135, 0, 0, 0),
-                    child: Image(
-                      image: AssetImage("assets/images/moon3.png"),
-                      height: MediaQuery.of(context).size.height * 0.13,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(3, 20, 0, 0),
-                    child: Text(
-                      title,
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14,
-                        color: Color(0xff000000),
+              Container(
+                width: 200,
+                height: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                ),
+                child: Stack(
+                  alignment: Alignment.topLeft,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(135, 0, 0, 0),
+                      child: Image(
+                        image: AssetImage("assets/images/moon3.png"),
+                        height: MediaQuery.of(context).size.height * 0.13,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.scaleDown,
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(3, 35, 0, 0),
-                    child: Text(
-                      description,
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.clip,
-                      softWrap: true,
-                      style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 14,
-                        color: Color(0xff000000),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(3, 20, 0, 0),
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14,
+                          color: Color(0xff000000),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(3, 35, 0, 0),
+                      child: Text(
+                        description,
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.clip,
+                        softWrap: true,
+                        style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 14,
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
