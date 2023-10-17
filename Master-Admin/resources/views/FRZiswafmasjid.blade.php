@@ -1,5 +1,8 @@
 @extends('layouts.tempNav')
 @section('container')
+
+@if ($data_t && $data_j !== null)
+
 <div class="row">
   <div class="col"><h3><i class="fa-solid fa-circle-dollar-to-slot"></i> Laporan ZISWAF Masjid {{ $data_t->masjid->masjid_name }}</h3></div>
 </div>
@@ -75,7 +78,8 @@
             @endforeach
         </tbody>
     </table> 
-</div> 
+</div>
+{{ $data_j->links() }} 
 {{-- Modal Details --}}
 @foreach ($data_j as $item)
 <div class="modal fade" id="infoZiswaf-{{ $item->id }}" tabindex="-1" aria-labelledby="infoZiswafLabel" aria-hidden="true">
@@ -123,4 +127,7 @@
     </div>
 </div>
 @endforeach
+@else
+<h2 class="mt-5 text-center">Data Tidak Ditemukan</h2>    
+@endif
 @endsection

@@ -5,7 +5,7 @@
   <div class="col">
     <form action="/financereport">
       <div class="input-group">
-          <input type="text" class="form-control" placeholder="Cari Masjid..." name="search">
+          <input type="text" class="form-control" placeholder="Cari Masjid..." name="search" value="{{ request('search') }}">
           <button class="btn btn-outline-secondary" type="submit">Cari</button>
       </div>
   </form>

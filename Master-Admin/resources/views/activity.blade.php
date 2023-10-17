@@ -5,7 +5,7 @@
   <div class="col">
     <form action="/activity">
       <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Cari Masjid..." name="search">
+          <input type="text" class="form-control" placeholder="Cari Masjid..." name="search" value="{{ request('search') }}">
           <button class="btn btn-outline-secondary" type="submit">Cari</button>
       </div>
   </form>
@@ -31,4 +31,5 @@
   </div>
   @endforeach
 </div>
+{{ $list_masjid->links() }}
 @endsection

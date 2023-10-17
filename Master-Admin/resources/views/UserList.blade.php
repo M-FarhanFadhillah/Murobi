@@ -9,7 +9,7 @@
     <div class="col-3">
         <form action="/listUser">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Cari Pengguna..." name="search">
+                <input type="text" class="form-control" placeholder="Cari Pengguna..." name="search" value="{{ request('search') }}">
                 <button class="btn btn-outline-secondary" type="submit">Cari</button>
             </div>
         </form>
@@ -24,19 +24,19 @@
             <th scope="col">Aksi</th>
         </thead>
         <tbody class="table-group-divider">
-            @foreach ($user as $user)  
-            {{-- $user->id --}}
+            @foreach ($user as $item)  
+            {{-- $item->id --}}
             <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->name }}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#infoAccount-{{ $user->id }}">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#infoAccount-{{ $item->id }}">
                             <button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi">
                                 <i class="fa-solid fa-info"></i>
                             </button>
                         </a>
-                        <a href="" data-bs-toggle="modal" data-bs-target="#infoSholat-{{ $user->id }}"><button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Absensi Sholat"><i class="fa-solid fa-list-check"></i></button></a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#infoSholat-{{ $item->id }}"><button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Absensi Sholat"><i class="fa-solid fa-list-check"></i></button></a>
                         <a href="#"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Reset Paswword"><i class="fa-solid fa-rotate-right"></i></button></a>
                         <form action="/listUser" method="POST">
                             @method('delete')
@@ -50,6 +50,7 @@
         </tbody>
     </table> 
 </div>
+{{ $user->links() }}
 {{-- Modal Tambah Pengguna --}}
 <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

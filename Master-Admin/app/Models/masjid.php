@@ -21,5 +21,10 @@ class masjid extends Model
     public function data_ziswaf(){
         return $this->hasMany(data_ziswaf::class, 'masjid_id');
     }
+    public function scopeFilter($query){
+        if(request('search')){
+            return $query->where('masjid_name','like', '%' . request('search') . '%');
+        }
+    }
     
 }

@@ -17,13 +17,9 @@ class LapKeuController extends Controller
      */
     public function index()
     {
-        $masjid = masjid::latest();
-        if(request('search')){
-            $masjid->where('masjid_name','like', '%' . request('search') . '%');
-        }
         return view('financereport',[
             "title" => "Masjid",
-            "list_masjid"=> $masjid->get()
+            "list_masjid"=> masjid::latest()->filter()->paginate(20)
         ]);
     }
     public function lapkeu($id)
@@ -44,7 +40,7 @@ class LapKeuController extends Controller
         $data_j = data_ziswaf::where('masjid_id', $id);
         return view('FRZiswafmasjid',[
             "title" => "Masjid",
-            "data_j"=> $data_j->get(),
+            "data_j"=> $data_j->paginate(20),
             "data_t"=> $data_t
         ]);
     }

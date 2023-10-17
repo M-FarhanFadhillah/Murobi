@@ -8,7 +8,7 @@
     <div class="col-3">
         <form action="/listmasjid">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Cari Masjid..." name="search">
+                <input type="text" class="form-control" placeholder="Cari Masjid..." name="search" value="{{ request('search') }}">
                 <button class="btn btn-outline-secondary" type="submit">Cari</button>
             </div>
         </form>
@@ -38,6 +38,7 @@
         </tbody>
     </table> 
 </div> 
+{{ $listMasjid->links() }}
 {{-- Modal Tambah Masjid --}}
 <div class="modal fade" id="addMasjid" tabindex="-1" aria-labelledby="addMasjidLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

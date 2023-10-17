@@ -6,7 +6,9 @@ use App\Http\Controllers\educationController;
 use App\Http\Controllers\bannerController;
 use App\Http\Controllers\masjidController;
 use App\Http\Controllers\LapKeuController;
+use App\Http\Controllers\AdminsController;
 use App\Models\activity;
+use App\Models\admins;
 use App\Models\banner;
 use App\Models\masjid;
 use App\Models\User;
@@ -35,6 +37,7 @@ Route::get('/test', function () {
     ]);
 });
 
+Route::get('/', [adminsController::class, 'index']);
 Route::get('/home', [userController::class, 'dashboard']);
 Route::get('/masjid', [masjidController::class, 'index']);
 Route::get('/listmasjid', [masjidController::class, 'listMasjid']);

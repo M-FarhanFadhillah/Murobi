@@ -16,13 +16,10 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $masjid = masjid::latest();
-        if(request('search')){
-            $masjid->where('masjid_name','like', '%' . request('search') . '%');
-        }
+        
         return view('activity',[
             "title" => "Masjid",
-            "list_masjid"=> $masjid->get()
+            "list_masjid"=> masjid::latest()->filter()->paginate(20)
         ]);
     }
     public function listActivity($id)
@@ -33,7 +30,7 @@ class ActivityController extends Controller
         return view('masjidactivity',[
             "title" => "Masjid",
             "data"=> $data->first(),
-            "kegiatan"=> $kegiatan->get(),
+            "kegiatan"=> $kegiatan->paginate(20),
             "data_kegiatan"=>$data_kegiatan
         ]);
     }

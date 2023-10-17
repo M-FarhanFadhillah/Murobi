@@ -16,16 +16,12 @@ class userController extends Controller
         ]);
     }
     public function listUser(){
-        $User = User::latest()->where('status','like', 1);
         $data = User::all();
         $id_user = '';
         
-        if(request('search')){
-            $User->where('name','like', '%' . request('search') . '%');
-        }
         return view('userlist',compact('data'),[
             "title" => "Pengguna",
-            "user" => $User->get(),
+            "user" => User::latest()->filter()->where('status','like', 1)->paginate(20)->withQueryString(),
             "user_id"=> $id_user,
             "absen" => absensi_sholat::where('users_id', 'like', $id_user)->get()
         ]);
@@ -36,13 +32,9 @@ class userController extends Controller
         ]);
     }
     public function validateUser(){
-        $User = User::latest()->where('status','like', 0);
-        if(request('search')){
-            $User->where('name','like', '%' . request('search') . '%');
-        }
         return view('validateUsers',[
             "title"=>"Pengguna",
-            "user" => $User->get()
+            "user" => User::latest()->filter()->where('status','like', 0)->paginate(10)->withQueryString()
         ]);
     }
 }

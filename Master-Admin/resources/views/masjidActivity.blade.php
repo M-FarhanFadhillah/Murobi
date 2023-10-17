@@ -117,7 +117,8 @@
         </div>
     </div>
 </div>
-@endforeach 
+@endforeach
+{{ $kegiatan->links() }} 
 {{-- Modal Tambah Banner --}}
 <div class="modal fade" id="addAct" tabindex="-1" aria-labelledby="addActLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

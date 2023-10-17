@@ -45,4 +45,9 @@ class User extends Authenticatable
     public function data_ziswaf(){
         return $this->hasMany(data_ziswaf::class, 'users_id');
     }
+    public function scopeFilter($query){
+        if(request('search')){
+            return $query->where('name','like', '%' . request('search') . '%');
+        }
+    }
 }
