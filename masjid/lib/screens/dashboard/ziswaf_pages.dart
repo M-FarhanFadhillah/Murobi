@@ -44,26 +44,6 @@ class ZiswafPages extends StatelessWidget {
                   description:
                       "Zakat adalah sejumlah harta yang wajib dikeluarkan oleh umat Muslim untuk diberikan kepada golongan yang berhak menerima, seperti fakir miskin dan semacamnya, sesuai dengan yang ditetapkan oleh syariah",
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16.0),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 139, 206, 158),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Transform.scale(
-                        scale: 0.8,
-                        child: Image(
-                          image: AssetImage("assets/images/masjid1.png"),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 CustomViewZiswaf(
                   title: "Infaq",
                   description:
