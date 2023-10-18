@@ -4,7 +4,7 @@
 <h3 class="mb-4"><i class="fa-solid fa-user-group"></i> Daftar Pengguna</h3>
 <div class="row">
     <div class="col">
-        <a href="#"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addUser"><i class="fa-solid fa-plus"></i> Tambah Pengguna</button></a>
+        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addUser"><i class="fa-solid fa-plus"></i> Tambah Pengguna</button>
     </div>
     <div class="col-3">
         <form action="/listUser">
@@ -60,7 +60,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="userRegist" action="/listUser" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-3">
                   <label for="InputEmail1" class="form-label">Email address</label>
                   <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
@@ -75,14 +76,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Foto Profil</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="text" id="formFile">
                   </div>
                 <div class="mb-3">
                   <label for="InputPassword1" class="form-label">Password</label>
                   <input type="password" class="form-control" id="InputPassword1">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+                <button form="userRegist" type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
       </div>
     </div>

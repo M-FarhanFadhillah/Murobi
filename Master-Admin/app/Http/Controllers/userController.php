@@ -37,4 +37,7 @@ class userController extends Controller
             "user" => User::latest()->filter()->where('status','like', 0)->paginate(10)->withQueryString()
         ]);
     }
+    public function store(Request $request){
+        return $request->all();
+    }
 }

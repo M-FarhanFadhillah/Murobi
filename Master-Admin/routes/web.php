@@ -43,6 +43,8 @@ Route::get('/masjid', [masjidController::class, 'index']);
 Route::get('/listmasjid', [masjidController::class, 'listMasjid']);
 Route::get('/users', [userController::class, 'index']);
 Route::get('/listUser', [userController::class, 'listUser']);
+// Routes Register Jamaah Baru
+Route::post('/listUser', [userController::class, 'store']);
 Route::get('/validateRegist', [userController::class, 'validateUser']);
 Route::get('/banner', [bannerController::class, 'index']);
 Route::get('/edu', [educationController::class, 'index']);
