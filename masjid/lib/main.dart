@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masjid/screens/dashboard.dart';
+import 'package:masjid/screens/dashboard.dart'; 
 import 'package:masjid/screens/splashscreen.dart';
 import 'package:masjid/screens/ziswaf/zakat_pages.dart';
 
