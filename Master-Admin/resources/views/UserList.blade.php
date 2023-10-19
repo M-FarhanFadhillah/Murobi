@@ -1,6 +1,12 @@
 @extends('layouts.tempNav')
 @section('container')
 {{-- <h1>{{ $user[$data]->id }}</h1> --}}
+@if(session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <h3 class="mb-4"><i class="fa-solid fa-user-group"></i> Daftar Pengguna</h3>
 <div class="row">
     <div class="col">
@@ -63,26 +69,54 @@
             <form id="userRegist" action="/listUser" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                  <label for="InputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
+                  <label class="form-label">Email address</label>
+                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" required value="{{ old('email') }}">
+                  @error('email')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="InputName1" class="form-label">Nama</label>
-                  <input type="text" class="form-control" id="InputName1" aria-describedby="nameHelp">
+                  <label class="form-label">Nama</label>
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required value="{{ old('name') }}">
+                  @error('name')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="InputHP1" class="form-label">No. HP</label>
-                  <input type="tel" class="form-control" id="InputHP1" aria-describedby="HPHelp">
+                  <label class="form-label">No. HP</label>
+                  <input type="tel" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" required value="{{ old('no_hp') }}">
+                  @error('no_hp')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
+                </div>
+                <div>
+                    <input class="form-control" type="hidden" name="status" value =1 id="status">
                 </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Foto Profil</label>
-                    <input class="form-control" type="text" id="formFile">
+                    <label class="form-label">Foto Profil</label>
+                    <input class="form-control @error('profil_pict') is-invalid @enderror" type="text" id="profil_pict" name="profil_pict" required value="{{ old('profil_pict') }}">
+                    @error('profil_pict')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                   </div>
                 <div class="mb-3">
-                  <label for="InputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="InputPassword1">
+                  <label class="form-label">Password</label>
+                  <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                  @error('password')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
-                <button form="userRegist" type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
       </div>

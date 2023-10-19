@@ -1,5 +1,11 @@
 @extends('layouts.tempNav')
 @section('container')
+@if(session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row">
     <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-user-group"></i> Daftar Edukasi</h3></div>
     <div class="col text-end"><a href="#" data-bs-toggle="modal" data-bs-target="#addEdu"><button type="button" class="btn btn-outline-warning"><i class="fa-solid fa-plus"></i> Tambah Content</button></a></div>
@@ -149,33 +155,34 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="addEdu" action="/edu" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-3">
-                  <label for="InputJudul" class="form-label">Judul Konten</label>
-                  <input type="text" class="form-control" id="InputJudul" aria-describedby="judulHelp">
+                  <label class="form-label">Judul Konten</label>
+                  <input type="text" class="form-control" id="judul" name="judul" required>
                 </div>
                 <div class="mb-3">
-                    <label for="InputJenis" class="form-label">Jenis Konten</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <label class="form-label">Jenis Konten</label>
+                    <select type="number" class="form-select" name="jenis_education_id" id="jenis_education_id" required>
                         <option value="1">Buku</option>
                         <option value="2">Video</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="InputKategori" class="form-label">Kategori Konten</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <label class="form-label">Kategori Konten</label>
+                    <select type="number" class="form-select" name="kategori" id="kategori" required>
                         <option value="0">Anak-Anak</option>
                         <option value="1">Dewasa</option>
                         <option value="2">Orang Tua</option>
                     </select>
                 </div>
                   <div class="mb-3">
-                    <label for="FormControlDeskripsi" class="form-label">Deskripsi Konten</label>
-                    <textarea class="form-control" id="FormControlDeskripsi" rows="3"></textarea>
+                    <label class="form-label">Deskripsi Konten</label>
+                    <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
                   </div>                  
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Cover Content</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <label class="form-label">Cover Content</label>
+                    <input class="form-control" type="text" name="content" id="content" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

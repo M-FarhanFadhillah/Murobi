@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Models\banner;
 use App\Models\education;
@@ -51,9 +52,20 @@ class MasjidController extends Controller
      * @param  \App\Http\Requests\StoremasjidRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoremasjidRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'masjid_name'=>'required|max:255',
+            'masjid_pict' => 'required',
+            'alamat' => 'required',
+            'ketua_masjid' => 'required',
+            'kapasitas' => 'required',
+            'saldo_awal' => 'required',
+            'kas' => 'required'
+        ]);
+        masjid::create($validatedData);
+        return redirect('/listmasjid')->with('success','Masjid berhasil ditambahkan!');
     }
 
     /**

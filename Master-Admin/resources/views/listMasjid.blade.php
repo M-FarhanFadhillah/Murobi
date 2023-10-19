@@ -1,9 +1,15 @@
 @extends('layouts.tempNav')
 @section('container')
+@if(session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <h3 class="mb-4"><i class="fa-solid fa-mosque"></i> Daftar Masjid</h3>
 <div class="row">
     <div class="col">
-        <a href="#"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addMasjid"><i class="fa-solid fa-plus"></i> Tambah Masjid</button></a>
+        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addMasjid"><i class="fa-solid fa-plus"></i> Tambah Masjid</button>
     </div>
     <div class="col-3">
         <form action="/listmasjid">
@@ -48,35 +54,65 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="masjidRegist" action="/listmasjid" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-3">
-                  <label for="InputNameMasjid" class="form-label">Nama Masjid</label>
-                  <input type="text" class="form-control" id="InputNameMasjid" aria-describedby="nameHelp">
+                  <label class="form-label">Nama Masjid</label>
+                  <input type="text" class="form-control @error('masjid_name') is-invalid @enderror" id="masjid_name" name="masjid_name" required value="{{ old('masjid_name') }}">
+                  @error('masjid_name')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="InputAlamat" class="form-label">Alamat</label>
-                  <input type="text" class="form-control" id="InputAlamat" aria-describedby="AlamatHelp">
+                  <label class="form-label">Alamat</label>
+                  <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" required value="{{ old('alamat') }}">
+                  @error('alamat')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="InputKetuaMasjid" class="form-label">Ketua Masjid</label>
-                  <input type="text" class="form-control" id="InputKetuaMasjid" aria-describedby="KetuaMasjidHelp">
+                  <label class="form-label">Ketua Masjid</label>
+                  <input type="text" class="form-control @error('ketua_masjid') is-invalid @enderror" id="ketua_masjid" name="ketua_masjid" required value="{{ old('ketua_masjid') }}">
+                  @error('ketua_masjid')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="InputKapasitas" class="form-label">Kapasitas Masjid</label>
-                  <input type="number" class="form-control" id="InputKapasitas" aria-describedby="KapasitasHelp">
+                  <label class="form-label">Kapasitas Masjid</label>
+                  <input type="number" class="form-control @error('kapasitas') is-invalid @enderror" id="kapasitas" name="kapasitas" required value="{{ old('kapasitas') }}">
+                  @error('kapasitas')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="InputSaldo" class="form-label">Saldo Saat ini</label>
-                  <input type="number" class="form-control" id="InputSaldo" aria-describedby="SaldoHelp">
+                  <label class="form-label">Saldo Saat ini</label>
+                  <input type="number" class="form-control @error('saldo_awal') is-invalid @enderror" id="saldo_awal" name="saldo_awal" required value="{{ old('saldo_awal') }}">
+                  @error('saldo_awal')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
+                </div>
+                <div>
+                    <input class="form-control" type="hidden" name="kas" value ="{{ old('saldo_awal') }}" id="kas">
                 </div>
                 <div class="mb-3">
-                  <label for="InputKas" class="form-label">Kas Saat ini</label>
-                  <input type="number" class="form-control" id="InputKas" aria-describedby="KasHelp">
+                  <label class="form-label">Foto Cover Masjid</label>
+                  <input type="text" class="form-control @error('masjid_pict') is-invalid @enderror" id="masjid_pict" name="masjid_pict" required value="{{ old('masjid_pict') }}">
+                  @error('masjid_pict')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Foto Cover Masjid</label>
-                    <input class="form-control" type="file" id="formFile">
-                  </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
         </div>
@@ -129,5 +165,11 @@
         </div>
     </div>
 </div>
-@endforeach 
+@endforeach
+<script>
+    // Menangani perubahan pada input saldo_awal
+    document.getElementById('saldo_awal').addEventListener('input', function() {
+        document.getElementById('kas').value = this.value;
+    });
+</script> 
 @endsection

@@ -50,4 +50,6 @@ class User extends Authenticatable
             return $query->where('name','like', '%' . request('search') . '%');
         }
     }
+
+    public $incrementing = true;
 }

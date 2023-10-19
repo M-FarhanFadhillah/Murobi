@@ -1,8 +1,14 @@
 @extends('layouts.tempNav')
 @section('container')
+@if(session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row">
     <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-sign-hanging"></i> Banner</h3></div>
-    <div class="col text-end"><a href="#" data-bs-toggle="modal" data-bs-target="#addBanner"><button type="button" class="btn btn-outline-warning"><i class="fa-solid fa-plus"></i> Tambah Banner</button></a></div>
+    <div class="col text-end"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addBanner"><i class="fa-solid fa-plus"></i> Tambah Banner</button></div>
 </div>
 <hr>
 <div class="container">
@@ -124,27 +130,37 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="addBanner" action="/banner" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-3">
-                  <label for="InputJudul" class="form-label">Judul Banner</label>
-                  <input type="text" class="form-control" id="InputJudul" aria-describedby="judulHelp">
+                  <label class="form-label">Judul Banner</label>
+                  <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" required value="{{ old('judul') }}">
+                  @error('judul')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="InputKategori" class="form-label">Kategori</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <label class="form-label">Kategori</label>
+                    <select type="number" class="form-select" name="kategori" id="kategori" required>
                         <option value="0">Informatif</option>
                         <option value="1">Promo</option>
                         <option value="2">Kegiatan</option>
                     </select>
                 </div>
                   <div class="mb-3">
-                    <label for="FormControlDeskripsi" class="form-label">Deskripsi Banner</label>
-                    <textarea class="form-control" id="FormControlDeskripsi" rows="3"></textarea>
+                    <label class="form-label">Deskripsi Banner</label>
+                    <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" required value="{{ old('deskripsi') }}" rows="3"></textarea>
+                    @error('deskripsi')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
                   </div>
-                  
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Cover</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <label class="form-label">Cover</label>
+                    <input class="form-control" type="text" id="cover" name="cover" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\banner;
 use App\Http\Requests\StorebannerRequest;
 use App\Http\Requests\UpdatebannerRequest;
@@ -41,9 +43,18 @@ class BannerController extends Controller
      * @param  \App\Http\Requests\StorebannerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorebannerRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'judul'=>'required',
+            'deskripsi' => 'required',
+            'cover' => 'required',
+            'kategori' => 'required'
+        ]);
+        // dd($validatedData);
+        banner::create($validatedData);
+        return redirect('/banner')->with('success','Banner Baru Telah ditambahkan!');
     }
 
     /**

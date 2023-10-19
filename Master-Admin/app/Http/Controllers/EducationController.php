@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\education;
 use App\Http\Requests\StoreeducationRequest;
 use App\Http\Requests\UpdateeducationRequest;
@@ -39,9 +40,11 @@ class EducationController extends Controller
      * @param  \App\Http\Requests\StoreeducationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreeducationRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        education::create($request->all());
+        return redirect('/edu')->with('success','Konten Edukasi Baru Telah ditambahkan!');
     }
 
     /**

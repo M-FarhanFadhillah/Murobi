@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\activity;
 use App\Http\Requests\StoreactivityRequest;
 use App\Http\Requests\UpdateactivityRequest;
@@ -51,9 +52,11 @@ class ActivityController extends Controller
      * @param  \App\Http\Requests\StoreactivityRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreactivityRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        activity::create($request->all());
+        return back()->with('success','Aktivitas Baru Telah ditambahkan!');
     }
 
     /**

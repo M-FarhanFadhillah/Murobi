@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\absensi_sholat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 
 class userController extends Controller
@@ -38,6 +39,22 @@ class userController extends Controller
         ]);
     }
     public function store(Request $request){
-        return $request->all();
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'name'=>'required|max:255',
+            'email' => 'required|unique:users',
+            'no_hp' => 'required|unique:users',
+            'profil_pict' => 'required|max:255',
+            'password' => 'min:5|required|max:255',
+            'status' => 'required'
+        ]);
+        // dd($validatedData);
+        // Jangan Lupa bcrypt passwordnya!
+        // $request->session()->flash('status', 'Task was successful!');
+        // $request->session()->flash('success', 'Pengguna Baru Telah ditambahkan!');
+        // $request = session('success');
+        // dd("Registrasi Berhasi!");
+        User::create($validatedData);
+        return redirect('/listUser')->with('success','Pengguna Baru Telah ditambahkan!');
     }
 }
