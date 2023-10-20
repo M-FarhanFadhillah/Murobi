@@ -68,27 +68,27 @@
         <div class="modal-body">
             <form id="userRegist" action="/listUser" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
-                  <label class="form-label">Email address</label>
-                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" required value="{{ old('email') }}">
+                <div class="mb-3 form-floating">
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" required value="{{ old('email') }}">
+                    <label class="form-label">Email address</label>
                   @error('email')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                   @enderror
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Nama</label>
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required value="{{ old('name') }}">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required value="{{ old('name') }}">
+                    <label class="form-label">Nama</label>
                   @error('name')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                   @enderror
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">No. HP</label>
-                  <input type="tel" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" required value="{{ old('no_hp') }}">
+                <div class="mb-3 form-floating">
+                    <input type="tel" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" required value="{{ old('no_hp') }}">
+                    <label class="form-label">No. HP</label>
                   @error('no_hp')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -98,18 +98,18 @@
                 <div>
                     <input class="form-control" type="hidden" name="status" value =1 id="status">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Foto Profil</label>
+                <div class="mb-3 form-floating">
                     <input class="form-control @error('profil_pict') is-invalid @enderror" type="text" id="profil_pict" name="profil_pict" required value="{{ old('profil_pict') }}">
+                    <label class="form-label">Foto Profil</label>
                     @error('profil_pict')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                   @enderror
                   </div>
-                <div class="mb-3">
-                  <label class="form-label">Password</label>
-                  <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                <div class="mb-3 form-floating">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                    <label class="form-label">Password</label>
                   @error('password')
                       <div class="invalid-feedback">
                         {{ $message }}

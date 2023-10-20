@@ -157,9 +157,9 @@
         <div class="modal-body">
             <form id="addEdu" action="/edu" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
-                  <label class="form-label">Judul Konten</label>
-                  <input type="text" class="form-control" id="judul" name="judul" required>
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control" id="judul" name="judul" required>
+                    <label class="form-label">Judul Konten</label>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Jenis Konten</label>
@@ -180,9 +180,9 @@
                     <label class="form-label">Deskripsi Konten</label>
                     <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
                   </div>                  
-                <div class="mb-3">
-                    <label class="form-label">Cover Content</label>
+                <div class="mb-3 form-floating">
                     <input class="form-control" type="text" name="content" id="content" required>
+                    <label class="form-label">Cover Content</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
