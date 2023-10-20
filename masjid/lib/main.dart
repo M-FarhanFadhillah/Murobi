@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masjid/screens/dashboard.dart'; 
+import 'package:masjid/screens/dashboard.dart';
 import 'package:masjid/screens/splashscreen.dart';
 import 'package:masjid/screens/ziswaf/zakat_pages.dart';
 import 'package:masjid/screens/profile/profile_pages.dart';
@@ -10,8 +10,7 @@ void main() {
     routes: {
       '/dashboard': (context) => Dashboard(),
       '/zakatPage': (context) => DetailZiswafPages(),
-      '/profilepages': (context) => ProfilePages(),
-      '/splashscreen': (context) => SplashScreen(),
+      '/profile': (context) => ProfilePages(),
     },
   ));
 }
@@ -28,4 +27,6 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(), // Gunakan SplashScreenPage sebagai halaman awal
     );
   }
+
+  static of(BuildContext context) {}
 }

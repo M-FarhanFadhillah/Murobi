@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'login_model.dart';
-import 'login.dart';
+import 'package:masjid/models/login_widget.dart';
+// import 'login.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => LoginWidget()),
       );
     });
     return Scaffold(
