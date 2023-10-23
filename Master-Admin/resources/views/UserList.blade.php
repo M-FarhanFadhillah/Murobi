@@ -108,7 +108,7 @@
                   @enderror
                   </div>
                 <div class="mb-3 form-floating">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
                     <label class="form-label">Password</label>
                   @error('password')
                       <div class="invalid-feedback">
