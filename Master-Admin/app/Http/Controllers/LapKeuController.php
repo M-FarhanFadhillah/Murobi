@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\data_ziswaf;
 use App\Models\lap_keu;
 use App\Http\Requests\Storelap_keuRequest;
@@ -61,9 +62,11 @@ class LapKeuController extends Controller
      * @param  \App\Http\Requests\Storelap_keuRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storelap_keuRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        lap_keu::create($request->all());
+        return back()->with('success','Arus Kas terbaru Telah ditambahkan!');
     }
 
     /**

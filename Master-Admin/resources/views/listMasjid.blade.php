@@ -56,45 +56,45 @@
         <div class="modal-body">
             <form id="masjidRegist" action="/listmasjid" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
-                  <label class="form-label">Nama Masjid</label>
-                  <input type="text" class="form-control @error('masjid_name') is-invalid @enderror" id="masjid_name" name="masjid_name" required value="{{ old('masjid_name') }}">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control @error('masjid_name') is-invalid @enderror" id="masjid_name" name="masjid_name" required value="{{ old('masjid_name') }}">
+                    <label>Nama Masjid</label>
                   @error('masjid_name')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                   @enderror
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Alamat</label>
-                  <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" required value="{{ old('alamat') }}">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" required value="{{ old('alamat') }}">
+                    <label>Alamat</label>
                   @error('alamat')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                   @enderror
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Ketua Masjid</label>
-                  <input type="text" class="form-control @error('ketua_masjid') is-invalid @enderror" id="ketua_masjid" name="ketua_masjid" required value="{{ old('ketua_masjid') }}">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control @error('ketua_masjid') is-invalid @enderror" id="ketua_masjid" name="ketua_masjid" required value="{{ old('ketua_masjid') }}">
+                    <label>Ketua Masjid</label>
                   @error('ketua_masjid')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                   @enderror
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Kapasitas Masjid</label>
-                  <input type="number" class="form-control @error('kapasitas') is-invalid @enderror" id="kapasitas" name="kapasitas" required value="{{ old('kapasitas') }}">
+                <div class="mb-3 form-floating">
+                    <input type="number" class="form-control @error('kapasitas') is-invalid @enderror" id="kapasitas" name="kapasitas" required value="{{ old('kapasitas') }}">
+                    <label>Kapasitas Masjid</label>
                   @error('kapasitas')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                   @enderror
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Saldo Saat ini</label>
-                  <input type="number" class="form-control @error('saldo_awal') is-invalid @enderror" id="saldo_awal" name="saldo_awal" required value="{{ old('saldo_awal') }}">
+                <div class="mb-3 form-floating">
+                    <input type="number" class="form-control @error('saldo_awal') is-invalid @enderror" id="saldo_awal" name="saldo_awal" required value="{{ old('saldo_awal') }}">
+                    <label>Saldo Saat ini</label>
                   @error('saldo_awal')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -104,9 +104,9 @@
                 <div>
                     <input class="form-control" type="hidden" name="kas" value ="{{ old('saldo_awal') }}" id="kas">
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Foto Cover Masjid</label>
-                  <input type="text" class="form-control @error('masjid_pict') is-invalid @enderror" id="masjid_pict" name="masjid_pict" required value="{{ old('masjid_pict') }}">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control @error('masjid_pict') is-invalid @enderror" id="masjid_pict" name="masjid_pict" required value="{{ old('masjid_pict') }}">
+                    <label>Foto Cover Masjid</label>
                   @error('masjid_pict')
                       <div class="invalid-feedback">
                         {{ $message }}

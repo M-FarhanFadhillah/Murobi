@@ -138,9 +138,9 @@
             <div class="modal-body">
                 <form id="addActivity" action="/activity/{{ $item->id }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Nama Kegiatan</label>
+                    <div class="mb-3 form-floating">
                         <input type="text" required class="form-control" id="activity_name" name="activity_name">
+                        <label class="form-label">Nama Kegiatan</label>
                     </div>
                     <div>
                     <input class="form-control" type="hidden" required name="masjid_id" id="masjid_id" value="{{ $data->id }}">
@@ -157,9 +157,9 @@
                             <option value="2">Besar</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Cover Kegiatan</label>
+                    <div class="mb-3 form-floating">
                         <input class="form-control" type="text" id="pict" name="pict" required>
+                        <label class="form-label">Cover Kegiatan</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

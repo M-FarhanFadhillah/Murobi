@@ -132,9 +132,9 @@
         <div class="modal-body">
             <form id="addBanner" action="/banner" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
-                  <label class="form-label">Judul Banner</label>
-                  <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" required value="{{ old('judul') }}">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" required value="{{ old('judul') }}">
+                    <label class="form-label">Judul Banner</label>
                   @error('judul')
                       <div class="invalid-feedback">
                         {{ $message }}
@@ -150,17 +150,17 @@
                     </select>
                 </div>
                   <div class="mb-3">
-                    <label class="form-label">Deskripsi Banner</label>
-                    <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" required value="{{ old('deskripsi') }}" rows="3"></textarea>
+                      <label class="form-label">Deskripsi Banner</label>
+                      <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" required value="{{ old('deskripsi') }}" rows="3"></textarea>
                     @error('deskripsi')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
                     @enderror
                   </div>
-                <div class="mb-3">
-                    <label class="form-label">Cover</label>
+                <div class="mb-3 form-floating">
                     <input class="form-control" type="text" id="cover" name="cover" required>
+                    <label class="form-label">Cover</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

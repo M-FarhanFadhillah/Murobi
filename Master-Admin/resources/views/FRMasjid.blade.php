@@ -1,6 +1,12 @@
 {{-- @dd($lapkeu) --}}
 @extends('layouts.tempNav')
 @section('container')
+@if(session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row">
   <div class="col"><h3><i class="fa-solid fa-wallet"></i> Laporan Keuangan Masjid {{ $data->masjid_name }}</h3></div>
 </div>
@@ -60,7 +66,7 @@
         </thead>
         <tbody class="table-group-divider">
             <tr>
-                <td>03 September 2023</td>
+                <td>{{ $data->created_at->format('d F Y') }}</td>
                 <td>Saldo Awal</td>
                 <td></td>
                 <td></td>
@@ -83,7 +89,7 @@
         </tbody>
     </table> 
 </div> 
-{{-- Modal Tambah Banner --}}
+{{-- Modal Tambah Cashflow --}}
 {{-- Updated --}}
 <div class="modal fade" id="addCashflow" tabindex="-1" aria-labelledby="addCashflowLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -93,29 +99,33 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="addCashflow" action="/lapkeu/{{ $data->id }}" method="POST" enctype="multipart/form-data">
+              @csrf
               <div class="mb-3">
                 <label for="InputMasjid" class="form-label">Lokasi Masjid</label>
-                <input class="form-control" type="text" placeholder="{{ $data->masjid_name }}" aria-label="Disabled input example" disabled>
+                <input class="form-control" type="text" placeholder="{{ $data->masjid_name }}" disabled>
+              </div>
+              <div>
+                <input class="form-control" type="hidden" required name="masjid_id" id="masjid_id" value="{{ $data->id }}">
               </div>
               <div class="mb-3">
-                <label for="InputKategori" class="form-label">Arus Kas</label>
-                <select class="form-select" aria-label="Default select example">
+                <label class="form-label">Arus Kas</label>
+                <select type="number" name="cashflow" id="cashflow" class="form-select" >
                     <option value="0">Debit (Uang Masuk)</option>
                     <option value="1">Kredit (Uang Keluar)</option>
                 </select>
             </div>
-            <div class="mb-3">
-              <label for="InputKeterangan" class="form-label">Keterangan</label>
-              <input type="text" class="form-control" id="InputKeterangan" aria-describedby="keteranganHelp">
+            <div class="mb-3 form-floating">
+              <input name="note" id="note" type="text" class="form-control" required>
+              <label>Keterangan</label>
             </div>
             <div class="mb-3">
-              <label for="InputTanggal" class="form-label">Tanggal</label>
-              <input type="date" class="form-control" id="InputTanggal" aria-describedby="tanggalHelp">
+              <label class="form-label">Tanggal</label>
+              <input name="date" id="date" type="date" class="form-control" required>
             </div>
-            <div class="mb-3">
-              <label for="InputNominal" class="form-label">Nominal</label>
-              <input type="number" class="form-control" id="InputNominal" aria-describedby="nominalHelp">
+            <div class="mb-3 form-floating">
+              <input type="number" class="form-control" id="nominal" name="nominal" required>
+              <label>Nominal</label>
             </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

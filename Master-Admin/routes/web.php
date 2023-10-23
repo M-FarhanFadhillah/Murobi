@@ -56,6 +56,7 @@ Route::get('/edu', [educationController::class, 'index']);
 Route::post('/edu', [educationController::class, 'store']);
 Route::get('/financereport', [LapKeuController::class, 'index']);
 Route::get('/lapkeu/{id}/{masjid_name}', [LapKeuController::class, 'lapkeu']);
+Route::post('/lapkeu/{id}', [LapKeuController::class, 'store']);
 Route::get('/ziswaf/{id}/{masjid_name}', [LapKeuController::class, 'ziswaf']);
 // Route::get('/ziswaf', [LapKeuController::class, 'ziswaf']);
 Route::get('/activity', [activityController::class, 'index']);
