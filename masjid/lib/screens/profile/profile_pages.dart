@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
+import 'package:masjid/flutter_flow/flutter_flow_widgets.dart';
 
 class ProfilePages extends StatefulWidget {
   const ProfilePages({super.key});
@@ -111,8 +114,76 @@ class _ProfilePagesState extends State<ProfilePages> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 150,
                   margin: const EdgeInsets.only(top: 16.0),
+                  height: 245,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 130, 190, 190),
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3), // Shadow color
+                        blurRadius: 5, // Spread radius
+                        offset: Offset(0,
+                            5), // Offset in the vertical direction (creates a bottom shadow)
+                      ),
+                    ],
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                    children: [
+                      ProfileLabel(label: 'Nama', text: 'Fadhil'),
+                      ProfileLabel(label: 'Email', text: 'root@root.com'),
+                      ProfileLabel(
+                          label: 'Nomor Handphone', text: '08123456789'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Ubah Kata Sandi',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 0, 72, 144),
+                            ),
+                          ),
+                          // Spacer(),
+                          FFButtonWidget(
+                            text: 'EDIT',
+                            onPressed: () {},
+                            options: FFButtonOptions(
+                              width: 60,
+                              height: 30,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color.fromARGB(255, 0, 128, 116),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(7.0),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(top: 16.0),
+                  height: 75,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
@@ -126,16 +197,87 @@ class _ProfilePagesState extends State<ProfilePages> {
                     ],
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Sayaa'),
+                      Container(
+                        margin: EdgeInsets.only(top: 16.0, left: 24),
+                        child: Text(
+                          'Bahasa',
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 82, 82, 92),
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 8.0, left: 24, right: 24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FaIcon(FontAwesomeIcons.language),
+                            Text(
+                              'Bahasa Indonesia',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 16,
+                                color: Color.fromARGB(255, 18, 35, 187),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                )
+                ),
               ]),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class ProfileLabel extends StatelessWidget {
+  final String label;
+  final String text;
+
+  ProfileLabel({
+    required this.label,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 16.0),
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 82, 82, 92),
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+            ),
+          ),
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        Divider(color: Colors.black),
+      ],
     );
   }
 }
