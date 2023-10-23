@@ -458,9 +458,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               onPressed: () {
                                                 print('Button pressed ...');
                                               },
-                                              text: 'Continue with Apple',
+                                              text: 'Continue with Facebook',
                                               icon: FaIcon(
-                                                FontAwesomeIcons.apple,
+                                                FontAwesomeIcons.facebook,
                                                 size: 20.0,
                                               ),
                                               options: FFButtonOptions(
