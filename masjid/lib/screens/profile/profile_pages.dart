@@ -115,7 +115,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 16.0),
-                  height: 245,
+                  height: 260,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
@@ -150,7 +150,42 @@ class _ProfilePagesState extends State<ProfilePages> {
                           // Spacer(),
                           FFButtonWidget(
                             text: 'EDIT',
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Change Password'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        TextField(
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            labelText: 'New Password',
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Save'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Cancel'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
                             options: FFButtonOptions(
                               width: 60,
                               height: 30,
@@ -183,7 +218,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 16.0),
-                  height: 75,
+                  height: 90,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
@@ -217,20 +252,123 @@ class _ProfilePagesState extends State<ProfilePages> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             FaIcon(FontAwesomeIcons.language),
-                            Text(
-                              'Bahasa Indonesia',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.normal,
-                                fontSize: 16,
-                                color: Color.fromARGB(255, 18, 35, 187),
-                                decoration: TextDecoration.underline,
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SimpleDialog(
+                                      title: Text('Pilih Bahasa'),
+                                      children: <Widget>[
+                                        SimpleDialogOption(
+                                          onPressed: () {
+                                            // Logika untuk mengatur bahasa ke Bahasa Indonesia
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('Bahasa Indonesia'),
+                                        ),
+                                        SimpleDialogOption(
+                                          onPressed: () {
+                                            // Logika untuk mengatur bahasa ke Bahasa Inggris
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('English'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                'Bahasa Indonesia',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 18, 35, 187),
+                                  decoration: TextDecoration.underline,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(top: 16.0),
+                  height: 90,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 130, 190, 190),
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3), // Warna bayangan
+                        blurRadius: 5, // Radius bayangan
+                        offset: Offset(0,
+                            5), // Pergeseran bayangan (membuat bayangan bawah)
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
+                    child: Column(children: [
+                      Row(
+                        children: [
+                          FaIcon(FontAwesomeIcons.flag),
+                          Container(
+                            margin: EdgeInsets.only(left: 16.0),
+                            child: Text(
+                              'Laporkan Masalah',
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 82, 82, 92),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromARGB(255, 82, 82, 92),
+                              size: 20,
+                            )
+                          )
+                        ],
+                      ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          FaIcon(FontAwesomeIcons.signOutAlt),
+                          Container(
+                            margin: EdgeInsets.only(left: 16.0),
+                            child: Text(
+                              'Keluar',
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 82, 82, 92),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromARGB(255, 82, 82, 92),
+                              size: 20,
+                            )
+                          )
+                        ],
+                      ),
+                    ]),
                   ),
                 ),
               ]),
