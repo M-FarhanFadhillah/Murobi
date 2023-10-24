@@ -19,7 +19,7 @@ class IbadahPages extends StatelessWidget {
             end: Alignment.bottomLeft,
           ),
         ),
-        child: Padding(
+        child: const Padding(
           padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: SingleChildScrollView(
             child: Column(
@@ -27,7 +27,7 @@ class IbadahPages extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Text(
+                Text(
                   "Ibadah",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,

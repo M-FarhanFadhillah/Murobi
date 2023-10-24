@@ -19,7 +19,7 @@ class ZiswafPages extends StatelessWidget {
             end: Alignment.bottomLeft,
           ),
         ),
-        child: Padding(
+        child: const Padding(
           padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: SingleChildScrollView(
             child: Column(
@@ -72,7 +72,7 @@ class CustomViewZiswaf extends StatelessWidget {
   final String title;
   final String description;
 
-  CustomViewZiswaf({
+  const CustomViewZiswaf({
     super.key,
     required this.title,
     required this.description,
@@ -92,7 +92,7 @@ class CustomViewZiswaf extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(top: 16.0),
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 139, 206, 158),
+            color: const Color.fromARGB(255, 139, 206, 158),
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Row(
@@ -102,7 +102,7 @@ class CustomViewZiswaf extends StatelessWidget {
             children: [
               Transform.scale(
                 scale: 0.8,
-                child: Image(
+                child: const Image(
                   image: AssetImage("assets/images/masjid1.png"),
                 ),
               ),
@@ -110,37 +110,37 @@ class CustomViewZiswaf extends StatelessWidget {
                 width: 1,
                 height: 145,
                 decoration: BoxDecoration(
-                  color: Color(0xff000000),
+                  color: const Color(0xff000000),
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.zero,
-                  border: Border.all(color: Color(0x4d9e9e9e), width: 1),
+                  border: Border.all(color: const Color(0x4d9e9e9e), width: 1),
                 ),
               ),
               Container(
                 width: 200,
                 height: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                 ),
                 child: Stack(
                   alignment: Alignment.topLeft,
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(135, 0, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(135, 0, 0, 0),
                       child: Image(
-                        image: AssetImage("assets/images/moon3.png"),
+                        image: const AssetImage("assets/images/moon3.png"),
                         height: MediaQuery.of(context).size.height * 0.13,
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.scaleDown,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(3, 20, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(3, 20, 0, 0),
                       child: Text(
                         title,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.clip,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w800,
                           fontStyle: FontStyle.normal,
                           fontSize: 14,
@@ -149,13 +149,13 @@ class CustomViewZiswaf extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(3, 35, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(3, 35, 0, 0),
                       child: Text(
                         description,
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.clip,
                         softWrap: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontSize: 14,
                           color: Color(0xff000000),

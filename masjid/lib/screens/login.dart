@@ -8,7 +8,7 @@ Widget build(BuildContext context) {
     ),
     home: Scaffold(
       body: SafeArea(
-        child: ListView(children: [
+        child: ListView(children: const [
           Login(),
         ]),
       ),
@@ -17,6 +17,8 @@ Widget build(BuildContext context) {
 }
 
 class Login extends StatelessWidget {
+  const Login({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +27,7 @@ class Login extends StatelessWidget {
           width: 390,
           height: 844,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Color(0xFF99D399)),
+          decoration: const BoxDecoration(color: Color(0xFF99D399)),
           child: Stack(
             children: [
               Positioned(
@@ -34,7 +36,7 @@ class Login extends StatelessWidget {
                 child: Container(
                   width: 431,
                   height: 431,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image:
                           NetworkImage("https://via.placeholder.com/431x431"),
@@ -49,7 +51,7 @@ class Login extends StatelessWidget {
                 child: Container(
                   width: 431,
                   height: 431,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image:
                           NetworkImage("https://via.placeholder.com/431x431"),
@@ -61,7 +63,7 @@ class Login extends StatelessWidget {
               Positioned(
                 left: 47,
                 top: 285,
-                child: Container(
+                child: SizedBox(
                   width: 160,
                   height: 50,
                   child: Stack(
@@ -72,7 +74,7 @@ class Login extends StatelessWidget {
                         child: Container(
                           width: 160,
                           height: 50,
-                          decoration: ShapeDecoration(
+                          decoration: const ShapeDecoration(
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -83,7 +85,7 @@ class Login extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Positioned(
+                      const Positioned(
                         left: 52,
                         top: 13,
                         child: SizedBox(
@@ -105,7 +107,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 232,
                 top: 298,
                 child: Text(
@@ -126,7 +128,7 @@ class Login extends StatelessWidget {
                 child: Container(
                   width: 296,
                   height: 298,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -146,7 +148,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 182,
                 top: 527,
                 child: Text(
@@ -161,7 +163,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 76,
                 top: 363,
                 child: SizedBox(
@@ -180,7 +182,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 76,
                 top: 411,
                 child: Text(
@@ -195,7 +197,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 76,
                 top: 442,
                 child: Text(
@@ -215,7 +217,7 @@ class Login extends StatelessWidget {
                 top: 389.50,
                 child: Container(
                   width: 242,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 1,
@@ -231,7 +233,7 @@ class Login extends StatelessWidget {
                 top: 434,
                 child: Container(
                   width: 242,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 1,
@@ -254,11 +256,11 @@ class Login extends StatelessWidget {
                     width: 242,
                     height: 28,
                     decoration: ShapeDecoration(
-                      color: Color(0xFF009000),
+                      color: const Color(0xFF009000),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      shadows: [
+                      shadows: const [
                         BoxShadow(
                           color: Color(0x3F000000),
                           blurRadius: 4,
@@ -267,7 +269,7 @@ class Login extends StatelessWidget {
                         )
                       ],
                     ),
-                    child: Stack(
+                    child: const Stack(
                       children: [
                         Positioned(
                           left: 0,
@@ -296,7 +298,7 @@ class Login extends StatelessWidget {
               Positioned(
                 left: 156,
                 top: 554,
-                child: Container(
+                child: SizedBox(
                   width: 24,
                   height: 24,
                   child: Stack(
@@ -307,7 +309,7 @@ class Login extends StatelessWidget {
                         child: Container(
                           width: 24,
                           height: 24,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
                                   "https://via.placeholder.com/24x24"),
@@ -323,7 +325,7 @@ class Login extends StatelessWidget {
               Positioned(
                 left: 213,
                 top: 554,
-                child: Container(
+                child: SizedBox(
                   width: 24,
                   height: 24,
                   child: Stack(
@@ -334,7 +336,7 @@ class Login extends StatelessWidget {
                         child: Container(
                           width: 24,
                           height: 24,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
                                   "https://via.placeholder.com/24x24"),
@@ -347,7 +349,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 47,
                 top: 89,
                 child: Text(
@@ -361,7 +363,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 47,
                 top: 89,
                 child: Text(
@@ -375,7 +377,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 47,
                 top: 145,
                 child: Text(
@@ -389,10 +391,10 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 113,
                 top: 600,
-                child: Container(
+                child: SizedBox(
                   width: 161,
                   height: 18,
                   child: Stack(
@@ -436,8 +438,8 @@ class Login extends StatelessWidget {
                   width: 25,
                   height: 21,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(),
-                  child: Stack(children: []),
+                  decoration: const BoxDecoration(),
+                  child: const Stack(children: []),
                 ),
               ),
             ],
