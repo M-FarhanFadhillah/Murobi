@@ -6,11 +6,11 @@ import 'package:masjid/screens/profile/profile_pages.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: SplashScreen(),
+    home: const SplashScreen(),
     routes: {
-      '/dashboard': (context) => Dashboard(),
-      '/zakatPage': (context) => DetailZiswafPages(),
-      '/profilepages': (context) => ProfilePages(),
+      '/dashboard': (context) => const Dashboard(),
+      '/zakatPage': (context) => const DetailZiswafPages(),
+      '/profilepages': (context) => const ProfilePages(),
     },
   ));
 }

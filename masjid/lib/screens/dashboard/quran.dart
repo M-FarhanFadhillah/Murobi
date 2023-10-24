@@ -15,7 +15,7 @@ class FigmaToCodeApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
       home: Scaffold(
-        body: ListView(children: [
+        body: ListView(children: const [
           IbadahAlquranSurah(),
         ]),
       ),
@@ -24,6 +24,8 @@ class FigmaToCodeApp extends StatelessWidget {
 }
 
 class IbadahAlquranSurah extends StatelessWidget {
+  const IbadahAlquranSurah({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,7 +34,7 @@ class IbadahAlquranSurah extends StatelessWidget {
           width: 390,
           height: 844,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: const BoxDecoration(color: Colors.white),
           child: Stack(
             children: [
               Positioned(
@@ -41,10 +43,10 @@ class IbadahAlquranSurah extends StatelessWidget {
                 child: Container(
                   width: 390,
                   height: 117,
-                  decoration: BoxDecoration(color: Color(0xFF001D00)),
+                  decoration: const BoxDecoration(color: Color(0xFF001D00)),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 110,
                 top: 37,
                 child: SizedBox(
@@ -67,7 +69,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                 left: 15,
                 top: 91,
                 child: Container(
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +89,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 38),
+                      SizedBox(width: 38),
                       SizedBox(
                         width: 85,
                         height: 20,
@@ -103,7 +105,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 38),
+                      SizedBox(width: 38),
                       SizedBox(
                         width: 107,
                         height: 20,
@@ -136,7 +138,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                     children: [
                       Container(
                         width: 129,
-                        decoration: ShapeDecoration(
+                        decoration: const ShapeDecoration(
                           shape: RoundedRectangleBorder(
                             side: BorderSide(
                               width: 3,
@@ -153,7 +155,7 @@ class IbadahAlquranSurah extends StatelessWidget {
               Positioned(
                 left: 19,
                 top: 212,
-                child: Container(
+                child: SizedBox(
                   width: 357,
                   height: 632,
                   child: Stack(
@@ -164,7 +166,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                         child: Container(
                           height: 280,
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +176,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                 width: double.infinity,
                                 height: 62,
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +188,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8),
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
@@ -194,7 +196,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width: double.infinity,
                                               height: 46,
                                               child: Stack(
@@ -202,7 +204,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                   Positioned(
                                                     left: 0,
                                                     top: 0,
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: 192,
                                                       height: 46,
                                                       child: Stack(
@@ -210,7 +212,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           Positioned(
                                                             left: 0,
                                                             top: 5,
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               width: 36,
                                                               height: 36,
                                                               child: Stack(
@@ -226,12 +228,12 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       clipBehavior:
                                                                           Clip.antiAlias,
                                                                       decoration:
-                                                                          BoxDecoration(),
-                                                                      child: Stack(
+                                                                          const BoxDecoration(),
+                                                                      child: const Stack(
                                                                           children: []),
                                                                     ),
                                                                   ),
-                                                                  Positioned(
+                                                                  const Positioned(
                                                                     left: 16,
                                                                     top: 7,
                                                                     child: Text(
@@ -261,7 +263,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           Positioned(
                                                             left: 52,
                                                             top: 0,
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               width: 140,
                                                               height: 46,
                                                               child: Stack(
@@ -278,7 +280,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       clipBehavior:
                                                                           Clip.antiAlias,
                                                                       decoration:
-                                                                          BoxDecoration(),
+                                                                          const BoxDecoration(),
                                                                       child:
                                                                           Row(
                                                                         mainAxisSize:
@@ -288,7 +290,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         crossAxisAlignment:
                                                                             CrossAxisAlignment.center,
                                                                         children: [
-                                                                          Text(
+                                                                          const Text(
                                                                             '(PEMBUKAAN)',
                                                                             style:
                                                                                 TextStyle(
@@ -307,14 +309,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                             height:
                                                                                 4,
                                                                             decoration:
-                                                                                ShapeDecoration(
+                                                                                const ShapeDecoration(
                                                                               color: Color(0x59BBC4CE),
                                                                               shape: OvalBorder(),
                                                                             ),
                                                                           ),
                                                                           const SizedBox(
                                                                               width: 5),
-                                                                          Text(
+                                                                          const Text(
                                                                             '7 AYAT',
                                                                             style:
                                                                                 TextStyle(
@@ -329,7 +331,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Positioned(
+                                                                  const Positioned(
                                                                     left: 0,
                                                                     top: 0,
                                                                     child: Text(
@@ -357,7 +359,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
+                                                  const Positioned(
                                                     left: 285,
                                                     top: 6,
                                                     child: Text(
@@ -381,7 +383,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                             const SizedBox(height: 16),
                                             Container(
                                               width: 326,
-                                              decoration: ShapeDecoration(
+                                              decoration: const ShapeDecoration(
                                                 shape: RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     width: 1,
@@ -404,7 +406,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                 width: double.infinity,
                                 height: 62,
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -416,7 +418,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8),
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
@@ -424,7 +426,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width: double.infinity,
                                               height: 46,
                                               child: Stack(
@@ -432,7 +434,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                   Positioned(
                                                     left: 0,
                                                     top: 0,
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: 205,
                                                       height: 46,
                                                       child: Stack(
@@ -440,7 +442,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           Positioned(
                                                             left: 0,
                                                             top: 5,
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               width: 36,
                                                               height: 36,
                                                               child: Stack(
@@ -456,12 +458,12 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       clipBehavior:
                                                                           Clip.antiAlias,
                                                                       decoration:
-                                                                          BoxDecoration(),
-                                                                      child: Stack(
+                                                                          const BoxDecoration(),
+                                                                      child: const Stack(
                                                                           children: []),
                                                                     ),
                                                                   ),
-                                                                  Positioned(
+                                                                  const Positioned(
                                                                     left: 14,
                                                                     top: 7,
                                                                     child: Text(
@@ -491,7 +493,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           Positioned(
                                                             left: 52,
                                                             top: 0,
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               width: 153,
                                                               height: 46,
                                                               child: Stack(
@@ -508,7 +510,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       clipBehavior:
                                                                           Clip.antiAlias,
                                                                       decoration:
-                                                                          BoxDecoration(),
+                                                                          const BoxDecoration(),
                                                                       child:
                                                                           Row(
                                                                         mainAxisSize:
@@ -518,7 +520,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         crossAxisAlignment:
                                                                             CrossAxisAlignment.center,
                                                                         children: [
-                                                                          Text(
+                                                                          const Text(
                                                                             '(SAPI BETINA)',
                                                                             style:
                                                                                 TextStyle(
@@ -537,14 +539,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                             height:
                                                                                 4,
                                                                             decoration:
-                                                                                ShapeDecoration(
+                                                                                const ShapeDecoration(
                                                                               color: Color(0x59BBC4CE),
                                                                               shape: OvalBorder(),
                                                                             ),
                                                                           ),
                                                                           const SizedBox(
                                                                               width: 5),
-                                                                          Text(
+                                                                          const Text(
                                                                             '286 AYAT',
                                                                             style:
                                                                                 TextStyle(
@@ -559,7 +561,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Positioned(
+                                                                  const Positioned(
                                                                     left: 0,
                                                                     top: 0,
                                                                     child: Text(
@@ -587,7 +589,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
+                                                  const Positioned(
                                                     left: 291,
                                                     top: 6,
                                                     child: Text(
@@ -611,7 +613,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                             const SizedBox(height: 16),
                                             Container(
                                               width: 326,
-                                              decoration: ShapeDecoration(
+                                              decoration: const ShapeDecoration(
                                                 shape: RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     width: 1,
@@ -634,7 +636,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                 width: double.infinity,
                                 height: 62,
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -646,7 +648,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                             left: 8, right: 8, bottom: 0.50),
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
@@ -654,7 +656,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width: double.infinity,
                                               height: 46,
                                               child: Stack(
@@ -662,7 +664,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                   Positioned(
                                                     left: 0,
                                                     top: 0,
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: 241,
                                                       height: 46,
                                                       child: Stack(
@@ -670,7 +672,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           Positioned(
                                                             left: 0,
                                                             top: 5,
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               width: 36,
                                                               height: 36,
                                                               child: Stack(
@@ -686,12 +688,12 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       clipBehavior:
                                                                           Clip.antiAlias,
                                                                       decoration:
-                                                                          BoxDecoration(),
-                                                                      child: Stack(
+                                                                          const BoxDecoration(),
+                                                                      child: const Stack(
                                                                           children: []),
                                                                     ),
                                                                   ),
-                                                                  Positioned(
+                                                                  const Positioned(
                                                                     left: 14,
                                                                     top: 7,
                                                                     child: Text(
@@ -721,7 +723,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           Positioned(
                                                             left: 52,
                                                             top: 0,
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               width: 189,
                                                               height: 46,
                                                               child: Stack(
@@ -738,7 +740,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       clipBehavior:
                                                                           Clip.antiAlias,
                                                                       decoration:
-                                                                          BoxDecoration(),
+                                                                          const BoxDecoration(),
                                                                       child:
                                                                           Row(
                                                                         mainAxisSize:
@@ -748,7 +750,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         crossAxisAlignment:
                                                                             CrossAxisAlignment.center,
                                                                         children: [
-                                                                          Text(
+                                                                          const Text(
                                                                             '(KELUARGA `IMRAN)',
                                                                             style:
                                                                                 TextStyle(
@@ -767,14 +769,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                             height:
                                                                                 4,
                                                                             decoration:
-                                                                                ShapeDecoration(
+                                                                                const ShapeDecoration(
                                                                               color: Color(0x59BBC4CE),
                                                                               shape: OvalBorder(),
                                                                             ),
                                                                           ),
                                                                           const SizedBox(
                                                                               width: 5),
-                                                                          Text(
+                                                                          const Text(
                                                                             '200 AYAT',
                                                                             style:
                                                                                 TextStyle(
@@ -789,7 +791,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Positioned(
+                                                                  const Positioned(
                                                                     left: 0,
                                                                     top: 0,
                                                                     child: Text(
@@ -817,7 +819,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
+                                                  const Positioned(
                                                     left: 262,
                                                     top: 6,
                                                     child: Text(
@@ -851,7 +853,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                 width: double.infinity,
                                 height: 46,
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -863,7 +865,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8),
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
@@ -872,14 +874,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Expanded(
-                                              child: Container(
+                                              child: SizedBox(
                                                 height: double.infinity,
                                                 child: Stack(
                                                   children: [
                                                     Positioned(
                                                       left: 0,
                                                       top: 0,
-                                                      child: Container(
+                                                      child: SizedBox(
                                                         width: 179,
                                                         height: 46,
                                                         child: Stack(
@@ -887,7 +889,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                             Positioned(
                                                               left: 0,
                                                               top: 5,
-                                                              child: Container(
+                                                              child: SizedBox(
                                                                 width: 36,
                                                                 height: 36,
                                                                 child: Stack(
@@ -904,12 +906,12 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         clipBehavior:
                                                                             Clip.antiAlias,
                                                                         decoration:
-                                                                            BoxDecoration(),
-                                                                        child: Stack(
+                                                                            const BoxDecoration(),
+                                                                        child: const Stack(
                                                                             children: []),
                                                                       ),
                                                                     ),
-                                                                    Positioned(
+                                                                    const Positioned(
                                                                       left: 14,
                                                                       top: 7,
                                                                       child:
@@ -939,7 +941,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                             Positioned(
                                                               left: 52,
                                                               top: 0,
-                                                              child: Container(
+                                                              child: SizedBox(
                                                                 width: 127,
                                                                 height: 46,
                                                                 child: Stack(
@@ -956,7 +958,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         clipBehavior:
                                                                             Clip.antiAlias,
                                                                         decoration:
-                                                                            BoxDecoration(),
+                                                                            const BoxDecoration(),
                                                                         child:
                                                                             Row(
                                                                           mainAxisSize:
@@ -966,7 +968,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                           crossAxisAlignment:
                                                                               CrossAxisAlignment.center,
                                                                           children: [
-                                                                            Text(
+                                                                            const Text(
                                                                               '(WANITA)',
                                                                               style: TextStyle(
                                                                                 color: Color(0xFF8789A3),
@@ -980,13 +982,13 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                             Container(
                                                                               width: 4,
                                                                               height: 4,
-                                                                              decoration: ShapeDecoration(
+                                                                              decoration: const ShapeDecoration(
                                                                                 color: Color(0x59BBC4CE),
                                                                                 shape: OvalBorder(),
                                                                               ),
                                                                             ),
                                                                             const SizedBox(width: 5),
-                                                                            Text(
+                                                                            const Text(
                                                                               '176 AYAT',
                                                                               style: TextStyle(
                                                                                 color: Color(0xFF8789A3),
@@ -1000,7 +1002,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    Positioned(
+                                                                    const Positioned(
                                                                       left: 0,
                                                                       top: 0,
                                                                       child:
@@ -1029,7 +1031,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ),
-                                                    Positioned(
+                                                    const Positioned(
                                                       left: 289,
                                                       top: 6,
                                                       child: Text(
@@ -1069,7 +1071,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                           width: 342,
                           height: 46,
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -1081,7 +1083,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
                                   clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1089,14 +1091,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                        child: Container(
+                                        child: SizedBox(
                                           height: double.infinity,
                                           child: Stack(
                                             children: [
                                               Positioned(
                                                 left: 0,
                                                 top: 0,
-                                                child: Container(
+                                                child: SizedBox(
                                                   width: 182,
                                                   height: 46,
                                                   child: Stack(
@@ -1104,7 +1106,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                       Positioned(
                                                         left: 0,
                                                         top: 5,
-                                                        child: Container(
+                                                        child: SizedBox(
                                                           width: 36,
                                                           height: 36,
                                                           child: Stack(
@@ -1119,12 +1121,12 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                   clipBehavior:
                                                                       Clip.antiAlias,
                                                                   decoration:
-                                                                      BoxDecoration(),
-                                                                  child: Stack(
+                                                                      const BoxDecoration(),
+                                                                  child: const Stack(
                                                                       children: []),
                                                                 ),
                                                               ),
-                                                              Positioned(
+                                                              const Positioned(
                                                                 left: 14,
                                                                 top: 7,
                                                                 child: Text(
@@ -1154,7 +1156,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                       Positioned(
                                                         left: 52,
                                                         top: 0,
-                                                        child: Container(
+                                                        child: SizedBox(
                                                           width: 130,
                                                           height: 46,
                                                           child: Stack(
@@ -1169,7 +1171,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                   clipBehavior:
                                                                       Clip.antiAlias,
                                                                   decoration:
-                                                                      BoxDecoration(),
+                                                                      const BoxDecoration(),
                                                                   child: Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
@@ -1181,7 +1183,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         CrossAxisAlignment
                                                                             .center,
                                                                     children: [
-                                                                      Text(
+                                                                      const Text(
                                                                         '(JAMUAN)',
                                                                         style:
                                                                             TextStyle(
@@ -1206,7 +1208,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                         height:
                                                                             4,
                                                                         decoration:
-                                                                            ShapeDecoration(
+                                                                            const ShapeDecoration(
                                                                           color:
                                                                               Color(0x59BBC4CE),
                                                                           shape:
@@ -1216,7 +1218,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                       const SizedBox(
                                                                           width:
                                                                               5),
-                                                                      Text(
+                                                                      const Text(
                                                                         '120 AYAT',
                                                                         style:
                                                                             TextStyle(
@@ -1236,7 +1238,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                               ),
-                                                              Positioned(
+                                                              const Positioned(
                                                                 left: 0,
                                                                 top: 0,
                                                                 child: Text(
@@ -1264,7 +1266,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              Positioned(
+                                              const Positioned(
                                                 left: 283,
                                                 top: 6,
                                                 child: Text(
@@ -1299,21 +1301,21 @@ class IbadahAlquranSurah extends StatelessWidget {
                           height: 46,
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Expanded(
-                                child: Container(
+                                child: SizedBox(
                                   height: double.infinity,
                                   child: Stack(
                                     children: [
                                       Positioned(
                                         left: 0,
                                         top: 0,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: 241,
                                           height: 46,
                                           child: Stack(
@@ -1321,7 +1323,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                               Positioned(
                                                 left: 0,
                                                 top: 5,
-                                                child: Container(
+                                                child: SizedBox(
                                                   width: 36,
                                                   height: 36,
                                                   child: Stack(
@@ -1335,12 +1337,12 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           clipBehavior:
                                                               Clip.antiAlias,
                                                           decoration:
-                                                              BoxDecoration(),
-                                                          child: Stack(
+                                                              const BoxDecoration(),
+                                                          child: const Stack(
                                                               children: []),
                                                         ),
                                                       ),
-                                                      Positioned(
+                                                      const Positioned(
                                                         left: 14,
                                                         top: 7,
                                                         child: Text(
@@ -1366,7 +1368,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                               Positioned(
                                                 left: 52,
                                                 top: 0,
-                                                child: Container(
+                                                child: SizedBox(
                                                   width: 189,
                                                   height: 46,
                                                   child: Stack(
@@ -1380,7 +1382,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           clipBehavior:
                                                               Clip.antiAlias,
                                                           decoration:
-                                                              BoxDecoration(),
+                                                              const BoxDecoration(),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -1392,7 +1394,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                 CrossAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Text(
+                                                              const Text(
                                                                 '(BINATANG TERNAK)',
                                                                 style:
                                                                     TextStyle(
@@ -1413,7 +1415,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                 width: 4,
                                                                 height: 4,
                                                                 decoration:
-                                                                    ShapeDecoration(
+                                                                    const ShapeDecoration(
                                                                   color: Color(
                                                                       0x59BBC4CE),
                                                                   shape:
@@ -1422,7 +1424,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                               ),
                                                               const SizedBox(
                                                                   width: 5),
-                                                              Text(
+                                                              const Text(
                                                                 '165 AYAT',
                                                                 style:
                                                                     TextStyle(
@@ -1441,7 +1443,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                           ),
                                                         ),
                                                       ),
-                                                      Positioned(
+                                                      const Positioned(
                                                         left: 0,
                                                         top: 0,
                                                         child: Text(
@@ -1466,7 +1468,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Positioned(
+                                      const Positioned(
                                         left: 289,
                                         top: 6,
                                         child: Text(
@@ -1498,8 +1500,8 @@ class IbadahAlquranSurah extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               top: 5, left: 8, right: 8, bottom: 41),
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(),
-                          child: Row(
+                          decoration: const BoxDecoration(),
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -1510,14 +1512,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                       Positioned(
                         left: 9,
                         top: 546,
-                        child: Container(
+                        child: SizedBox(
                           width: 326,
                           child: Stack(
                             children: [
                               Positioned(
                                 left: 0,
                                 top: 0,
-                                child: Container(
+                                child: SizedBox(
                                   width: 282,
                                   height: 46,
                                   child: Stack(
@@ -1525,7 +1527,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                       Positioned(
                                         left: 0,
                                         top: 5,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: 36,
                                           height: 36,
                                           child: Stack(
@@ -1537,11 +1539,11 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                   width: 36,
                                                   height: 36,
                                                   clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(),
-                                                  child: Stack(children: []),
+                                                  decoration: const BoxDecoration(),
+                                                  child: const Stack(children: []),
                                                 ),
                                               ),
-                                              Positioned(
+                                              const Positioned(
                                                 left: 14,
                                                 top: 7,
                                                 child: Text(
@@ -1563,7 +1565,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                       Positioned(
                                         left: 52,
                                         top: 0,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: 230,
                                           height: 46,
                                           child: Stack(
@@ -1575,7 +1577,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                   width: 230,
                                                   height: 18,
                                                   clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -1585,7 +1587,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Text(
+                                                      const Text(
                                                         '(TEMPAT YANG TERTINGGI)',
                                                         style: TextStyle(
                                                           color:
@@ -1602,14 +1604,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                         width: 4,
                                                         height: 4,
                                                         decoration:
-                                                            ShapeDecoration(
+                                                            const ShapeDecoration(
                                                           color:
                                                               Color(0x59BBC4CE),
                                                           shape: OvalBorder(),
                                                         ),
                                                       ),
                                                       const SizedBox(width: 5),
-                                                      Text(
+                                                      const Text(
                                                         '206 AYAT',
                                                         style: TextStyle(
                                                           color:
@@ -1625,7 +1627,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              Positioned(
+                                              const Positioned(
                                                 left: 0,
                                                 top: 0,
                                                 child: Text(
@@ -1647,7 +1649,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Positioned(
+                              const Positioned(
                                 left: 289,
                                 top: 6,
                                 child: Text(
@@ -1677,13 +1679,13 @@ class IbadahAlquranSurah extends StatelessWidget {
                   width: 372,
                   height: 155,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 372,
                         height: 155,
                         child: Stack(
@@ -1709,7 +1711,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         width: 372,
                                         height: 155,
                                         decoration: ShapeDecoration(
-                                          gradient: LinearGradient(
+                                          gradient: const LinearGradient(
                                             begin: Alignment(0.71, -0.71),
                                             end: Alignment(-0.71, 0.71),
                                             colors: [
@@ -1727,7 +1729,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                     Positioned(
                                       left: 174.59,
                                       top: 40.23,
-                                      child: Container(
+                                      child: SizedBox(
                                         width: 235.07,
                                         height: 149.08,
                                         child: Stack(
@@ -1735,25 +1737,25 @@ class IbadahAlquranSurah extends StatelessWidget {
                                             Positioned(
                                               left: 0,
                                               top: 0,
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: 235.07,
                                                 height: 135.62,
                                                 child: Stack(
                                                   children: [
-                                                    Positioned(
+                                                    const Positioned(
                                                       left: 0,
                                                       top: 6.37,
-                                                      child: Container(
+                                                      child: SizedBox(
                                                         width: 235.07,
                                                         height: 104.50,
                                                         child:
                                                             Stack(children: []),
                                                       ),
                                                     ),
-                                                    Positioned(
+                                                    const Positioned(
                                                       left: 54.96,
                                                       top: 93.49,
-                                                      child: Container(
+                                                      child: SizedBox(
                                                         width: 125.23,
                                                         height: 42.14,
                                                         child:
@@ -1763,15 +1765,15 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                     Positioned(
                                                       left: 9.74,
                                                       top: 0,
-                                                      child: Container(
+                                                      child: SizedBox(
                                                         width: 215.50,
                                                         height: 104.19,
                                                         child: Stack(
                                                           children: [
-                                                            Positioned(
+                                                            const Positioned(
                                                               left: 115.17,
                                                               top: 14.65,
-                                                              child: Container(
+                                                              child: SizedBox(
                                                                 width: 66.89,
                                                                 height: 44.81,
                                                                 child: Stack(
@@ -1789,7 +1791,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                   ..rotateZ(
                                                                       3.14),
                                                                 child:
-                                                                    Container(
+                                                                    const SizedBox(
                                                                   width: 66.89,
                                                                   height: 44.81,
                                                                   child: Stack(
@@ -1797,10 +1799,10 @@ class IbadahAlquranSurah extends StatelessWidget {
                                                                 ),
                                                               ),
                                                             ),
-                                                            Positioned(
+                                                            const Positioned(
                                                               left: 107.15,
                                                               top: 23.03,
-                                                              child: Container(
+                                                              child: SizedBox(
                                                                 width: 9.47,
                                                                 height: 81.16,
                                                                 child: Stack(
@@ -1826,12 +1828,12 @@ class IbadahAlquranSurah extends StatelessWidget {
                             Positioned(
                               left: 20,
                               top: 19,
-                              child: Container(
+                              child: SizedBox(
                                 width: 155,
                                 height: 113,
                                 child: Stack(
                                   children: [
-                                    Positioned(
+                                    const Positioned(
                                       left: 0,
                                       top: 49.82,
                                       child: SizedBox(
@@ -1849,7 +1851,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    Positioned(
+                                    const Positioned(
                                       left: 0,
                                       top: 87.48,
                                       child: SizedBox(
@@ -1877,7 +1879,7 @@ class IbadahAlquranSurah extends StatelessWidget {
                                         width: 155,
                                         height: 26,
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           mainAxisAlignment:
@@ -1889,11 +1891,11 @@ class IbadahAlquranSurah extends StatelessWidget {
                                               width: 20,
                                               height: 20,
                                               clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(),
-                                              child: Stack(children: []),
+                                              decoration: const BoxDecoration(),
+                                              child: const Stack(children: []),
                                             ),
                                             const SizedBox(width: 8),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 137,
                                               child: Text(
                                                 'Terakhir dibaca',
@@ -1928,14 +1930,14 @@ class IbadahAlquranSurah extends StatelessWidget {
                   width: 20,
                   height: 20,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(),
-                  child: Stack(children: []),
+                  decoration: const BoxDecoration(),
+                  child: const Stack(children: []),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 14,
                 top: 43,
-                child: Container(
+                child: SizedBox(
                   width: 10,
                   height: 17,
                   child: Stack(children: []),

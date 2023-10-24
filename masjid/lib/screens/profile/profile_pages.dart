@@ -30,10 +30,10 @@ class _ProfilePagesState extends State<ProfilePages> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
             child: SingleChildScrollView(
               child: Column(children: [
-                Text(
+                const Text(
                   'Profile',
                   style: TextStyle(
                       fontFamily: 'Poppins',
@@ -45,13 +45,13 @@ class _ProfilePagesState extends State<ProfilePages> {
                   height: 150,
                   margin: const EdgeInsets.only(top: 16.0),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 130, 190, 190),
+                    color: const Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.3), // Shadow color
                         blurRadius: 5, // Spread radius
-                        offset: Offset(0,
+                        offset: const Offset(0,
                             5), // Offset in the vertical direction (creates a bottom shadow)
                       ),
                     ],
@@ -65,10 +65,10 @@ class _ProfilePagesState extends State<ProfilePages> {
                           height: 120,
                           width: 120,
                           clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: Image(
+                          child: const Image(
                             image: AssetImage(
                                 "assets/prototype/images/facebook-1.png"),
                             fit: BoxFit.cover,
@@ -76,11 +76,11 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.all(0),
-                          padding: EdgeInsets.all(0),
+                          margin: const EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
                           width: 40,
                           height: 40,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xff3a57e8),
                             shape: BoxShape.circle,
                           ),
@@ -101,7 +101,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                                 }
                               }
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.photo_camera,
                               color: Color(0xffffffff),
                               size: 20,
@@ -117,28 +117,28 @@ class _ProfilePagesState extends State<ProfilePages> {
                   margin: const EdgeInsets.only(top: 16.0),
                   height: 245,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 130, 190, 190),
+                    color: const Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.3), // Shadow color
                         blurRadius: 5, // Spread radius
-                        offset: Offset(0,
+                        offset: const Offset(0,
                             5), // Offset in the vertical direction (creates a bottom shadow)
                       ),
                     ],
                   ),
                   child: ListView(
-                    padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                    padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
                     children: [
-                      ProfileLabel(label: 'Nama', text: 'Fadhil'),
-                      ProfileLabel(label: 'Email', text: 'root@root.com'),
-                      ProfileLabel(
+                      const ProfileLabel(label: 'Nama', text: 'Fadhil'),
+                      const ProfileLabel(label: 'Email', text: 'root@root.com'),
+                      const ProfileLabel(
                           label: 'Nomor Handphone', text: '08123456789'),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Ubah Kata Sandi',
                             style: TextStyle(
                               fontFamily: 'Poppins',
@@ -154,11 +154,11 @@ class _ProfilePagesState extends State<ProfilePages> {
                             options: FFButtonOptions(
                               width: 60,
                               height: 30,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color.fromARGB(255, 0, 128, 116),
+                              color: const Color.fromARGB(255, 0, 128, 116),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -168,7 +168,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                                     fontWeight: FontWeight.w500,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -185,13 +185,13 @@ class _ProfilePagesState extends State<ProfilePages> {
                   margin: const EdgeInsets.only(top: 16.0),
                   height: 75,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 130, 190, 190),
+                    color: const Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.3), // Shadow color
                         blurRadius: 5, // Spread radius
-                        offset: Offset(0,
+                        offset: const Offset(0,
                             5), // Offset in the vertical direction (creates a bottom shadow)
                       ),
                     ],
@@ -200,10 +200,10 @@ class _ProfilePagesState extends State<ProfilePages> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 16.0, left: 24),
-                        child: Text(
+                        margin: const EdgeInsets.only(top: 16.0, left: 24),
+                        child: const Text(
                           'Bahasa',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color.fromARGB(255, 82, 82, 92),
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
@@ -212,8 +212,8 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 8.0, left: 24, right: 24),
-                        child: Row(
+                        margin: const EdgeInsets.only(top: 8.0, left: 24, right: 24),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             FaIcon(FontAwesomeIcons.language),
@@ -246,7 +246,7 @@ class ProfileLabel extends StatelessWidget {
   final String label;
   final String text;
 
-  ProfileLabel({
+  const ProfileLabel({super.key, 
     required this.label,
     required this.text,
   });
@@ -257,7 +257,7 @@ class ProfileLabel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 16.0),
+          margin: const EdgeInsets.only(top: 16.0),
           child: Text(
             label,
             style: const TextStyle(
@@ -270,13 +270,13 @@ class ProfileLabel extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
         ),
-        Divider(color: Colors.black),
+        const Divider(color: Colors.black),
       ],
     );
   }

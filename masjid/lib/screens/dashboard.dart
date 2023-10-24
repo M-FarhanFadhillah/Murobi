@@ -5,6 +5,7 @@ import 'package:masjid/screens/dashboard/ibadah_pages.dart';
 import 'package:masjid/screens/dashboard/ziswaf_pages.dart';
 import 'package:masjid/screens/dashboard/qurban_pages.dart';
 import 'package:masjid/screens/dashboard/keuangan_pages.dart';
+import 'package:masjid/models/home_widget.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -23,12 +24,12 @@ class _DashboardState extends State<Dashboard> {
   }
 
   final List<Widget> _pages = [
-    BerandaPages(),
-    EdukasiPages(),
-    IbadahPages(),
-    ZiswafPages(),
-    QurbanPages(),
-    KeuanganPages(),
+    const HomeWidget(),
+    const EdukasiPages(),
+    const IbadahPages(),
+    const ZiswafPages(),
+    const QurbanPages(),
+    const KeuanganPages(),
   ];
 
   @override
@@ -46,7 +47,7 @@ class _DashboardState extends State<Dashboard> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard_customize_outlined),
-            label: 'Beranda',
+            label: 'cewe',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cast_for_education_rounded),
