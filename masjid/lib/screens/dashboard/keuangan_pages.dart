@@ -20,7 +20,7 @@ class KeuanganPages extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -41,7 +41,7 @@ class KeuanganPages extends StatelessWidget {
                 ),
                 Transform.scale(
                   scale: 1.0,
-                  child: Image(
+                  child: const Image(
                     image: AssetImage("assets/images/tempLaporan.png"),
                   ),
                 ),
