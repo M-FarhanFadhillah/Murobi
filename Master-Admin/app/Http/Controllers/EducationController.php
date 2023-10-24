@@ -23,6 +23,11 @@ class EducationController extends Controller
             "data"=> education::all()
         ]);
     }
+    public function delate($id)
+    {
+        education::where('id', $id)->delete();
+        return redirect('/edu')->with('delate','Data Edukasi Telah dihapus!');
+    }
 
     /**
      * Show the form for creating a new resource.

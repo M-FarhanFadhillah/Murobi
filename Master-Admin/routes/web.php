@@ -26,18 +26,34 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('login',[
-        "title" => "Login",
-    ]);
-});
-Route::get('/test', function () {
-    return view('FRZiswafmasjid',[
-        "title" => "Masjid",
-    ]);
-});
+// Route::get('/', function () {
+//     return view('login',[
+//         "title" => "Login",
+//     ]);
+// });
+// Route::get('/test', function () {
+//     return view('FRZiswafmasjid',[
+//         "title" => "Masjid",
+//     ]);
+// });
 
-Route::get('/', [adminsController::class, 'index']);
+//Delete Activitues
+Route::get('/delAct/{id}/{activity_name}', [activityController::class, 'delate']);
+//Delete Education
+Route::get('/dellEdu/{id}/{judul}', [educationController::class, 'delate']);
+//Delete Banner
+Route::get('/dellbanner/{id}/{judul}', [bannerController::class, 'delate']);
+//Delete UserList
+Route::get('/delate/{id}/{name}', [userController::class, 'delate']);
+//Delete Masjid
+Route::get('/delMasjid/{id}/{masjid_name}', [masjidController::class, 'delate']);
+//Update Status Banner
+Route::post('/ActiveBanner/{id}/{judul}', [bannerController::class, 'update']);
+//Update Password Userlist
+Route::post('/updatePass/{id}/{name}', [userController::class, 'update']);
+Route::post('actionlogin', [AdminsController::class, 'actionlogin'])->name('actionlogin');
+// Route::post('/login', [AdminsController::class, 'authenticate']);
+Route::get('/', [AdminsController::class, 'index']);
 Route::get('/home', [userController::class, 'dashboard']);
 Route::get('/masjid', [masjidController::class, 'index']);
 Route::get('/listmasjid', [masjidController::class, 'listMasjid']);

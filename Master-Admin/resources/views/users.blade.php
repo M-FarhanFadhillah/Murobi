@@ -1,8 +1,6 @@
 @extends('layouts.tempNav')
 @section('container')
-<div class="row">
-  <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-user-group"></i> Pengguna</h3></div>
-</div>
+<h1 class="m-4 text-center">Pengguna</h1>
 <hr>
 <div class="row">
   <div class="col">

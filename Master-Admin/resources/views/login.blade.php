@@ -151,26 +151,35 @@
         </li>
       </ul>
     </div>
+    <main class="form-signin w-100 m-auto">
+      @if(session()->has('failed'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ session('failed') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @endif 
+      <form action="{{ route('actionlogin') }}" method="POST">
+        @csrf
+        <center><img class="mb-4" src="\assets\logo.svg" alt="" width="72"></center>
+        <h1 class="h3 mb-3 fw-normal">Silahkan Masuk</h1>
 
-    
-<main class="form-signin w-100 m-auto">
-  <form>
-    <center><img class="mb-4" src="\assets\logo.svg" alt="" width="72"></center>
-    <h1 class="h3 mb-3 fw-normal">Silahkan Masuk</h1>
-
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
-    </div>
-    <button class="btn btn-outline-primary w-100 py-2" type="submit">Masuk</button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; Sistem Informasi Manajemen Masjid</p>
-  </form>
-</main>
-<script src="/js/bootstrap.bundle.min.js"></script>
-
-    </body>
+        <div class="form-floating">
+          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" autofocus required placeholder="name@example.com" value="{{ old('email') }}">
+          <label for="email">Email address</label>
+          @error('email')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required>
+          <label for="password">Password</label>
+        </div>
+        <button class="btn btn-outline-primary w-100 py-2" type="submit">Masuk</button>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; Sistem Informasi Manajemen Masjid</p>
+      </form>
+    </main>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

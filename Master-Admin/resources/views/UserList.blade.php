@@ -7,6 +7,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+@if(session()->has('update'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session('update') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+@if(session()->has('delate'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('delate') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <h3 class="mb-4"><i class="fa-solid fa-user-group"></i> Daftar Pengguna</h3>
 <div class="row">
     <div class="col">
@@ -25,6 +37,7 @@
 <div class="container">
     <table class="table text-center">
         <thead>
+            <th scope="col">#</th>
             <th scope="col">ID</th>
             <th scope="col">Nama</th>
             <th scope="col">Aksi</th>
@@ -33,6 +46,7 @@
             @foreach ($user as $item)  
             {{-- $item->id --}}
             <tr>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->name }}</td>
                 <td>
@@ -43,12 +57,8 @@
                             </button>
                         </a>
                         <a href="" data-bs-toggle="modal" data-bs-target="#infoSholat-{{ $item->id }}"><button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Absensi Sholat"><i class="fa-solid fa-list-check"></i></button></a>
-                        <a href="#"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Reset Paswword"><i class="fa-solid fa-rotate-right"></i></button></a>
-                        <form action="/listUser" method="POST">
-                            @method('delete')
-                            @csrf
-                            <button onclick="return confirm('Anda yakin ingin menghapus data?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Pengguna"><i class="fa-solid fa-trash"></i></button>
-                        </form>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#updatePass-{{ $item->id }}"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Reset Paswword"><i class="fa-solid fa-rotate-right"></i></button></a>
+                        <a href="/delate/{{ $item->id }}/{{ $item->name }}"><button onclick="return confirm('Anda yakin ingin menghapus data?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Pengguna"><i class="fa-solid fa-trash"></i></button></a>
                     </div>
                 </td>
             </tr>
@@ -57,6 +67,62 @@
     </table> 
 </div>
 {{ $user->links() }}
+{{-- Modal Update Password --}}
+@foreach ($data as $item)
+<div class="modal fade" id="updatePass-{{ $item->id }}" tabindex="-1" aria-labelledby="infoAccountLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="infoAccountLabel">Update Password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="https://github.com/mdo.png" alt="Foto Profil" width="150">
+                    </div>
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">ID</th>
+                            <td>{{ $item->id }}</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">Nama</th>
+                              <td>{{ $item->name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>{{ $item->email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">No HP</th>
+                                <td>{{ $item->no_hp }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form id="updatePass" action="/updatePass/{{ $item->id }}/{{ $item->name }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3 form-floating">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+                            <label class="form-label">Update Password</label>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
+@endforeach 
+
 {{-- Modal Tambah Pengguna --}}
 <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -122,7 +188,7 @@
       </div>
     </div>
   </div>
-{{-- Modal Details --}}
+{{-- Modal Absensi Sholat --}}
 @foreach ($data as $item)
 <div class="modal fade" id="infoSholat-{{ $item->id }}" tabindex="-1" aria-labelledby="infoSholatLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -165,7 +231,7 @@
 </div>
 </div>
 @endforeach 
-{{-- Modal Absensi Sholat --}}
+{{-- Modal Details Info --}}
 @foreach ($data as $item)
 <div class="modal fade" id="infoAccount-{{ $item->id }}" tabindex="-1" aria-labelledby="infoAccountLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

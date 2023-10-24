@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\admins;
 use App\Http\Requests\StoreadminsRequest;
 use App\Http\Requests\UpdateadminsRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminsController extends Controller
 {
@@ -18,6 +20,47 @@ class AdminsController extends Controller
         return view('login',[
             "title" => "Login",
         ]);
+    }
+    // public function authenticate(Request $request)
+    // {
+        // $credentials = $request->validate([
+        //     'email' => ['required', 'email:dns'],
+        //     'password' => ['required'],
+        // ]);
+        // if (Auth::attempt($credentials)) {
+        //     dd('Login Berhasil!');
+        //     // $request->session()->regenerate(); 
+        //     // return redirect()->intended('/dashboard');
+        // }
+ 
+        // return back()->with('failed','Login Failed!');
+    //     $data = [
+    //         'email'=> $request->input('email'),
+    //         'password'=> $request->input('password'),
+    //     ];
+    //     if(Auth::attempt($data)){
+    //         return redirect('/home');
+    //     }else{
+    //         return back()->with('failed','Login Failed!');
+    //     }
+    // }
+    public function actionlogin(Request $request)
+    {
+        $data = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
+
+        // $check = admins::where('email', $request->input('email'))->where('password', $request->input('password'))->get();
+        // dd($check);
+        if (Auth::attempt($data)) {
+            // Auth::attempt($check);
+            return redirect('/home');
+        }else{
+            return back()->with('failed','Login Failed!');
+            // dd("Login Berhasil");
+            // return redirect('/home');
+        }
     }
 
     /**

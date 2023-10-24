@@ -8,6 +8,7 @@ use App\Models\education;
 use App\Models\masjid;
 use App\Http\Requests\StoremasjidRequest;
 use App\Http\Requests\UpdatemasjidRequest;
+use App\Models\lap_keu;
 
 class MasjidController extends Controller
 {
@@ -22,7 +23,8 @@ class MasjidController extends Controller
             "title" => "Masjid",
             "j_masjid" => masjid::all()->count(),
             "j_edu" => education::all()->count(),
-            "j_banner" => banner::where('status',true)->count()
+            "j_banner" => banner::where('status',true)->count(),
+            "j_lapkeu" => lap_keu::latest()->first()
         ]);
     }
     public function listMasjid()
@@ -33,6 +35,11 @@ class MasjidController extends Controller
             "data" => masjid::all(),
             "listMasjid" => masjid::latest()->filter()->paginate(20)
         ]);
+    }
+    public function delate($id)
+    {
+        masjid::where('id', $id)->delete();
+        return redirect('/listmasjid')->with('delate','Data Masjid Telah dihapus!');
     }
     
 
