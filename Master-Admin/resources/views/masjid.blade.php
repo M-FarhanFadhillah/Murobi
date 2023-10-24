@@ -1,8 +1,6 @@
 @extends('layouts.tempNav')
 @section('container')
-<div class="row">
-  <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-mosque"></i> Masjid</h3></div>
-</div>
+<h1 class="m-4 text-center">Masjid</h1>
 <hr>
 <div class="row">
   <div class="col">
@@ -63,7 +61,7 @@
         <a href="/financereport" class="btn btn-outline-success">Selengkapnya <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
-        Diperbarui 2 hari lalu
+        {{ $j_lapkeu->updated_at->diffForHumans() }} Last Updated
       </div>
     </div>
   </div>

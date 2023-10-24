@@ -35,6 +35,12 @@ class ActivityController extends Controller
             "data_kegiatan"=>$data_kegiatan
         ]);
     }
+    public function delate($id)
+    {
+        // $masjid_name= activity::where('id', $id);
+        activity::where('id', $id)->delete();
+        return back()->with('delate','Data Kegiatan Telah dihapus!');
+    }
 
     /**
      * Show the form for creating a new resource.

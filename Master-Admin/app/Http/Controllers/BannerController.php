@@ -26,6 +26,16 @@ class BannerController extends Controller
             "data"=> banner::all()
         ]);
     }
+    public function update(Request $request, $id)
+    {
+        $data = banner::where('id', $id)->update(['status' => $request->status]);
+        return redirect('/banner')->with('update','Status Telah diperbarui!');
+    }
+    public function delate($id)
+    {
+        banner::where('id', $id)->delete();
+        return redirect('/banner')->with('delate','Data Banner Telah dihapus!');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -86,10 +96,6 @@ class BannerController extends Controller
      * @param  \App\Models\banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatebannerRequest $request, banner $banner)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

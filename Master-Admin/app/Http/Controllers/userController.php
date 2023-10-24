@@ -57,4 +57,14 @@ class userController extends Controller
         User::create($validatedData);
         return redirect('/listUser')->with('success','Pengguna Baru Telah ditambahkan!');
     }
+    public function update(Request $request, $id)
+    {
+        $data = User::where('id', $id)->update(['password' => $request->password]);
+        return redirect('/listUser')->with('update','Password Telah diperbarui!');
+    }
+    public function delate($id)
+    {
+        User::where('id', $id)->delete();
+        return redirect('/listUser')->with('delate','Data Pengguna Telah dihapus!');
+    }
 }

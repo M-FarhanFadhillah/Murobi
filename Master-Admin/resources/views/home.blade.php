@@ -1,4 +1,4 @@
 @extends('layouts.tempNav')
 @section('container')
-<h1>Test</h1>
+<h1 class="mt-4 text-center">Dashboard</h1>
 @endsection

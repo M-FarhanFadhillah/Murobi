@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\activity;
+use App\Models\admins;
 use App\Models\data_ziswaf;
 use App\Models\jenis_ziswaf;
 use App\Models\User;
@@ -35,6 +36,13 @@ class DatabaseSeeder extends Seeder
         //     'password' => 'qwerty123'
         // ]);
 
+        admins::create([
+            'name' => 'Master Admin',
+            'email' => 'madmin@gmail.com',
+            'no_hp' => '081371610786',
+            'profil_pict' => 'test123',
+            'password' => 'qwerty123'
+        ]);
         User::create([
             'name' => 'Muhammad Faiz',
             'email' => 'faizgo@gmail.com',

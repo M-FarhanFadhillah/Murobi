@@ -6,6 +6,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+@if(session()->has('delate'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('delate') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row">
     <div class="col-6 .col-sm-4"><h3><i class="fa-solid fa-user-group"></i> Daftar Edukasi</h3></div>
     <div class="col text-end"><a href="#" data-bs-toggle="modal" data-bs-target="#addEdu"><button type="button" class="btn btn-outline-warning"><i class="fa-solid fa-plus"></i> Tambah Content</button></a></div>
@@ -18,6 +24,7 @@
                 <div class="col text-center"><h3>Buku</h3></div>
             </div>
             <thead>
+                <th scope="col">No</th>
                 <th scope="col">ID</th>
                 <th scope="col">Judul</th>
                 <th scope="col">Kategori</th>
@@ -26,6 +33,7 @@
             <tbody class="table-group-divider">
                 @foreach ($buku as $item)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>            
                     <td>{{ $item->id }}</td>            
                     <td>{{ $item->judul }}</td>            
                     <td>@switch($item->kategori)
@@ -42,7 +50,7 @@
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#infoEdu-{{ $item->id }}"><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi"><i class="fa-solid fa-info"></i></button></a>
-                            <a href="#"><button type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Buku"><i class="fa-solid fa-trash"></i></button></a>
+                            <a href="/dellEdu/{{$item->id}}/{{$item->judul}}"><button onclick="return confirm('Anda yakin ingin menghapus data?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Buku"><i class="fa-solid fa-trash"></i></button></a>
                         </div>
                     </td>
                 </tr>
@@ -56,6 +64,7 @@
                 <div class="col text-center"><h3>Video</h3></div>
             </div>
             <thead>
+                <th scope="col">No</th>
                 <th scope="col">ID</th>
                 <th scope="col">Judul</th>
                 <th scope="col">Kategori</th>
@@ -64,6 +73,7 @@
             <tbody class="table-group-divider">
                 @foreach ($video as $item)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>            
                     <td>{{ $item->id }}</td>            
                     <td>{{ $item->judul }}</td>            
                     <td>@switch($item->kategori)
@@ -80,7 +90,7 @@
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#infoEdu-{{ $item->id }}"><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi"><i class="fa-solid fa-info"></i></button></a>
-                            <a href="#"><button type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Video"><i class="fa-solid fa-trash"></i></button></a>
+                            <a href="/dellEdu/{{$item->id}}/{{$item->judul}}"><button onclick="return confirm('Anda yakin ingin menghapus data?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Video"><i class="fa-solid fa-trash"></i></button></a>
                         </div>
                     </td>
                 </tr>

@@ -6,6 +6,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+@if(session()->has('delate'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('delate') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row">
     <div class="col">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
@@ -32,45 +38,49 @@
         </div>
     </div>
     <div class="col" style="overflow: auto">
-        <table class="table text-center">
-            <div class="row">
-                <div class="col-sm-6 .col-sm-8"><h3>Kegiatan Masjid</h3></div>
-                <div class="col text-end"><button data-bs-toggle="modal" data-bs-target="#addAct" type="button" class="btn btn-outline-warning"><i class="fa-solid fa-users-rays"></i> Tambah Kegiatan</button></div>
-            </div>
-            <thead>
-                <th scope="col">ID</th>
-                <th scope="col">Nama Kegiatan</th>
-                <th scope="col">Kategori</th>
-                <th scope="col">Aksi</th>
-            </thead>
-            <tbody class="table-group-divider">
-                @foreach ($kegiatan as $item)
-                <tr>
-                    <td>{{ $item->id }}</td>            
-                    <td>{{ $item->activity_name }}</td>            
-                    <td>
-                        @switch($item->categories)
-                        @case(0)
-                        Kegiatan Kecil
-                        @break
-                        @case(1)
-                        Kegiatan Sedang
-                        @break
-                        @case(2)
-                        Kegiatan Besar
-                        @break
-                        @endswitch                        
-                    </td>            
-                    <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#infoAct-{{ $item->id }}"><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi"><i class="fa-solid fa-info"></i></button></a>
-                            <a href="#" ><button type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Kegiatan"><i class="fa-solid fa-trash"></i></button></a>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        @if ($kegiatan !== null)
+            <table class="table text-center">
+                <div class="row">
+                    <div class="col-sm-6 .col-sm-8"><h3>Kegiatan Masjid</h3></div>
+                    <div class="col text-end"><button data-bs-toggle="modal" data-bs-target="#addAct" type="button" class="btn btn-outline-warning"><i class="fa-solid fa-users-rays"></i> Tambah Kegiatan</button></div>
+                </div>
+                <thead>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nama Kegiatan</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Aksi</th>
+                </thead>
+                <tbody class="table-group-divider">
+                    @foreach ($kegiatan as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>            
+                        <td>{{ $item->activity_name }}</td>            
+                        <td>
+                            @switch($item->categories)
+                            @case(0)
+                            Kegiatan Kecil
+                            @break
+                            @case(1)
+                            Kegiatan Sedang
+                            @break
+                            @case(2)
+                            Kegiatan Besar
+                            @break
+                            @endswitch                        
+                        </td>            
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#infoAct-{{ $item->id }}"><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi"><i class="fa-solid fa-info"></i></button></a>
+                                <a href="/delAct/{{$item->id}}/{{$item->activity_name}}"><button onclick="return confirm('Anda yakin ingin menghapus data?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Kegiatan"><i class="fa-solid fa-trash"></i></button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @else
+            <h2 class="mt-5 text-center">Data Tidak Ditemukan</h2>    
+            @endif
     </div>
 </div>
 @foreach ($data_kegiatan as $item)
