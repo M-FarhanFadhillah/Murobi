@@ -247,8 +247,8 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 8.0, left: 24, right: 24),
-                        child: const Row(
+                        margin: EdgeInsets.only(top: 8.0, left: 24, right: 24),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             FaIcon(FontAwesomeIcons.language),
