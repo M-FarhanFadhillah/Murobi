@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
 import 'package:masjid/flutter_flow/flutter_flow_widgets.dart';
+import 'package:postgres/postgres.dart';
 
 class ProfilePages extends StatefulWidget {
   const ProfilePages({super.key});
@@ -12,6 +13,14 @@ class ProfilePages extends StatefulWidget {
 }
 
 class _ProfilePagesState extends State<ProfilePages> {
+  final query = "SELECT * FROM waktu_sholats"; // Correct the SQL query
+
+  Future<List<Map<String, Map<String, dynamic>>>?> fetchData() async {
+    final connection = await postgresConn.getConnection();
+    final results = await connection.mappedResultsQuery(query);
+    return results;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,8 +164,8 @@ class _ProfilePagesState extends State<ProfilePages> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text('Change Password'),
-                                    content: Column(
+                                    title: const Text('Change Password'),
+                                    content: const Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         TextField(
@@ -173,13 +182,13 @@ class _ProfilePagesState extends State<ProfilePages> {
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
-                                        child: Text('Save'),
+                                        child: const Text('Save'),
                                       ),
                                       TextButton(
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
-                                        child: Text('Cancel'),
+                                        child: const Text('Cancel'),
                                       ),
                                     ],
                                   );
@@ -218,7 +227,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 16.0),
-                  height: 90,
+                  height: 80,
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
@@ -247,39 +256,39 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 8.0, left: 24, right: 24),
+                        margin: const EdgeInsets.only(top: 8.0, left: 24, right: 24),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            FaIcon(FontAwesomeIcons.language),
+                            const FaIcon(FontAwesomeIcons.language),
                             GestureDetector(
                               onTap: () {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SimpleDialog(
-                                      title: Text('Pilih Bahasa'),
+                                      title: const Text('Pilih Bahasa'),
                                       children: <Widget>[
                                         SimpleDialogOption(
                                           onPressed: () {
                                             // Logika untuk mengatur bahasa ke Bahasa Indonesia
                                             Navigator.of(context).pop();
                                           },
-                                          child: Text('Bahasa Indonesia'),
+                                          child: const Text('Bahasa Indonesia'),
                                         ),
                                         SimpleDialogOption(
                                           onPressed: () {
                                             // Logika untuk mengatur bahasa ke Bahasa Inggris
                                             Navigator.of(context).pop();
                                           },
-                                          child: Text('English'),
+                                          child: const Text('English'),
                                         ),
                                       ],
                                     );
                                   },
                                 );
                               },
-                              child: Text(
+                              child: const Text(
                                 'Bahasa Indonesia',
                                 style: TextStyle(
                                   fontFamily: 'Poppins',
@@ -301,28 +310,28 @@ class _ProfilePagesState extends State<ProfilePages> {
                   margin: const EdgeInsets.only(top: 16.0),
                   height: 90,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 130, 190, 190),
+                    color: const Color.fromARGB(255, 130, 190, 190),
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.3), // Warna bayangan
                         blurRadius: 5, // Radius bayangan
-                        offset: Offset(0,
+                        offset: const Offset(0,
                             5), // Pergeseran bayangan (membuat bayangan bawah)
                       ),
                     ],
                   ),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
                     child: Column(children: [
                       Row(
                         children: [
-                          FaIcon(FontAwesomeIcons.flag),
+                          const FaIcon(FontAwesomeIcons.flag),
                           Container(
-                            margin: EdgeInsets.only(left: 16.0),
-                            child: Text(
+                            margin: const EdgeInsets.only(left: 16.0),
+                            child: const Text(
                               'Laporkan Masalah',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Color.fromARGB(255, 82, 82, 92),
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
@@ -330,26 +339,25 @@ class _ProfilePagesState extends State<ProfilePages> {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromARGB(255, 82, 82, 92),
-                              size: 20,
-                            )
-                          )
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.arrow_forward_ios,
+                                color: Color.fromARGB(255, 82, 82, 92),
+                                size: 20,
+                              ))
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         children: [
-                          FaIcon(FontAwesomeIcons.signOutAlt),
+                          const FaIcon(FontAwesomeIcons.signOutAlt),
                           Container(
-                            margin: EdgeInsets.only(left: 16.0),
-                            child: Text(
+                            margin: const EdgeInsets.only(left: 16.0),
+                            child: const Text(
                               'Keluar',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Color.fromARGB(255, 82, 82, 92),
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
@@ -357,19 +365,51 @@ class _ProfilePagesState extends State<ProfilePages> {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromARGB(255, 82, 82, 92),
-                              size: 20,
-                            )
-                          )
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.arrow_forward_ios,
+                                color: Color.fromARGB(255, 82, 82, 92),
+                                size: 20,
+                              ))
                         ],
                       ),
                     ]),
                   ),
+                ),
+                FutureBuilder(
+                  future: fetchData(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Map<String, Map<String, dynamic>>>?>
+                          snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator(); // Show a loading indicator while waiting for data
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      if (snapshot.hasData &&
+                          snapshot.data != null &&
+                          snapshot.data!.isNotEmpty) {
+                        // Data has been fetched and is not empty
+                        // You can display the data here
+                        final data = snapshot.data!;
+                        return Column(
+                          children: data.map((row) {
+                            final rowData = row.values.first;
+                            return ListTile(
+                              title: Text("Column 1: ${rowData['column1']}"),
+                              subtitle: Text("Column 2: ${rowData['column2']}"),
+                              // You can display more columns as needed
+                            );
+                          }).toList(),
+                        );
+                      } else {
+                        // Data is empty
+                        return const Text('No data available');
+                      }
+                    }
+                  },
                 ),
               ]),
             ),
@@ -384,7 +424,8 @@ class ProfileLabel extends StatelessWidget {
   final String label;
   final String text;
 
-  const ProfileLabel({super.key, 
+  const ProfileLabel({
+    super.key,
     required this.label,
     required this.text,
   });
@@ -417,5 +458,14 @@ class ProfileLabel extends StatelessWidget {
         const Divider(color: Colors.black),
       ],
     );
+  }
+}
+
+class postgresConn {
+  static Future<PostgreSQLConnection> getConnection() async {
+    final connection = PostgreSQLConnection("localhost", 55736, "postgres",
+        username: "postgres", password: "13Mei2002495321");
+    await connection.open();
+    return connection;
   }
 }

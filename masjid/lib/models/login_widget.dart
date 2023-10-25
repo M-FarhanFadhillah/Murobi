@@ -63,14 +63,14 @@ class _LoginWidgetState extends State<LoginWidget> {
               children: [
                 Container(
                   height: double.infinity,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Color(0xFF99D399),
                   ),
-                  alignment: const AlignmentDirectional(0.00, -1.00),
+                  alignment: AlignmentDirectional(0.00, -1.00),
                   child: Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             0.0, 140.0, 0.0, 0.0),
                         child: SingleChildScrollView(
                           primary: false,
@@ -80,7 +80,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 160.0, 0.0),
                                 child: Text(
                                   'MASUK AKUN',
@@ -96,7 +96,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 205.0, 0.0),
                                 child: Text(
                                   'Selamat Datang\nKembali',
@@ -110,16 +110,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Container(
                                   width: double.infinity,
-                                  constraints: const BoxConstraints(
+                                  constraints: BoxConstraints(
                                     maxWidth: 570.0,
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    boxShadow: const [
+                                    boxShadow: [
                                       BoxShadow(
                                         blurRadius: 4.0,
                                         color: Color(0x33000000),
@@ -129,9 +129,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   child: Align(
-                                    alignment: const AlignmentDirectional(0.00, 0.00),
+                                    alignment: AlignmentDirectional(0.00, 0.00),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           32.0, 32.0, 32.0, 32.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -140,9 +140,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
-                                            child: SizedBox(
+                                            child: Container(
                                               width: double.infinity,
                                               child: TextFormField(
                                                 controller: _model
@@ -150,7 +150,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 focusNode: _model
                                                     .emailAddressFocusNode,
                                                 autofocus: true,
-                                                autofillHints: const [
+                                                autofillHints: [
                                                   AutofillHints.email
                                                 ],
                                                 obscureText: false,
@@ -163,14 +163,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF57636C),
+                                                            Color(0xFF57636C),
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
                                                   enabledBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFFF1F4F8),
                                                       width: 2.0,
                                                     ),
@@ -180,7 +180,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFF4B39EF),
                                                       width: 2.0,
                                                     ),
@@ -190,7 +190,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFFE0E3E7),
                                                       width: 2.0,
                                                     ),
@@ -200,7 +200,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFFE0E3E7),
                                                       width: 2.0,
                                                     ),
@@ -209,7 +209,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                             12.0),
                                                   ),
                                                   filled: true,
-                                                  fillColor: const Color(0xFFF1F4F8),
+                                                  fillColor: Color(0xFFF1F4F8),
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -218,7 +218,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF101213),
+                                                              Color(0xFF101213),
                                                           fontSize: 16.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -233,9 +233,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
-                                            child: SizedBox(
+                                            child: Container(
                                               width: double.infinity,
                                               child: TextFormField(
                                                 controller:
@@ -243,7 +243,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 focusNode:
                                                     _model.passwordFocusNode,
                                                 autofocus: true,
-                                                autofillHints: const [
+                                                autofillHints: [
                                                   AutofillHints.password
                                                 ],
                                                 obscureText:
@@ -257,14 +257,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF57636C),
+                                                            Color(0xFF57636C),
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
                                                   enabledBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFFF1F4F8),
                                                       width: 2.0,
                                                     ),
@@ -274,7 +274,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFF4B39EF),
                                                       width: 2.0,
                                                     ),
@@ -284,7 +284,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFFE0E3E7),
                                                       width: 2.0,
                                                     ),
@@ -294,7 +294,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Color(0xFFE0E3E7),
                                                       width: 2.0,
                                                     ),
@@ -303,7 +303,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                             12.0),
                                                   ),
                                                   filled: true,
-                                                  fillColor: const Color(0xFFF1F4F8),
+                                                  fillColor: Color(0xFFF1F4F8),
                                                   suffixIcon: InkWell(
                                                     onTap: () => setState(
                                                       () => _model
@@ -319,7 +319,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                               .visibility_outlined
                                                           : Icons
                                                               .visibility_off_outlined,
-                                                      color: const Color(0xFF57636C),
+                                                      color: Color(0xFF57636C),
                                                       size: 24.0,
                                                     ),
                                                   ),
@@ -331,7 +331,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF101213),
+                                                              Color(0xFF101213),
                                                           fontSize: 16.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -344,7 +344,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
                                             child: FFButtonWidget(
                                               onPressed: () {
@@ -355,14 +355,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 44.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
-                                                color: const Color(0xFF4B39EF),
+                                                color: Color(0xFF4B39EF),
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
@@ -375,7 +375,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                               FontWeight.w500,
                                                         ),
                                                 elevation: 3.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -386,7 +386,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 16.0, 24.0),
                                             child: Text(
                                               'Or sign in with',
@@ -397,7 +397,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   .override(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF57636C),
+                                                    color: Color(0xFF57636C),
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -405,25 +405,25 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
                                             child: FFButtonWidget(
                                               onPressed: () {
                                                 print('Button pressed ...');
                                               },
                                               text: 'Continue with Google',
-                                              icon: const FaIcon(
+                                              icon: FaIcon(
                                                 FontAwesomeIcons.google,
                                                 size: 20.0,
                                               ),
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 44.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color: Colors.white,
@@ -434,43 +434,43 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF101213),
+                                                              Color(0xFF101213),
                                                           fontSize: 16.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
                                                 elevation: 0.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Color(0xFFF1F4F8),
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
                                                     BorderRadius.circular(12.0),
-                                                hoverColor: const Color(0xFFF1F4F8),
+                                                hoverColor: Color(0xFFF1F4F8),
                                               ),
                                             ),
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
                                             child: FFButtonWidget(
                                               onPressed: () {
                                                 print('Button pressed ...');
                                               },
                                               text: 'Continue with Facebook',
-                                              icon: const FaIcon(
+                                              icon: FaIcon(
                                                 FontAwesomeIcons.facebook,
                                                 size: 20.0,
                                               ),
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 44.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color: Colors.white,
@@ -481,25 +481,25 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF101213),
+                                                              Color(0xFF101213),
                                                           fontSize: 16.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
                                                 elevation: 0.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Color(0xFFF1F4F8),
                                                   width: 2.0,
                                                 ),
                                                 borderRadius:
                                                     BorderRadius.circular(12.0),
-                                                hoverColor: const Color(0xFFF1F4F8),
+                                                hoverColor: Color(0xFFF1F4F8),
                                               ),
                                             ),
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 12.0, 0.0, 12.0),
                                             child: RichText(
                                               textScaleFactor:
@@ -507,7 +507,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       .textScaleFactor,
                                               text: TextSpan(
                                                 children: [
-                                                  const TextSpan(
+                                                  TextSpan(
                                                     text:
                                                         'Don\'t have an account?  ',
                                                     style: TextStyle(),
@@ -521,7 +521,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF4B39EF),
+                                                              Color(0xFF4B39EF),
                                                           fontSize: 14.0,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -535,7 +535,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF101213),
+                                                              Color(0xFF101213),
                                                           fontSize: 14.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -557,10 +557,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(1.01, 0.99),
+                  alignment: AlignmentDirectional(1.01, 0.99),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(245.0, 710.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(245.0, 710.0, 0.0, 0.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
@@ -568,13 +568,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                         width: 150.0,
                         height: 150.0,
                         fit: BoxFit.cover,
-                        alignment: const Alignment(1.00, 1.00),
+                        alignment: Alignment(1.00, 1.00),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 240.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 240.0, 0.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(

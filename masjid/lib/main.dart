@@ -10,7 +10,7 @@ void main() {
     routes: {
       '/dashboard': (context) => const Dashboard(),
       '/zakatPage': (context) => const DetailZiswafPages(),
-      '/profilepages': (context) => const ProfilePages(),
+      '/profilepages': (context) => ProfilePages(),
     },
   ));
 }

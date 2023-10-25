@@ -68,61 +68,59 @@ class IbadahAlquranSurah extends StatelessWidget {
               Positioned(
                 left: 15,
                 top: 91,
-                child: Container(
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 85,
-                        height: 20,
-                        child: Text(
-                          'Surah',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFFD7A800),
-                            fontSize: 20,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            height: 0.04,
-                          ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 85,
+                      height: 20,
+                      child: Text(
+                        'Surah',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFFD7A800),
+                          fontSize: 20,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          height: 0.04,
                         ),
                       ),
-                      SizedBox(width: 38),
-                      SizedBox(
-                        width: 85,
-                        height: 20,
-                        child: Text(
-                          'Juz',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFFF9F6EB),
-                            fontSize: 20,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            height: 0.04,
-                          ),
+                    ),
+                    SizedBox(width: 38),
+                    SizedBox(
+                      width: 85,
+                      height: 20,
+                      child: Text(
+                        'Juz',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFFF9F6EB),
+                          fontSize: 20,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          height: 0.04,
                         ),
                       ),
-                      SizedBox(width: 38),
-                      SizedBox(
-                        width: 107,
-                        height: 20,
-                        child: Text(
-                          'Bookmark',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFFF8F8F8),
-                            fontSize: 20,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            height: 0.04,
-                          ),
+                    ),
+                    SizedBox(width: 38),
+                    SizedBox(
+                      width: 107,
+                      height: 20,
+                      child: Text(
+                        'Bookmark',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFFF8F8F8),
+                          fontSize: 20,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          height: 0.04,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Positioned(
