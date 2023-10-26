@@ -1,5 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'home_widget.dart' show HomeWidget;
+import '../screens/dashboard/home_pages.dart' show HomeWidget;
 import 'package:flutter/material.dart';
 
 class HomeModel extends FlutterFlowModel<HomeWidget> {

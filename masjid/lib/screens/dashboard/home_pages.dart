@@ -3,8 +3,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'home_model.dart';
-export 'home_model.dart';
+import '../../models/home_model.dart';
+export '../../models/home_model.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -356,7 +356,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Container(
                                             width: 220.0,
-                                            height: 240.0,
+                                            height: 190.0,
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
