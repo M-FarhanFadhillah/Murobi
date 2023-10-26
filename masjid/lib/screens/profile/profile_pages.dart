@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
 import 'package:masjid/flutter_flow/flutter_flow_widgets.dart';
-import 'package:postgres/postgres.dart';
 
 class ProfilePages extends StatefulWidget {
   const ProfilePages({super.key});
@@ -13,14 +12,6 @@ class ProfilePages extends StatefulWidget {
 }
 
 class _ProfilePagesState extends State<ProfilePages> {
-  final query = "SELECT * FROM waktu_sholats"; // Correct the SQL query
-
-  Future<List<Map<String, Map<String, dynamic>>>?> fetchData() async {
-    final connection = await postgresConn.getConnection();
-    final results = await connection.mappedResultsQuery(query);
-    return results;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,7 +247,8 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 8.0, left: 24, right: 24),
+                        margin: const EdgeInsets.only(
+                            top: 8.0, left: 24, right: 24),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -378,39 +370,6 @@ class _ProfilePagesState extends State<ProfilePages> {
                     ]),
                   ),
                 ),
-                FutureBuilder(
-                  future: fetchData(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Map<String, Map<String, dynamic>>>?>
-                          snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator(); // Show a loading indicator while waiting for data
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      if (snapshot.hasData &&
-                          snapshot.data != null &&
-                          snapshot.data!.isNotEmpty) {
-                        // Data has been fetched and is not empty
-                        // You can display the data here
-                        final data = snapshot.data!;
-                        return Column(
-                          children: data.map((row) {
-                            final rowData = row.values.first;
-                            return ListTile(
-                              title: Text("Column 1: ${rowData['column1']}"),
-                              subtitle: Text("Column 2: ${rowData['column2']}"),
-                              // You can display more columns as needed
-                            );
-                          }).toList(),
-                        );
-                      } else {
-                        // Data is empty
-                        return const Text('No data available');
-                      }
-                    }
-                  },
-                ),
               ]),
             ),
           ),
@@ -458,14 +417,5 @@ class ProfileLabel extends StatelessWidget {
         const Divider(color: Colors.black),
       ],
     );
-  }
-}
-
-class postgresConn {
-  static Future<PostgreSQLConnection> getConnection() async {
-    final connection = PostgreSQLConnection("localhost", 55736, "postgres",
-        username: "postgres", password: "13Mei2002495321");
-    await connection.open();
-    return connection;
   }
 }
