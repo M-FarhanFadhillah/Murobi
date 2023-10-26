@@ -4,7 +4,7 @@ import 'package:masjid/screens/dashboard/ibadah_pages.dart';
 import 'package:masjid/screens/dashboard/ziswaf_pages.dart';
 import 'package:masjid/screens/dashboard/qurban_pages.dart';
 import 'package:masjid/screens/dashboard/keuangan_pages.dart';
-import 'package:masjid/models/home_widget.dart';
+import 'package:masjid/screens/dashboard/home_pages.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});

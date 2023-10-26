@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:masjid/models/login_widget.dart';
+import 'package:masjid/login/login.dart';
 // import 'login.dart';
 
 class SplashScreen extends StatelessWidget {

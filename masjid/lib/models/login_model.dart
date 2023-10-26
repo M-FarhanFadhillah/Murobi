@@ -1,5 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'login_widget.dart' show LoginWidget;
+import '../login/login.dart' show LoginWidget;
 import 'package:flutter/material.dart';
 
 class LoginModel extends FlutterFlowModel<LoginWidget> {

@@ -1,2 +1,2 @@
 // Export pages
-export '/models/login_widget.dart' show LoginWidget;
+export 'login/login.dart' show LoginWidget;
