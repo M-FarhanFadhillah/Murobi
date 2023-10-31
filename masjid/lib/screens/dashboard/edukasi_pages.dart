@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+export '../../models/home_model.dart';
 
 class EdukasiPages extends StatelessWidget {
   const EdukasiPages({super.key});

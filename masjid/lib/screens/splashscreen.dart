@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:masjid/login/login.dart';
-// import 'login.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
