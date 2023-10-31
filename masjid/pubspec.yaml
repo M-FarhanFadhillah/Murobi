@@ -69,6 +69,7 @@ dependencies:
   postgres: ^2.6.3
   dio: ^5.3.3
   collection: ^1.17.2
+  fl_chart: ^0.64.0
 
 dev_dependencies:
   flutter_test:

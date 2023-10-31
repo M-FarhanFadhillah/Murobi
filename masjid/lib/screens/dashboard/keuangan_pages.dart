@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
-class KeuanganPages extends StatelessWidget {
+class KeuanganPages extends StatefulWidget {
   const KeuanganPages({super.key});
 
+  @override
+  _KeuanganPagesState createState() => _KeuanganPagesState();
+}
+
+class _KeuanganPagesState extends State<KeuanganPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +45,34 @@ class KeuanganPages extends StatelessWidget {
                     color: Color(0xff000000),
                   ),
                 ),
-                Transform.scale(
-                  scale: 1.0,
-                  child: const Image(
-                    image: AssetImage("assets/images/tempLaporan.png"),
+                LineChart(
+                  LineChartData(
+                    gridData: FlGridData(show: true),
+                    titlesData: FlTitlesData(show: true),
+                    borderData: FlBorderData(show: true),
+                    minX: 0,
+                    maxX: 7,
+                    minY: 0,
+                    maxY: 6,
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: [
+                          FlSpot(0, 3),
+                          FlSpot(1, 1),
+                          FlSpot(2, 4),
+                          FlSpot(3, 2),
+                          FlSpot(4, 5),
+                          FlSpot(5, 2),
+                          FlSpot(6, 6),
+                        ],
+                        isCurved: true,
+                        color: Colors.blue,
+                        dotData: FlDotData(show: true),
+                        belowBarData: BarAreaData(show: true),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ],
             ),
           ),
