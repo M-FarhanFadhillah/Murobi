@@ -46,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard_customize_outlined),
-            label: 'cewe',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cast_for_education_rounded),

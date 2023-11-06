@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masjid/screens/dashboard.dart';
 import 'package:masjid/screens/splashscreen.dart';
-import 'package:masjid/screens/ziswaf/zakat_pages.dart';
+import 'package:masjid/screens/ziswaf/detail_ziswaf_pages.dart';
 import 'package:masjid/screens/profile/profile_pages.dart';
 import 'package:masjid/login/login.dart';
 import 'package:masjid/login/sign_up.dart';
