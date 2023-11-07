@@ -21,28 +21,37 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
     List<Map<String, dynamic>> dataFromDatabase = [
       {'kolom1': 'Data 1.1', 'kolom2': 'Data 1.2', 'kolom3': 'Data 1.3'},
       {'kolom1': 'Data 2.1', 'kolom2': 'Data 2.2', 'kolom3': 'Data 2.3'},
+      {'kolom1': 'Data 3.1', 'kolom2': 'Data 3.2', 'kolom3': 'Data 3.3'},
+      {'kolom1': 'Data 4.1', 'kolom2': 'Data 4.2', 'kolom3': 'Data 4.3'},
+      {'kolom1': 'Data 5.1', 'kolom2': 'Data 5.2', 'kolom3': 'Data 5.3'},
+      {'kolom1': 'Data 6.1', 'kolom2': 'Data 6.2', 'kolom3': 'Data 6.3'},
+      {'kolom1': 'Data 7.1', 'kolom2': 'Data 7.2', 'kolom3': 'Data 7.3'},
+      {'kolom1': 'Data 8.1', 'kolom2': 'Data 8.2', 'kolom3': 'Data 8.3'},
       // ... Tambahkan data lainnya sesuai kebutuhan Anda
     ];
 
     DataTable buildDataTable(List<Map<String, dynamic>> data) {
-      List<DataRow> rows = [];
+      final List<DataColumn> columns = [];
+      final List<DataRow> rows = [];
 
-      for (var item in data) {
-        rows.add(DataRow(cells: [
-          DataCell(Text(item['kolom1'].toString())),
-          DataCell(Text(item['kolom2'].toString())),
-          DataCell(Text(item['kolom3'].toString())),
-        ]));
-      }
+      // Assuming all rows have the same keys, use the keys from the first row
+      final keys = data.isNotEmpty ? data.first.keys.toList() : [];
 
-      return DataTable(
-        columns: [
-          DataColumn(label: Text('Kolom 1')),
-          DataColumn(label: Text('Kolom 2')),
-          DataColumn(label: Text('Kolom 3')),
-        ],
-        rows: rows,
-      );
+      // Create DataColumn for each key
+      columns.addAll(keys.map((key) => DataColumn(label: Text(key))));
+
+      // Create DataRow for each item in data
+      rows.addAll(data.map((item) {
+        return DataRow(
+          cells: keys
+              .map(
+                (key) => DataCell(Text(item[key].toString())),
+              )
+              .toList(),
+        );
+      }));
+
+      return DataTable(columns: columns, rows: rows);
     }
 
     return Scaffold(
@@ -61,117 +70,113 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                 ),
               ),
               child: Padding(
-                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            title,
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontFamily: 'poppins',
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 20,
-                              color: Color(0xff000000),
+                padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        title,
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20,
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 16, bottom: 16),
+                        width: MediaQuery.of(context).size.width,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 139, 206, 158),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Row(
+                          children: [
+                            Transform.scale(
+                              scale: 0.8,
+                              child: const Image(
+                                image: AssetImage("assets/images/masjid1.png"),
+                              ),
                             ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 16, bottom: 16),
-                            width: MediaQuery.of(context).size.width,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 139, 206, 158),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Row(
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Transform.scale(
-                                  scale: 0.8,
-                                  child: const Image(
-                                    image:
-                                        AssetImage("assets/images/masjid1.png"),
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(userName),
-                                    Text(
-                                        'Total Zakat Anda\t:\nRp. $totalZakat'),
-                                    Text(
-                                        'Total Zakat Bulan Ini\t:\nRp. $totalZakatBulanN')
-                                  ],
-                                )
+                                Text(userName),
+                                Text('Total Zakat Anda\t:\nRp. $totalZakat'),
+                                Text(
+                                    'Total Zakat Bulan Ini\t:\nRp. $totalZakatBulanN')
                               ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height:
+                            MediaQuery.of(context).size.height / 3 + 44,
+                        margin: EdgeInsets.only(bottom: 16),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 139, 206, 158),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Text(
+                                'History $title Anda',
+                                textAlign: TextAlign.start,
+                                overflow: TextOverflow.clip,
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 3 +
-                                100 +
-                                44,
-                            margin: EdgeInsets.only(bottom: 16),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 139, 206, 158),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    'History $title Anda',
-                                    textAlign: TextAlign.start,
-                                    overflow: TextOverflow.clip,
-                                  ),
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              height: MediaQuery.of(context).size.height / 3,
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: [buildDataTable(dataFromDatabase)],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      FFButtonWidget(
+                          text: 'Ayo Ber$title',
+                          onPressed: () {},
+                          options: FFButtonOptions(
+                            width: double.infinity,
+                            height: 44.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0xFF4B39EF),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: buildDataTable(dataFromDatabase),
-                                    ),
-                                  ),
-                                )
-                              ],
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
                             ),
-                          ),
-                          FFButtonWidget(
-                              text: 'Ayo Ber$title',
-                              onPressed: () {},
-                              options: FFButtonOptions(
-                                width: double.infinity,
-                                height: 44.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF4B39EF),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ))
-                        ]),
-                  )))),
+                            borderRadius: BorderRadius.circular(12.0),
+                          )),
+                      SizedBox(height: 16)
+                    ]),
+              ))),
     );
   }
 }

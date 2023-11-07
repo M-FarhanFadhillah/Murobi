@@ -70,7 +70,7 @@ dependencies:
   dio: ^5.3.3
   collection: ^1.17.2
   fl_chart: ^0.64.0
-  data_tables: ^2.1.0
+  data_tables: ^1.4.0
 
 dev_dependencies:
   flutter_test:

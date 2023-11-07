@@ -80,6 +80,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "data_tables",
+      "rootUri": "file:///C:/Users/afari/AppData/Local/Pub/Cache/hosted/pub.dev/data_tables-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "dio",
       "rootUri": "file:///C:/Users/afari/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.3.3",
       "packageUri": "lib/",
@@ -608,7 +614,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-11-05T20:54:18.897642Z",
+  "generated": "2023-11-06T02:56:39.762232Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }
