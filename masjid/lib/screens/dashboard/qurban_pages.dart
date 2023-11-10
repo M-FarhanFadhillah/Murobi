@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class QurbanPages extends StatelessWidget {
-  const QurbanPages({super.key});
+class QurbanPages extends StatefulWidget {
+  const QurbanPages({Key? key}) : super(key: key);
+
+  @override
+  _QurbanPagesState createState() => _QurbanPagesState();
+}
+
+class _QurbanPagesState extends State<QurbanPages> {
+  String selectedValue = 'Option 1';
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +44,53 @@ class QurbanPages extends StatelessWidget {
                     fontStyle: FontStyle.normal,
                     fontSize: 20,
                     color: Color(0xff000000),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 30,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      DropdownButton<String>(
+                        value: selectedValue,
+                        items: <String>[
+                          'Option 1',
+                          'Option 2',
+                          'Option 3',
+                          'Option 4'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedValue = newValue!;
+                          });
+                        },
+                      ),
+                      DropdownButtonFormField<String>(
+                        value: selectedValue,
+                        items: <String>[
+                          'Option 1',
+                          'Option 2',
+                          'Option 3',
+                          'Option 4'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedValue = newValue!;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

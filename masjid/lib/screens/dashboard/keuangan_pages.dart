@@ -33,7 +33,6 @@ class _KeuanganPagesState extends State<KeuanganPages> {
       barGroup4,
       barGroup5,
       barGroup6,
-      barGroup7,
     ];
 
     rawBarGroups = items;
@@ -338,7 +337,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'];
+    final titles = <String>['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'];
 
     final Widget text = Text(
       titles[value.toInt()],
@@ -370,53 +369,6 @@ class _KeuanganPagesState extends State<KeuanganPages> {
           toY: y2,
           color: Colors.red,
           width: width,
-        ),
-      ],
-    );
-  }
-
-  Widget makeTransactionsIcon() {
-    const width = 4.5;
-    const space = 3.5;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withOpacity(0.4),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withOpacity(0.8),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 42,
-          color: Colors.white.withOpacity(1),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withOpacity(0.8),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withOpacity(0.4),
         ),
       ],
     );
