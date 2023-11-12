@@ -24,7 +24,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
     final barGroup3 = makeGroupData(2, 18, 5);
     final barGroup4 = makeGroupData(3, 20, 16);
     final barGroup5 = makeGroupData(4, 17, 6);
-    final barGroup6 = makeGroupData(5, 19, 1.5);
+    final barGroup6 = makeGroupData(5, 19, 2);
 
     final items = [
       barGroup1,
