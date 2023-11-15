@@ -9,6 +9,7 @@ class KeuanganPages extends StatefulWidget {
 }
 
 class _KeuanganPagesState extends State<KeuanganPages> {
+  String selectedValue = 'Zakat 2023 Ganjil';
   final double width = 7;
 
   late List<BarChartGroupData> rawBarGroups;
@@ -112,6 +113,55 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                     color: Color(0xff000000),
                   ),
                 ),
+                Container(
+                    margin: EdgeInsets.only(top: 10),
+                    height: 20,
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Pilih Periode ZISWAF : ",
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14,
+                            color: Color(0xff000000),
+                          ),
+                        ),
+                        DropdownButton<String>(
+                          value: selectedValue,
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedValue = value!;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black,
+                          ),
+                          items: ["Zakat 2023 Ganjil", "Infaq 2023 Ganjil", "Shodaqoh 2023 Ganjil", "Wakaf 2023 Ganjil"]
+                              .map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(
+                                  fontFamily: 'poppins',
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14,
+                                  color: Color(0xff000000),
+                                  
+                                ),
+                                ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    )),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.only(top: 16),

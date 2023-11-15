@@ -8,7 +8,7 @@ class QurbanPages extends StatefulWidget {
 }
 
 class _QurbanPagesState extends State<QurbanPages> {
-  String selectedValue = 'Option 1';
+  String selectedValue = 'Zakat';
 
   @override
   Widget build(BuildContext context) {
@@ -47,52 +47,30 @@ class _QurbanPagesState extends State<QurbanPages> {
                   ),
                 ),
                 Container(
+                  height: 100,
                   width: MediaQuery.of(context).size.width,
-                  height: 30,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      DropdownButton<String>(
-                        value: selectedValue,
-                        items: <String>[
-                          'Option 1',
-                          'Option 2',
-                          'Option 3',
-                          'Option 4'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedValue = newValue!;
-                          });
-                        },
-                      ),
-                      DropdownButtonFormField<String>(
-                        value: selectedValue,
-                        items: <String>[
-                          'Option 1',
-                          'Option 2',
-                          'Option 3',
-                          'Option 4'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedValue = newValue!;
-                          });
-                        },
-                      ),
-                    ],
+                  child: Center(
+                    child: DropdownButton<String>(
+                      value: selectedValue,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedValue = value!;
+                        });
+                      },
+                      items: [
+                        "Zakat",
+                        "Infaq",
+                        "Shodaqoh",
+                        "Wakaf"
+                      ].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ),
