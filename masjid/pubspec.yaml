@@ -64,6 +64,9 @@ dependencies:
   url_launcher_platform_interface: 2.1.2
   file_picker: ^5.1.2
   sticky_headers: 0.3.0+2
+  flutter_qiblah: ^2.1.0
+  flutter_svg: ^0.21.0-nullsafety.0
+  geolocator: ^9.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -101,6 +104,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/
     - assets/images/SplashScreen.png
     - assets/images/flower.png
     - assets/prototype/images/facebook-1.png
@@ -117,6 +121,7 @@ flutter:
     - assets/images/infaq.png
     - assets/images/donor.png
     - assets/images/isra.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

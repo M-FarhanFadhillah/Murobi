@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:masjid/screens/dashboard/edukasi_pages.dart';
-import 'package:masjid/screens/dashboard/ibadah_pages.dart';
+// import 'package:masjid/screens/dashboard/ibadah_pages.dart';
 import 'package:masjid/screens/dashboard/ziswaf_pages.dart';
 import 'package:masjid/screens/dashboard/qurban_pages.dart';
 import 'package:masjid/screens/dashboard/keuangan_pages.dart';
 import 'package:masjid/screens/dashboard/home_pages.dart';
+import 'package:masjid/navigations/qiblah_compass.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -25,7 +26,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> _pages = [
     const HomeWidget(),
     const EdukasiPages(),
-    const IbadahPages(),
+    const QiblahCompass(),
     const ZiswafPages(),
     const QurbanPages(),
     const KeuanganPages(),
@@ -54,7 +55,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.mosque_outlined),
-            label: 'Ibadah',
+            label: 'qiblat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.wallet_outlined),

@@ -5,6 +5,7 @@ import 'package:masjid/screens/ziswaf/detail_ziswaf_pages.dart';
 import 'package:masjid/screens/profile/profile_pages.dart';
 import 'package:masjid/login/login.dart';
 import 'package:masjid/login/sign_up.dart';
+import 'package:masjid/navigations/qiblah_compass.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -14,7 +15,8 @@ void main() {
       '/zakatPage': (context) => const DetailZiswafPages(),
       '/profilepages': (context) => ProfilePages(),
       '/login': (context) => LoginWidget(),
-      '/signup': (context) => SignUpWidget()
+      '/signup': (context) => SignUpWidget(),
+      '/qiblat': (context) => QiblahCompass()
     },
   ));
 }
