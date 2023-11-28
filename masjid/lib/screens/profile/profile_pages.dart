@@ -1,12 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 // import 'package:file_picker/file_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
 import 'package:masjid/flutter_flow/flutter_flow_widgets.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:masjid/widget/_build.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfilePages extends StatefulWidget {
   const ProfilePages({super.key});
@@ -17,14 +17,25 @@ class ProfilePages extends StatefulWidget {
 
 class _ProfilePagesState extends State<ProfilePages> {
   String imagePath = "assets/prototype/images/facebook-1.png";
+  late PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+    setState(() {
+      _imageFile = pickedFile  as PickedFile;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: decorationBuilder(
           context,
-          paddingBuilder(
-            SingleChildScrollView(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   textBuilder("Profile", FontWeight.bold, 20.0, Colors.black),
@@ -50,8 +61,6 @@ class _ProfilePagesState extends State<ProfilePages> {
                           ),
                           Container(
                             alignment: Alignment.center,
-                            margin: const EdgeInsets.all(0),
-                            padding: const EdgeInsets.all(0),
                             width: 40,
                             height: 40,
                             decoration: const BoxDecoration(
@@ -59,7 +68,52 @@ class _ProfilePagesState extends State<ProfilePages> {
                               shape: BoxShape.circle,
                             ),
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) => Container(
+                                    height: 100.0,
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      children: [
+                                        const Text(
+                                          "Choose Profile Photo",
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 20.0,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton.icon(
+                                              onPressed: () {
+                                                takePhoto(ImageSource.camera);
+                                              },
+                                              icon: const Icon(Icons.camera),
+                                              label: const Text("Camera"),
+                                            ),
+                                            const SizedBox(
+                                              width: 20.0,
+                                            ),
+                                            ElevatedButton.icon(
+                                              onPressed: () {
+                                                takePhoto(ImageSource.gallery);
+                                              },
+                                              icon: const Icon(Icons.image),
+                                              label: const Text("Gallery"),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
                               child: const Icon(
                                 Icons.photo_camera,
                                 color: Color(0xffffffff),
@@ -76,6 +130,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                     285.0,
                     ListView(
                       padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                      shrinkWrap: false,
                       children: [
                         const ProfileLabel(label: 'Nama', text: 'Fadhil'),
                         const ProfileLabel(

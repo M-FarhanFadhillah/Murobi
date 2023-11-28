@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masjid/widget/_build.dart';
 
 class QurbanPages extends StatefulWidget {
   const QurbanPages({Key? key}) : super(key: key);
@@ -13,20 +14,9 @@ class _QurbanPagesState extends State<QurbanPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(170, 245, 179, 1),
-              Color.fromRGBO(165, 210, 238, 1)
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomLeft,
-          ),
-        ),
-        child: Padding(
+      body: decorationBuilder(
+        context,
+        Padding(
           padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: SingleChildScrollView(
             child: Column(
@@ -34,19 +24,16 @@ class _QurbanPagesState extends State<QurbanPages> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text(
-                  "Qurban",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 20,
-                    color: Color(0xff000000),
-                  )
-                ),
-                  
+                Text("Qurban",
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                      fontFamily: 'poppins',
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 20,
+                      color: Color(0xff000000),
+                    )),
               ],
             ),
           ),

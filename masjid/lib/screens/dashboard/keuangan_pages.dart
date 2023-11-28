@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:masjid/widget/_build.dart';
 
 class KeuanganPages extends StatefulWidget {
   const KeuanganPages({super.key});
@@ -80,20 +81,9 @@ class _KeuanganPagesState extends State<KeuanganPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(170, 245, 179, 1),
-              Color.fromRGBO(165, 210, 238, 1)
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomLeft,
-          ),
-        ),
-        child: Padding(
+      body: decorationBuilder(
+        context,
+        Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: SingleChildScrollView(
             child: Column(
@@ -143,8 +133,12 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                             Icons.arrow_drop_down,
                             color: Colors.black,
                           ),
-                          items: ["Zakat 2023 Ganjil", "Infaq 2023 Ganjil", "Shodaqoh 2023 Ganjil", "Wakaf 2023 Ganjil"]
-                              .map((String value) {
+                          items: [
+                            "Zakat 2023 Ganjil",
+                            "Infaq 2023 Ganjil",
+                            "Shodaqoh 2023 Ganjil",
+                            "Wakaf 2023 Ganjil"
+                          ].map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(
@@ -154,9 +148,8 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                                   fontStyle: FontStyle.normal,
                                   fontSize: 14,
                                   color: Color(0xff000000),
-                                  
                                 ),
-                                ),
+                              ),
                             );
                           }).toList(),
                         ),

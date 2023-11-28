@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget decorationBuilder(BuildContext context, Widget child){
+Widget decorationBuilder(BuildContext context, Widget child) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: MediaQuery.of(context).size.height,
@@ -18,14 +18,8 @@ Widget decorationBuilder(BuildContext context, Widget child){
   );
 }
 
-Widget paddingBuilder(Widget child){
-  return Padding(
-    padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-    child: child,
-  );
-}
-
-Widget textBuilder(String text, FontWeight fontWeight, double fontSize, Color color){
+Widget textBuilder(
+    String text, FontWeight fontWeight, double fontSize, Color color) {
   return Text(
     text,
     style: TextStyle(
@@ -33,6 +27,6 @@ Widget textBuilder(String text, FontWeight fontWeight, double fontSize, Color co
       fontWeight: fontWeight,
       fontSize: fontSize,
       color: color,
-    )
+    ),
   );
 }

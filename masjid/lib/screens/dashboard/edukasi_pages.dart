@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
 import 'package:masjid/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/services.dart';
+import 'package:masjid/widget/_build.dart';
 
 class EdukasiPages extends StatelessWidget {
   const EdukasiPages({Key? key}) : super(key: key);
@@ -19,20 +20,9 @@ class EdukasiPages extends StatelessWidget {
     String namaMasjid = "Masjid As-Syifa";
     String lokasiMasjid = "Kecamatan Rajabasa";
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(170, 245, 179, 1),
-              Color.fromRGBO(165, 210, 238, 1)
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomLeft,
-          ),
-        ),
-        child: Padding(
+      body: decorationBuilder(
+        context,
+        Padding(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
           child: Column(children: [
             Row(
