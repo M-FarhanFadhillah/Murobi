@@ -44,33 +44,9 @@ class _QurbanPagesState extends State<QurbanPages> {
                     fontStyle: FontStyle.normal,
                     fontSize: 20,
                     color: Color(0xff000000),
-                  ),
+                  )
                 ),
-                Container(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: DropdownButton<String>(
-                      value: selectedValue,
-                      onChanged: (String? value) {
-                        setState(() {
-                          selectedValue = value!;
-                        });
-                      },
-                      items: [
-                        "Zakat",
-                        "Infaq",
-                        "Shodaqoh",
-                        "Wakaf"
-                      ].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                )
+                  
               ],
             ),
           ),
