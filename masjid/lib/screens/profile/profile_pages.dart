@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-// import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
 import 'package:masjid/flutter_flow/flutter_flow_widgets.dart';
 import 'package:masjid/widget/_build.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePages extends StatefulWidget {
   const ProfilePages({super.key});
@@ -16,19 +19,62 @@ class ProfilePages extends StatefulWidget {
 }
 
 class _ProfilePagesState extends State<ProfilePages> {
+  late SharedPreferences pref;
+  late String selectedLanguage = 'Bahasa Indonesia';
   String imagePath = "assets/prototype/images/facebook-1.png";
-  late PickedFile _imageFile;
-  final ImagePicker _picker = ImagePicker();
+  File? image;
 
-  void takePhoto(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
+  @override
+  void initState() {
+    super.initState();
+    _loadSelectedLanguage();
+  }
+
+  Future<void> _loadSelectedLanguage() async {
+    pref = await SharedPreferences.getInstance();
     setState(() {
-      _imageFile = pickedFile  as PickedFile;
+      selectedLanguage =
+          pref.getString('selectedLanguage') ?? 'Bahasa Indonesia';
     });
+  }
+
+  Future<void> _saveSelectedLanguage(String language) async {
+    await pref.setString('selectedLanguage', language);
+  }
+
+  Future takePhoto(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      final imagePermanent = await saveImagePemanently(image.path);
+      setState(() => this.image = imagePermanent);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<File> saveImagePemanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = basename(imagePath);
+    final image = File('${directory.path}/$name');
+
+    return File(imagePath).copy(image.path);
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget languageOption(String language) {
+      return SimpleDialogOption(
+        onPressed: () async {
+          await _saveSelectedLanguage(language);
+          _loadSelectedLanguage();
+          Navigator.pop(context);
+        },
+        child: Text(language),
+      );
+    }
+
     return Scaffold(
       body: SafeArea(
         child: decorationBuilder(
@@ -54,10 +100,15 @@ class _ProfilePagesState extends State<ProfilePages> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: Image(
-                              image: AssetImage(imagePath),
-                              fit: BoxFit.cover,
-                            ),
+                            child: image != null
+                                ? Image.file(
+                                    image!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image(
+                                    image: AssetImage(imagePath),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                           Container(
                             alignment: Alignment.center,
@@ -243,29 +294,17 @@ class _ProfilePagesState extends State<ProfilePages> {
                                       return SimpleDialog(
                                         title: const Text('Pilih Bahasa'),
                                         children: <Widget>[
-                                          SimpleDialogOption(
-                                            onPressed: () {
-                                              // Logika untuk mengatur bahasa ke Bahasa Indonesia
-                                              Navigator.of(context).pop();
-                                            },
-                                            child:
-                                                const Text('Bahasa Indonesia'),
-                                          ),
-                                          SimpleDialogOption(
-                                            onPressed: () {
-                                              // Logika untuk mengatur bahasa ke Bahasa Inggris
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('English'),
-                                          ),
+                                          languageOption('Bahasa Indonesia'),
+                                          languageOption('Bahasa Inggris'),
+                                          languageOption('Bahasa Arab'),
                                         ],
                                       );
                                     },
                                   );
                                 },
-                                child: const Text(
-                                  'Bahasa Indonesia',
-                                  style: TextStyle(
+                                child: Text(
+                                  selectedLanguage,
+                                  style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.normal,
                                     fontSize: 16,
@@ -287,53 +326,58 @@ class _ProfilePagesState extends State<ProfilePages> {
                       padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              const FaIcon(FontAwesomeIcons.flag),
-                              Container(
-                                margin: const EdgeInsets.only(left: 16.0),
-                                child: textBuilder(
-                                  'Laporkan Masalah',
-                                  FontWeight.w500,
-                                  16.0,
-                                  const Color.fromARGB(255, 82, 82, 92),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/reportproblem');
+                            },
+                            child: Row(
+                              children: [
+                                const FaIcon(FontAwesomeIcons.flag),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 16.0),
+                                  child: textBuilder(
+                                    'Laporkan Masalah',
+                                    FontWeight.w500,
+                                    16.0,
+                                    const Color.fromARGB(255, 82, 82, 92),
+                                  ),
                                 ),
-                              ),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () {},
-                                child: const Icon(
+                                const Spacer(),
+                                const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Color.fromARGB(255, 82, 82, 92),
                                   size: 20,
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                           const Spacer(),
-                          Row(
-                            children: [
-                              // ignore: deprecated_member_use
-                              const FaIcon(FontAwesomeIcons.signOutAlt),
-                              Container(
-                                margin: const EdgeInsets.only(left: 16.0),
-                                child: textBuilder(
-                                  'Keluar',
-                                  FontWeight.w500,
-                                  16.0,
-                                  const Color.fromARGB(255, 82, 82, 92),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.popUntil(
+                                  context, (route) => route.isFirst);
+                            },
+                            child: Row(
+                              children: [
+                                // ignore: deprecated_member_use
+                                const FaIcon(FontAwesomeIcons.signOutAlt),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 16.0),
+                                  child: textBuilder(
+                                    'Keluar',
+                                    FontWeight.w500,
+                                    16.0,
+                                    const Color.fromARGB(255, 82, 82, 92),
+                                  ),
                                 ),
-                              ),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () {},
-                                child: const Icon(
+                                const Spacer(),
+                                const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Color.fromARGB(255, 82, 82, 92),
                                   size: 20,
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
                           )
                         ],
                       ),
