@@ -354,8 +354,32 @@ class _ProfilePagesState extends State<ProfilePages> {
                           const Spacer(),
                           GestureDetector(
                             onTap: () {
-                              Navigator.popUntil(
-                                  context, (route) => route.isFirst);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Konfirmasi'),
+                                    content:
+                                        const Text('Anda yakin ingin keluar?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop(); // Close the dialog
+                                        },
+                                        child: const Text('Batal'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.popUntil(context,
+                                              (route) => route.isFirst);
+                                        },
+                                        child: const Text('Keluar'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             child: Row(
                               children: [
