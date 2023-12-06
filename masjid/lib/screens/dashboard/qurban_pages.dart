@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masjid/widget/_build.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 
 class QurbanPages extends StatefulWidget {
   const QurbanPages({Key? key}) : super(key: key);
@@ -14,614 +15,109 @@ class _QurbanPagesState extends State<QurbanPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        padding: EdgeInsets.all(16),
-        shrinkWrap: false,
-        physics: ScrollPhysics(),
+        body: // Generated code for this cardRow Widget...
+            Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(60, 0, 0, 0),
-                  padding: EdgeInsets.all(0),
-                  width: MediaQuery.of(context).size.width,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Color(0xff3a57e8),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(60, 0, 10, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Mercury",
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 12),
-                          child: Text(
-                            "Milkyway Galaxy",
-                            textAlign: TextAlign.start,
-                            maxLines: 1,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Color(0xffd4d4d4),
-                              size: 20,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ImageIcon(
-                              NetworkImage(
-                                  "https://cdn4.iconfinder.com/data/icons/various-forms-of-arrows/32/38__top_down_arrow_routes_directions_arrows_up-128.png"),
-                              size: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                ///***If you have exported images you must have to copy those images in assets/images directory.
-                Image(
-                  image: NetworkImage(
-                      "https://cdn1.iconfinder.com/data/icons/space-travel-flat/340/space_astronomy_system_planet_universe_galaxy_star_mercury-128.png"),
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
+          Container(
+            width: MediaQuery.sizeOf(context).width * 0.92,
+            height: 210,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 6,
+                  color: Color(0x4B1A1F24),
+                  offset: Offset(0, 2),
+                )
               ],
+              gradient: LinearGradient(
+                colors: [Color(0xFF00968A), Color(0xFFF2A384)],
+                stops: [0, 1],
+                begin: AlignmentDirectional(0.94, -1),
+                end: AlignmentDirectional(-0.94, 1),
+              ),
+              borderRadius: BorderRadius.circular(8),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
-            child: Stack(
-              alignment: Alignment.centerLeft,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(60, 0, 0, 0),
-                  padding: EdgeInsets.all(0),
-                  width: MediaQuery.of(context).size.width,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Color(0xff3a57e8),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(60, 0, 10, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Neptune",
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 12),
-                          child: Text(
-                            "Milkyway Galaxy",
-                            textAlign: TextAlign.start,
-                            maxLines: 1,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Color(0xffd4d4d4),
-                              size: 20,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ImageIcon(
-                              NetworkImage(
-                                  "https://cdn4.iconfinder.com/data/icons/various-forms-of-arrows/32/38__top_down_arrow_routes_directions_arrows_up-128.png"),
-                              size: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Image.asset(
+                        'assets/images/visa@3x.png',
+                        width: 44,
+                        height: 14,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                   ),
                 ),
-
-                ///***If you have exported images you must have to copy those images in assets/images directory.
-                Image(
-                  image: NetworkImage(
-                      "https://cdn0.iconfinder.com/data/icons/planets-flat/512/neptune_1-128.png"),
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(60, 0, 0, 0),
-                  padding: EdgeInsets.all(0),
-                  width: MediaQuery.of(context).size.width,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Color(0xff3a57e8),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(60, 0, 10, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Moon",
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 12),
-                          child: Text(
-                            "Milkyway Galaxy",
-                            textAlign: TextAlign.start,
-                            maxLines: 1,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Color(0xffd4d4d4),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 36, 20, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Balance',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lexend',
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Color(0xffd4d4d4),
-                              size: 20,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ImageIcon(
-                              NetworkImage(
-                                  "https://cdn4.iconfinder.com/data/icons/various-forms-of-arrows/32/38__top_down_arrow_routes_directions_arrows_up-128.png"),
-                              size: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-
-                ///***If you have exported images you must have to copy those images in assets/images directory.
-                Image(
-                  image: NetworkImage(
-                      "https://cdn4.iconfinder.com/data/icons/weather-717/64/moon-astronomy-nature-night-128.png"),
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(60, 0, 0, 0),
-                  padding: EdgeInsets.all(0),
-                  width: MediaQuery.of(context).size.width,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Color(0xff3a57e8),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(60, 0, 10, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Earth",
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 12),
-                          child: Text(
-                            "Milkyway Galaxy",
-                            textAlign: TextAlign.start,
-                            maxLines: 1,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Color(0xffd4d4d4),
-                              size: 20,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 8, 20, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        '7,630',
+                        style:
+                            FlutterFlowTheme.of(context).displaySmall.override(
+                                  fontFamily: 'Lexend',
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  fontSize: 32,
                                 ),
-                              ),
-                            ),
-                            ImageIcon(
-                              NetworkImage(
-                                  "https://cdn4.iconfinder.com/data/icons/various-forms-of-arrows/32/38__top_down_arrow_routes_directions_arrows_up-128.png"),
-                              size: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-
-                ///***If you have exported images you must have to copy those images in assets/images directory.
-                Image(
-                  image: NetworkImage(
-                      "https://cdn3.iconfinder.com/data/icons/miscellaneous-38/64/earth-128.png"),
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(60, 0, 0, 0),
-                  padding: EdgeInsets.all(0),
-                  width: MediaQuery.of(context).size.width,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Color(0xff3a57e8),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(12.0),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '0149',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Roboto Mono',
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                      ),
+                      Text(
+                        '06/25',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Roboto Mono',
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                      ),
+                    ],
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(60, 0, 10, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Neptune",
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 12),
-                          child: Text(
-                            "Milkyway Galaxy",
-                            textAlign: TextAlign.start,
-                            maxLines: 1,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Color(0xffd4d4d4),
-                              size: 20,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ImageIcon(
-                              NetworkImage(
-                                  "https://cdn4.iconfinder.com/data/icons/various-forms-of-arrows/32/38__top_down_arrow_routes_directions_arrows_up-128.png"),
-                              size: 16,
-                              color: Color(0xffd4d4d4),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                child: Text(
-                                  "3.711 m/s",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14,
-                                    color: Color(0xffd4d4d4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                ///***If you have exported images you must have to copy those images in assets/images directory.
-                Image(
-                  image: NetworkImage(
-                      "https://cdn0.iconfinder.com/data/icons/planets-flat/512/neptune_1-128.png"),
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
                 ),
               ],
             ),
           ),
         ],
       ),
-    );
+    ));
   }
 }
