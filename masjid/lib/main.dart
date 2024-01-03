@@ -14,11 +14,11 @@ void main() {
     routes: {
       '/dashboard': (context) => const Dashboard(),
       '/zakatPage': (context) => const DetailZiswafPages(),
-      '/profilepages': (context) => ProfilePages(),
-      '/login': (context) => LoginWidget(),
-      '/signup': (context) => SignUpWidget(),
-      '/qiblat': (context) => QiblahCompass(),
-      '/reportproblem': (context) => ChatPage()
+      '/profilepages': (context) => const ProfilePages(),
+      '/login': (context) => const LoginWidget(),
+      '/signup': (context) => const SignUpWidget(),
+      '/qiblat': (context) => const QiblahCompass(),
+      '/reportproblem': (context) => const ChatPage()
     },
   ));
 }

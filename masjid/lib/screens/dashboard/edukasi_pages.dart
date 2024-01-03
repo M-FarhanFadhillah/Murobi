@@ -27,7 +27,7 @@ class EdukasiPages extends StatelessWidget {
           child: Column(children: [
             Row(
               children: [
-                Column(children: [
+                const Column(children: [
                   Icon(
                     Icons.location_on_outlined,
                     color: Colors.white,
@@ -36,13 +36,13 @@ class EdukasiPages extends StatelessWidget {
                   Text(""),
                 ]),
                 Container(
-                  margin: EdgeInsets.only(left: 2.0, right: 0.0),
+                  margin: const EdgeInsets.only(left: 2.0, right: 0.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         namaMasjid,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
@@ -52,7 +52,7 @@ class EdukasiPages extends StatelessWidget {
                       ),
                       Text(
                         lokasiMasjid,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.normal,
@@ -63,7 +63,7 @@ class EdukasiPages extends StatelessWidget {
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/profilepages');
@@ -82,7 +82,7 @@ class EdukasiPages extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     Color.fromRGBO(170, 245, 179, 1),
@@ -99,7 +99,7 @@ class EdukasiPages extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Edukasi",
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.clip,
@@ -123,7 +123,7 @@ class EdukasiPages extends StatelessWidget {
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 44),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 44),
                               child: ListView(
                                 padding: EdgeInsets.zero,
                                 primary: false,
@@ -131,7 +131,7 @@ class EdukasiPages extends StatelessWidget {
                                 scrollDirection: Axis.vertical,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16, 0, 16, 0),
                                     child: Container(
                                       width: 220,
@@ -139,7 +139,7 @@ class EdukasiPages extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 4,
                                             color: Color(0x33000000),
@@ -154,7 +154,7 @@ class EdukasiPages extends StatelessWidget {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8, 8, 8, 8),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -184,7 +184,7 @@ class EdukasiPages extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16, 0, 16, 0),
                                     child: Container(
                                       width: 220,
@@ -192,7 +192,7 @@ class EdukasiPages extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 4,
                                             color: Color(0x33000000),
@@ -207,7 +207,7 @@ class EdukasiPages extends StatelessWidget {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8, 8, 8, 8),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -237,7 +237,7 @@ class EdukasiPages extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16, 0, 16, 0),
                                     child: Container(
                                       width: 220,
@@ -245,7 +245,7 @@ class EdukasiPages extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 4,
                                             color: Color(0x33000000),
@@ -260,7 +260,7 @@ class EdukasiPages extends StatelessWidget {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8, 8, 8, 8),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -289,7 +289,7 @@ class EdukasiPages extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 12)),
+                                ].divide(const SizedBox(height: 12)),
                               ),
                             ),
                           ],

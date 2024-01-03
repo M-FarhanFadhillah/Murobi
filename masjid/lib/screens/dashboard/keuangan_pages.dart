@@ -104,7 +104,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 20,
                     width: MediaQuery.of(context).size.width,
                     child: Row(
@@ -129,7 +129,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                               selectedValue = value!;
                             });
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_drop_down,
                             color: Colors.black,
                           ),
@@ -143,7 +143,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                               value: value,
                               child: Text(
                                 value,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'poppins',
                                   fontStyle: FontStyle.normal,
                                   fontSize: 14,
@@ -157,7 +157,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                     )),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 16),
+                  margin: const EdgeInsets.only(top: 16),
                   height: 250,
                   child: Expanded(
                     child: BarChart(
@@ -246,15 +246,15 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                     height: 30,
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
+                        const Row(
                           children: [
-                            const Text(
+                            Text(
                               'M : Juta',
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.clip,
@@ -321,7 +321,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 2.5,
-                  margin: EdgeInsets.only(top: 16),
+                  margin: const EdgeInsets.only(top: 16),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 139, 206, 158),
                     borderRadius: BorderRadius.circular(10.0),
@@ -329,15 +329,15 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: Text(
+                        margin: const EdgeInsets.only(top: 10),
+                        child: const Text(
                           'History Laporan Keuangan',
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 10),
+                        margin: const EdgeInsets.only(top: 10),
                         height: MediaQuery.of(context).size.height / 3,
                         child: ListView(
                           shrinkWrap: true,

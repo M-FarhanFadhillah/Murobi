@@ -56,7 +56,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           child: Column(children: [
             Row(
               children: [
-                Column(children: [
+                const Column(children: [
                   Icon(
                     Icons.location_on_outlined,
                     color: Colors.white,
@@ -65,13 +65,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                   Text(""),
                 ]),
                 Container(
-                  margin: EdgeInsets.only(left: 2.0, right: 0.0),
+                  margin: const EdgeInsets.only(left: 2.0, right: 0.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         namaMasjid,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
@@ -81,7 +81,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ),
                       Text(
                         lokasiMasjid,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.normal,
@@ -92,7 +92,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/profilepages');
@@ -119,7 +119,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         child: Row(
@@ -154,18 +154,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 4.0),
                             child: Container(
                               width: double.infinity,
                               height: 270.0,
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: ListView(
-                                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                 scrollDirection: Axis.horizontal,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 12.0),
                                     child: Container(
                                       width: 220.0,
@@ -182,7 +182,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 8.0, 8.0, 8.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -212,7 +212,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 12.0),
                                     child: Container(
                                       width: 220.0,
@@ -229,7 +229,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 8.0, 8.0, 8.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -259,7 +259,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 12.0),
                                     child: Container(
                                       width: 220.0,
@@ -276,7 +276,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 8.0, 8.0, 8.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -305,7 +305,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 16.0)),
+                                ].divide(const SizedBox(width: 16.0)),
                               ),
                             ),
                           ),
@@ -320,7 +320,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 16.0, 0.0, 12.0),
                                   child: Text(
                                     'Kegiatan Masjid',
@@ -329,7 +329,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 44.0),
                                   child: ListView(
                                     padding: EdgeInsets.zero,
@@ -338,7 +338,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     scrollDirection: Axis.vertical,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         child: Container(
                                           width: 220.0,
@@ -346,7 +346,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
-                                            boxShadow: [
+                                            boxShadow: const [
                                               BoxShadow(
                                                 blurRadius: 4.0,
                                                 color: Color(0x33000000),
@@ -364,7 +364,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 8.0, 8.0, 8.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -395,7 +395,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                         ),
                                       ),
-                                    ].divide(SizedBox(height: 12.0)),
+                                    ].divide(const SizedBox(height: 12.0)),
                                   ),
                                 ),
                               ],

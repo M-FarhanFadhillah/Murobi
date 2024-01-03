@@ -11,13 +11,13 @@ class ZiswafPages extends StatelessWidget {
       body: decorationBuilder(
         context,
         Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              textBuilder('ZISWAF', FontWeight.bold, 20, Color(0xff000000)),
+              textBuilder('ZISWAF', FontWeight.bold, 20, const Color(0xff000000)),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -67,16 +67,16 @@ Widget boxBuilder(BuildContext context, String title, String description) {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 180,
-        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
+        margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
         decoration: BoxDecoration(
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 6,
               color: Color(0x4B1A1F24),
               offset: Offset(0, 2),
             )
           ],
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [Color(0xFF00968A), Color(0xFFF2A384)],
             stops: [0, 1],
             begin: AlignmentDirectional(0.94, -1),
@@ -87,7 +87,7 @@ Widget boxBuilder(BuildContext context, String title, String description) {
         child: Stack(
           alignment: Alignment.topRight,
           children: [
-            Positioned(
+            const Positioned(
               right: 10,
               child: Image(
                 image: AssetImage("assets/images/moon3.png"),
@@ -99,7 +99,7 @@ Widget boxBuilder(BuildContext context, String title, String description) {
             Positioned(
               top: 20,
               left: 20,
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width - 100,
                 height: 180,
                 child: Column(
@@ -110,7 +110,7 @@ Widget boxBuilder(BuildContext context, String title, String description) {
                       title,
                       style: FlutterFlowTheme.of(context).displaySmall.override(
                             fontFamily: 'Lexend',
-                            color: Color.fromRGBO(30, 30, 30, 1.0),
+                            color: const Color.fromRGBO(30, 30, 30, 1.0),
                           ),
                     ),
                     Text(
@@ -118,7 +118,7 @@ Widget boxBuilder(BuildContext context, String title, String description) {
                       softWrap: true,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Lexend',
-                          color: Color.fromRGBO(30, 30, 30, 1.0)),
+                          color: const Color.fromRGBO(30, 30, 30, 1.0)),
                     ),
                   ],
                 ),

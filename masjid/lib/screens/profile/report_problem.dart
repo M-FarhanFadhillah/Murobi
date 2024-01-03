@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
+
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -13,7 +15,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Customer Support'),
+        title: const Text('Customer Support'),
       ),
       body: Column(
         children: [
@@ -33,19 +35,19 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildInputField() {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
           Expanded(
             child: TextField(
               controller: _textController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Type a message...',
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             onPressed: () {
               _sendMessage();
             },
@@ -63,7 +65,7 @@ class _ChatPageState extends State<ChatPage> {
           isCustomer: true,
         ));
         // Simulate admin's response
-        _messages.add(ChatMessage(
+        _messages.add(const ChatMessage(
           text: 'Thank you for your message!',
           isCustomer: false,
         ));
@@ -77,7 +79,7 @@ class ChatMessage extends StatelessWidget {
   final String text;
   final bool isCustomer;
 
-  const ChatMessage({
+  const ChatMessage({super.key, 
     required this.text,
     required this.isCustomer,
   });
@@ -86,16 +88,16 @@ class ChatMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: isCustomer ? Alignment.centerRight : Alignment.centerLeft,
-      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Material(
         borderRadius: BorderRadius.circular(8.0),
         elevation: 4.0,
         color: isCustomer ? Colors.blue : Colors.green,
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Text(
             text,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       ),

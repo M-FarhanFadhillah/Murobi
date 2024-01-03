@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masjid/widget/_build.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 
 class QurbanPages extends StatefulWidget {
@@ -17,7 +16,7 @@ class _QurbanPagesState extends State<QurbanPages> {
     return Scaffold(
         body: // Generated code for this cardRow Widget...
             Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -26,14 +25,14 @@ class _QurbanPagesState extends State<QurbanPages> {
             width: MediaQuery.sizeOf(context).width * 0.92,
             height: 210,
             decoration: BoxDecoration(
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   blurRadius: 6,
                   color: Color(0x4B1A1F24),
                   offset: Offset(0, 2),
                 )
               ],
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [Color(0xFF00968A), Color(0xFFF2A384)],
                 stops: [0, 1],
                 begin: AlignmentDirectional(0.94, -1),
@@ -45,7 +44,7 @@ class _QurbanPagesState extends State<QurbanPages> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -59,7 +58,7 @@ class _QurbanPagesState extends State<QurbanPages> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 36, 20, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20, 36, 20, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -74,7 +73,7 @@ class _QurbanPagesState extends State<QurbanPages> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 8, 20, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20, 8, 20, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -91,7 +90,7 @@ class _QurbanPagesState extends State<QurbanPages> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -29,7 +29,7 @@ class qiblat extends State<StatefulWidget> {
               );
             }
             if (snapshot.data!) {
-              return QiblahCompass();
+              return const QiblahCompass();
             } else {
               return const Center(
                 child: Text("Your device is not supported"),
@@ -63,8 +63,9 @@ class _QiblahCompassState extends State<QiblahCompass> {
       await FlutterQiblah.requestPermissions();
       final s = await FlutterQiblah.checkLocationStatus();
       _locationStreamController.sink.add(s);
-    } else
+    } else {
       _locationStreamController.sink.add(locationStatus);
+    }
   }
 
   @override
@@ -132,6 +133,8 @@ class QiblahCompassWidget extends StatelessWidget {
     height: 300,
     alignment: Alignment.center,
   );
+
+  QiblahCompassWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

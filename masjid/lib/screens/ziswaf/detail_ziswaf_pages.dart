@@ -14,9 +14,9 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
   Widget build(BuildContext context) {
     late final String title =
         ModalRoute.of(context)?.settings.arguments as String;
-    late final String userName = 'Ahmad';
-    late final String totalZakat = '2.000.000';
-    late final String totalZakatBulanN = '100.000';
+    const String userName = 'Ahmad';
+    const String totalZakat = '2.000.000';
+    const String totalZakatBulanN = '100.000';
 
     List<Map<String, dynamic>> dataFromDatabase = [
       {'kolom1': 'Data 1.1', 'kolom2': 'Data 1.2', 'kolom3': 'Data 1.3'},
@@ -70,7 +70,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                         title,
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.clip,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal,
@@ -89,7 +89,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 16, bottom: 16),
+                        margin: const EdgeInsets.only(top: 16, bottom: 16),
                         width: MediaQuery.of(context).size.width,
                         height: 100,
                         decoration: BoxDecoration(
@@ -104,7 +104,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                                 image: AssetImage("assets/images/masjid1.png"),
                               ),
                             ),
-                            Column(
+                            const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -121,7 +121,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                         width: MediaQuery.of(context).size.width,
                         height:
                             MediaQuery.of(context).size.height / 3 + 44,
-                        margin: EdgeInsets.only(bottom: 16),
+                        margin: const EdgeInsets.only(bottom: 16),
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 139, 206, 158),
                           borderRadius: BorderRadius.circular(10.0),
@@ -129,7 +129,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                         child: Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: const EdgeInsets.only(top: 10),
                               child: Text(
                                 'History $title Anda',
                                 textAlign: TextAlign.start,
@@ -137,7 +137,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: const EdgeInsets.only(top: 10),
                               height: MediaQuery.of(context).size.height / 3,
                               child: ListView(
                                 shrinkWrap: true,
@@ -147,18 +147,18 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                           ],
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       FFButtonWidget(
                           text: 'Ayo Ber$title',
                           onPressed: () {},
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 44.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: Color(0xFF4B39EF),
+                            color: const Color(0xFF4B39EF),
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -168,13 +168,13 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                                   fontWeight: FontWeight.w500,
                                 ),
                             elevation: 3.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(12.0),
                           )),
-                      SizedBox(height: 16)
+                      const SizedBox(height: 16)
                     ]),
               ))),
     );
