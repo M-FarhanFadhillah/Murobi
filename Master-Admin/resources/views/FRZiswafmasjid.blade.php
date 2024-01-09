@@ -7,45 +7,9 @@
   <div class="col"><h3><i class="fa-solid fa-circle-dollar-to-slot"></i> Laporan ZISWAF Masjid {{ $data_t->masjid->masjid_name }}</h3></div>
 </div>
 <hr>
-<div class="row">
+<div class="row m-2">
     <div class="col">
         <div class="row g-3 align-items-center">
-            <div class="col-auto">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Pilih Awal Periode</option>
-                    <option value="Januari">Januari</option>
-                    <option value="Februari">Februari</option>
-                    <option value="Maret">Maret</option>
-                    <option value="April">April</option>
-                    <option value="Mei">Mei</option>
-                    <option value="Juni">Juni</option>
-                    <option value="Juli">Juli</option>
-                    <option value="Agustus">Agustus</option>
-                    <option value="September">September</option>
-                    <option value="Oktober">Oktober</option>
-                    <option value="November">November</option>
-                    <option value="Desember">Desember</option>
-                  </select>
-            </div>
-            <div class="col-auto"><i class="fa-solid fa-arrow-right fa-beat-fade"></i></div>
-            <div class="col-auto">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Pilih Akhir Periode</option>
-                    <option value="Januari">Januari</option>
-                    <option value="Februari">Februari</option>
-                    <option value="Maret">Maret</option>
-                    <option value="April">April</option>
-                    <option value="Mei">Mei</option>
-                    <option value="Juni">Juni</option>
-                    <option value="Juli">Juli</option>
-                    <option value="Agustus">Agustus</option>
-                    <option value="September">September</option>
-                    <option value="Oktober">Oktober</option>
-                    <option value="November">November</option>
-                    <option value="Desember">Desember</option>
-                  </select>
-            </div>
-            <div class="col-auto"><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan"><i class="fa-solid fa-chevron-right"></i></button></div>
             <div class="col-auto"><button type="button" class="btn btn-outline-success"><i class="fa-solid fa-download"></i> Download Laporan</button></div>
         </div>
     </div>
@@ -67,7 +31,7 @@
                 <td>{{ $item->user->name }}</td>
                 <td>{{ $item->no_rek }} ({{ $item->asal_bank }})</td>
                 <td>{{ $item->jenis_ziswaf->jenis_ziswaf }}</td>
-                <td>Rp {{ $item->nominal }}</td>
+                <td>{{ 'Rp ' . number_format($item->nominal, 0, ',', '.') }}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#infoZiswaf-{{ $item->id }}" ><button type="button" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tampilkan Detail Informasi"><i class="fa-solid fa-list"></i></button></a>
@@ -117,7 +81,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">Nominal</th>
-                                <td>Rp {{ $item->nominal }}</td>
+                                <td>{{ 'Rp ' . number_format($item->nominal, 0, ',', '.') }}</td>
                             </tr>
                         </tbody>
                     </table>

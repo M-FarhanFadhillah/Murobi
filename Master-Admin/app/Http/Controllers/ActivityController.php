@@ -60,8 +60,15 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        activity::create($request->all());
+        $validatedData = $request->validate([
+            'masjid_id'=>'required',
+            'activity_name' => 'required',
+            'decription' => 'required',
+            'categories' => 'required|max:255',
+            'pict' => 'required'
+        ]);
+        $validatedData['pict'] = $request->file('pict')->store('gambar-kegiatan');
+        activity::create($validatedData);
         return back()->with('success','Aktivitas Baru Telah ditambahkan!');
     }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masjid/screens/dashboard.dart';
 import 'package:masjid/screens/profile/report_problem.dart';
+import 'package:masjid/screens/qurban/qurban.dart';
 import 'package:masjid/screens/splashscreen.dart';
 import 'package:masjid/screens/ziswaf/detail_ziswaf_pages.dart';
 import 'package:masjid/screens/profile/profile_pages.dart';
@@ -18,7 +19,8 @@ void main() {
       '/login': (context) => LoginWidget(),
       '/signup': (context) => SignUpWidget(),
       '/qiblat': (context) => QiblahCompass(),
-      '/reportproblem': (context) => ChatPage()
+      '/reportproblem': (context) => ChatPage(),
+      '/qurban': (context) => Qurbandetail(),
     },
   ));
 }

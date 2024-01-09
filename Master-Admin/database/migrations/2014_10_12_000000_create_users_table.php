@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('no_hp')->unique();
             $table->string('profil_pict');
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             // 0 = Pending, 1 = ACC, 2 = ditolak 
             $table->integer('status')->default(0);
             $table->rememberToken();

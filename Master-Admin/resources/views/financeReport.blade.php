@@ -17,7 +17,7 @@
   <div class="col-6 mt-3">
     <div class="card text-center">
       <div class="card-header">
-        <h3><img src="/img/masjid.jpg" class="d-block w-100" alt="Masjid"></h3>
+        <h3><img src="{{ asset('storage/'.$item->masjid_pict) }}" class="rounded" width="500px" height="400px" alt="Masjid" style="object-fit: cover"></h3>
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ $item->masjid_name }}</h5>

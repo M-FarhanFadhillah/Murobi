@@ -16,4 +16,12 @@ class lap_keu extends Model
     public function masjid(){
         return $this->belongsTo(masjid::class, 'masjid_id');
     }
+    public function scopeFilter($query){
+        if (request()->has('filter_awal') && request()->has('filter_akhir')) {
+            $filterAwal = request('filter_awal');
+            $filterAkhir = request('filter_akhir');
+    
+            return $query->whereBetween('date', [$filterAwal, $filterAkhir]);
+        }
+    }
 }

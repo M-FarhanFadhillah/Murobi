@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('masjid_name');
             $table->string('masjid_pict');
-            $table->string('alamat');
+            $table->text('alamat');
             $table->string('ketua_masjid');
             $table->integer('kapasitas');
             $table->float('saldo_awal', 20, 2); //pindah ke masjid

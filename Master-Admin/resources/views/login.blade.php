@@ -158,13 +158,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       @endif 
-      <form action="{{ route('actionlogin') }}" method="POST">
+      <form action="/login" method="POST">
         @csrf
         <center><img class="mb-4" src="\assets\logo.svg" alt="" width="72"></center>
         <h1 class="h3 mb-3 fw-normal">Silahkan Masuk</h1>
 
         <div class="form-floating">
-          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" autofocus required placeholder="name@example.com" value="{{ old('email') }}">
+          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" autofocus required placeholder="name@example.com" value="{{ old('email') }}">
           <label for="email">Email address</label>
           @error('email')
             <div class="invalid-feedback">
@@ -173,7 +173,7 @@
             @enderror
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required>
+          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" required>
           <label for="password">Password</label>
         </div>
         <button class="btn btn-outline-primary w-100 py-2" type="submit">Masuk</button>

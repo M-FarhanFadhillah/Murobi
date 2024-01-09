@@ -1,16 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:masjid/api/api_service.dart';
+import 'package:masjid/models/model_api.dart';
 
-class QurbanPages extends StatefulWidget {
-  const QurbanPages({Key? key}) : super(key: key);
+class Qurbandetail extends StatefulWidget {
+  const Qurbandetail({Key? key}) : super(key: key);
 
   @override
   _QurbanPagesState createState() => _QurbanPagesState();
 }
 
-class _QurbanPagesState extends State<QurbanPages> {
-  
+class _QurbanPagesState extends State<Qurbandetail> {
+  late Future<List<ApiModel>> _apiModel;
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  void _getData() async {
+    _apiModel = ApiService.getApi();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: FutureBuilder<List<ApiModel>>(
+        future: _apiModel,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            List<ApiModel> apiModels = snapshot.data ?? [];
+            return ListView.builder(
+              itemCount: apiModels.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(apiModels[index].judul),
+                  subtitle: Text(apiModels[index].deskripsi),
+                  // Add more details or customize based on your model structure
+                );
+              },
+            );
+          }
+        },
+      ),
+    );
   }
 }

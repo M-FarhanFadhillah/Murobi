@@ -23,10 +23,18 @@ class LapKeuController extends Controller
             "list_masjid"=> masjid::latest()->filter()->paginate(20)
         ]);
     }
+    public function cetaklapkeu($id){
+        $data = masjid::where('id', $id)->first();
+        $lapkeu = lap_keu::where('masjid_id', $id)->filter()->orderBy('date','asc');
+        return view('cetaklapkeu',[
+            "data" => $data,
+            "lapkeu"=> $lapkeu->get()
+        ]);
+    }
     public function lapkeu($id)
     {
         $data = masjid::where('id', $id)->first();
-        $lapkeu = lap_keu::where('masjid_id', $id);
+        $lapkeu = lap_keu::where('masjid_id', $id)->filter()->orderBy('date','asc');
         return view('FRMasjid',[
             "title" => "Masjid",
             "data" => $data,
@@ -65,7 +73,14 @@ class LapKeuController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        lap_keu::create($request->all());
+        $validatedData = $request->validate([
+            'masjid_id'=>'required',
+            'cashflow' => 'required',
+            'note' => 'required',
+            'date' => 'required',
+            'nominal' => 'required'
+        ]);
+        lap_keu::create($validatedData);
         return back()->with('success','Arus Kas terbaru Telah ditambahkan!');
     }
 

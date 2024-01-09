@@ -43,7 +43,7 @@
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#infoBanner-{{ $item->id }}"><button type="button" class="btn btn-outline-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Nonaktifkan Banner"><i class="fa-solid fa-x"></i></button></a>
-                                <a href="/dellbanner/{{$item->id}}/{{$item->judul}}"><button type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Banner"><i class="fa-solid fa-trash"></i></button></a>
+                                <a href="/dellbanner/{{$item->id}}/{{$item->judul}}"><button onclick="return confirm('Anda yakin ingin menghapus data?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Banner"><i class="fa-solid fa-trash"></i></button></a>
                             </div>
                         </td>
                     </tr>
@@ -79,18 +79,34 @@
         </div>
     </div>
 </div> 
-{{-- Modal Aktifkan Banner --}}
+{{-- Modal Aktifkan/NonAktifkan Banner --}}
 @foreach ($data as $item)
 <div class="modal fade" id="infoBanner-{{ $item->id }}" tabindex="-1" aria-labelledby="infoBannerLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="infoBannerLabel">Detail Informasi</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="infoBannerLabel">Detail Informasi</h1>&nbsp;
+                @if($item->status === true)
+                    <form class="d-flex justify-content-center" id="ActiveBanner" action="/NonActiveBanner/{{ $item->id }}/{{ $item->judul }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div>
+                            <input class="form-control" type="hidden" name="status" value =false id="status">
+                        </div>
+                        <button type="submit" class="btn btn-outline-warning">Nonaktifkan Banner</button>
+                    </form>
+                    @else
+                    <form class="d-flex justify-content-center" id="ActiveBanner" action="/ActiveBanner/{{ $item->id }}/{{ $item->judul }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div>
+                            <input class="form-control" type="hidden" name="status" value =true id="status">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Aktifkan Banner</button>
+                    </form>                        
+                    @endif
             </div>
             
             <div class="col text-center mt-2">
-                <img src="https://github.com/mdo.png" alt="Foto Profil" width="150">
+                <img src="{{ asset('storage/'.$item->cover) }}" alt="Foto Profil" width="250" class="rounded m-2">
             </div>
             <div class="col text-center">
                 {{ $item->deskripsi }}
@@ -130,23 +146,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    @if($item->status === true)
-                    <form class="d-flex justify-content-center" id="ActiveBanner" action="/ActiveBanner/{{ $item->id }}/{{ $item->judul }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div>
-                            <input class="form-control" type="hidden" name="status" value =false id="status">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Nonaktifkan Banner</button>
-                    </form>
-                    @else
-                    <form class="d-flex justify-content-center" id="ActiveBanner" action="/ActiveBanner/{{ $item->id }}/{{ $item->judul }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div>
-                            <input class="form-control" type="hidden" name="status" value =true id="status">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Aktifkan Banner</button>
-                    </form>                        
-                    @endif
                 </div>
             </div>
         </div>
@@ -190,9 +189,14 @@
                       </div>
                     @enderror
                   </div>
-                <div class="mb-3 form-floating">
-                    <input class="form-control" type="text" id="cover" name="cover" required>
-                    <label class="form-label">Cover</label>
+                  <div class="mb-3">
+                    <label for="cover" class="form-label">Cover</label>
+                    <input class="form-control @error('cover') is-invalid @enderror" type="file" id="cover" name="cover" required>
+                    @error('cover')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                  @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

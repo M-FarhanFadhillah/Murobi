@@ -71,6 +71,7 @@ class MasjidController extends Controller
             'saldo_awal' => 'required',
             'kas' => 'required'
         ]);
+        $validatedData['masjid_pict'] = $request->file('masjid_pict')->store('masjid-profile');
         masjid::create($validatedData);
         return redirect('/listmasjid')->with('success','Masjid berhasil ditambahkan!');
     }

@@ -183,14 +183,14 @@
 
 <main class="d-flex flex-nowrap">
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+    <a href="/home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
         <img class="pe-none me-2" src="\assets\logo.svg" alt="SIM Masjid" width="50">
         <span class="fs-4">SIM MASJID</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="home" class="nav-link {{ ($title === "Dashboard") ? 'active ' : '' }} link-body-emphasis" aria-current="page">
+        <a href="/home" class="nav-link {{ ($title === "Dashboard") ? 'active ' : '' }} link-body-emphasis" aria-current="page">
             <i class="fa-solid fa-house pe-none me-2"></i>
           Beranda
         </a>
@@ -211,13 +211,10 @@
     <hr>
     <div class="dropdown">
       <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>Syahril Fajri Pratama</strong>
+        <small><strong>Welcome Back, {{Auth::user()->name}}!!</strong></small>
       </a>
       <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Keluar</a></li>
+        <li><a class="dropdown-item" href="{{route('actionlogout')}}">Keluar</a></li>
       </ul>
     </div>
   </div>
