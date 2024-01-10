@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
-            <img src="/img/masjid.jpg" class="d-block w-100 mt-1" alt="Masjid">
+            <img src="{{ asset('storage/'.$data->masjid_pict) }}" class="d-block w-100 mt-1 rounded" alt="Masjid">
             <h3 class="text-center mt-1">Masjid {{ $data->masjid_name }}</h3>
             <table class="table table-borderless">
                 <tbody>
@@ -92,7 +92,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="col text-center mt-2">
-                <img src="https://github.com/mdo.png" alt="Foto Profil" width="150">
+                <img src="{{ asset('storage/'.$item->pict) }}" alt="Foto Profil" width="150">
             </div>
             <div class="col text-center">
                 {{ $item->decription }}
@@ -136,7 +136,7 @@
 @endforeach
 {{ $kegiatan->links() }} 
 
-{{-- Modal Tambah Banner --}}
+{{-- Modal Tambah Kegiatan --}}
 @foreach ($data_kegiatan as $item)
     <div class="modal fade" id="addAct" tabindex="-1" aria-labelledby="addActLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -167,9 +167,14 @@
                             <option value="2">Besar</option>
                         </select>
                     </div>
-                    <div class="mb-3 form-floating">
-                        <input class="form-control" type="text" id="pict" name="pict" required>
-                        <label class="form-label">Cover Kegiatan</label>
+                    <div class="mb-3">
+                        <label for="pict" class="form-label">Cover Kegiatan</label>
+                        <input class="form-control @error('pict') is-invalid @enderror" type="file" id="pict" name="pict" required>
+                        @error('pict')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                      @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

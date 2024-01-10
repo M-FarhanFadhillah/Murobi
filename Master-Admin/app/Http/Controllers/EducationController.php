@@ -47,8 +47,15 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        education::create($request->all());
+        $validatedData = $request->validate([
+            'jenis_education_id'=>'required',
+            'judul' => 'required',
+            'kategori' => 'required',
+            'content' => 'required',
+            'deskripsi' => 'required'
+        ]);
+        $validatedData['content']=$request->file('content')->store('konten-edukasi');
+        education::create($validatedData);
         return redirect('/edu')->with('success','Konten Edukasi Baru Telah ditambahkan!');
     }
 

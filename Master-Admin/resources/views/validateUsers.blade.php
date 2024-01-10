@@ -1,5 +1,17 @@
 @extends('layouts.tempNav')
 @section('container')
+@if(session()->has('update'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session('update') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+@if(session()->has('delete'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('delete') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row">
     <div class="col"><h3><i class="fa-solid fa-address-card"></i> Validasi Pendaftaran</h3></div>
     <div class="col-3">
@@ -28,8 +40,12 @@
                 <td>{{ $item->name }}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                        <a href="#"><button type="button" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Konfirmasi Pendaftar"><i class="fa-solid fa-check"></i></button></a>
-                        <a href="#"><button type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tolak Pendaftar"><i class="fa-solid fa-x"></i></button></a>
+                        <a href="/ActiveUser/{{ $item->id }}/{{ $item->name }}">
+                            <button onclick="return confirm('Anda yakin ingin menvalidasi data ini?')" type="button" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Konfirmasi Pendaftar"><i class="fa-solid fa-check"></i></button>
+                        </a>
+                        <a href="/RefuseUser/{{ $item->id }}/{{ $item->name }}">
+                            <button onclick="return confirm('Anda yakin ingin menolak data ini?')" type="button" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="Tolak Pendaftar"><i class="fa-solid fa-x"></i></button>
+                        </a>
                     </div>
                 </td>
             </tr>

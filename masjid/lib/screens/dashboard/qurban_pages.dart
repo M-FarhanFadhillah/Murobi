@@ -180,7 +180,9 @@ class _QurbanPagesState extends State<QurbanPages> {
               ),
               FFButtonWidget(
                 text: 'Ayo BerQurban',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/qurban');
+                },
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 44.0,

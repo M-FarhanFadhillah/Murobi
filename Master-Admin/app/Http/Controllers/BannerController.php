@@ -28,6 +28,15 @@ class BannerController extends Controller
     }
     public function update(Request $request, $id)
     {
+        if (banner::where('status',true)->count()>2) {
+            return redirect('/banner')->with('update','Banner Aktif Maksimal 3, Silahkan Nonaktif salah satu terlebih dahulu!');
+        }else {
+            $data = banner::where('id', $id)->update(['status' => $request->status]);
+            return redirect('/banner')->with('update','Status Telah diperbarui!');
+        }
+    }
+    public function updateNonActive(Request $request, $id)
+    {
         $data = banner::where('id', $id)->update(['status' => $request->status]);
         return redirect('/banner')->with('update','Status Telah diperbarui!');
     }
@@ -63,6 +72,7 @@ class BannerController extends Controller
             'kategori' => 'required'
         ]);
         // dd($validatedData);
+        $validatedData['cover'] = $request->file('cover')->store('cover-banner');
         banner::create($validatedData);
         return redirect('/banner')->with('success','Banner Baru Telah ditambahkan!');
     }

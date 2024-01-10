@@ -23,7 +23,7 @@ class masjid extends Model
     }
     public function scopeFilter($query){
         if(request('search')){
-            return $query->where('masjid_name','like', '%' . request('search') . '%');
+            return $query->where('masjid_name','ilike', '%' . request('search') . '%');
         }
     }
     

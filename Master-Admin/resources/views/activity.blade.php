@@ -17,7 +17,7 @@
   <div class="col-4 mt-3">
     <div class="card text-center">
       <div class="card-header">
-        <h3><img src="/img/masjid.jpg" class="d-block w-100" alt="Masjid"></h3>
+        <h3><img src="{{ asset('storage/'.$item->masjid_pict) }}" class="rounded" width="300px" height="200px" alt="Masjid" style="object-fit: cover"></h3>
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ $item->masjid_name }}</h5>
@@ -25,7 +25,7 @@
         <a href="/activity/{{ $item->id }}/{{ $item->masjid_name }}" class="btn btn-outline-success">Kegiatan <i class="fa-solid fa-right-long fa-fade"></i></a>
       </div>
       <div class="card-footer text-body-secondary">
-        1 Kegiatan Aktif
+        {{ $item->activity->count() }} Kegiatan Aktif
       </div>
     </div>
   </div>

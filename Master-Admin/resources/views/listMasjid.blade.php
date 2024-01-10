@@ -112,10 +112,10 @@
                 <div>
                     <input class="form-control" type="hidden" name="kas" value ="{{ old('saldo_awal') }}" id="kas">
                 </div>
-                <div class="mb-3 form-floating">
-                    <input type="text" class="form-control @error('masjid_pict') is-invalid @enderror" id="masjid_pict" name="masjid_pict" required value="{{ old('masjid_pict') }}">
-                    <label>Foto Cover Masjid</label>
-                  @error('masjid_pict')
+                <div class="mb-3">
+                    <label for="masjid_pict" class="form-label">Foto Cover Masjid</label>
+                    <input class="form-control @error('masjid_pict') is-invalid @enderror" type="file" id="masjid_pict" name="masjid_pict" required>
+                    @error('masjid_pict')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>
@@ -130,7 +130,7 @@
 {{-- Modal Details --}}
 @foreach ($data as $item)
 <div class="modal fade" id="infoMasjid-{{ $item->id }}" tabindex="-1" aria-labelledby="infoMasjidLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="infoMasjidLabel">Detail Informasi</h1>
@@ -138,7 +138,7 @@
             </div>
             
             <div class="col text-center">
-                <img src="https://github.com/mdo.png" alt="Foto Profil" width="150">
+                <img src="{{ asset('storage/'.$item->masjid_pict) }}" alt="Foto Profil" width="450" class="rounded m-2">
             </div>
             <div class="row">
                 <div class="col">
@@ -148,23 +148,23 @@
                         <tbody>
                             <tr>
                                 <th scope="row">ID</th>
-                                <td>{{ $item->id }}</td>
+                                <td>: {{ $item->id }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Nama Masjid</th>
-                                <td>{{ $item->masjid_name }}</td>
+                                <td>: {{ $item->masjid_name }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Alamat Masjid</th>
-                                <td>{{ $item->alamat }}</td>
+                                <td>: {{ $item->alamat }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Ketua Masjid</th>
-                                <td>{{ $item->ketua_masjid }}</td>
+                                <td>: {{ $item->ketua_masjid }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Kapasitas</th>
-                                <td>{{ $item->kapasitas }}</td>
+                                <td>: {{ $item->kapasitas }}</td>
                             </tr>
                         </tbody>
                     </table>

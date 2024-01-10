@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('masjid_id');
             $table->string('activity_name');
-            $table->string('decription');
+            $table->text('decription');
             //0 : Kegiatan Besar, 1 : Kegiatan Sedang, 2 : Kegiatan Kecil
             $table->integer('categories');
             $table->string('pict');

@@ -20,4 +20,12 @@ class data_ziswaf extends Model
     public function user(){
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
+    public function scopeFilter($query){
+        if (request()->has('filter_awal') && request()->has('filter_akhir')) {
+            $filterAwal = request('filter_awal');
+            $filterAkhir = request('filter_akhir');
+    
+            return $query->whereBetween('created_at', [$filterAwal, $filterAkhir]);
+        }
+    }
 }
