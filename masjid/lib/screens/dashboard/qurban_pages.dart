@@ -11,8 +11,6 @@ class QurbanPages extends StatefulWidget {
 }
 
 class _QurbanPagesState extends State<QurbanPages> {
-  String selectedValue = 'Zakat';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,14 +26,17 @@ class _QurbanPagesState extends State<QurbanPages> {
               textBuilder(
                   'Qurban', FontWeight.bold, 20, const Color(0xff000000)),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Stack(
+                child: OrientationBuilder(
+                  builder: (context, orientation) {
+                    bool isPortrait = MediaQuery.of(context).orientation ==
+                        Orientation.portrait;
+
+                    return SingleChildScrollView(
+                      child: Column(
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            height: 180,
+                            height: isPortrait ? 180 : 240,
                             margin: const EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 0, 15),
                             decoration: BoxDecoration(
@@ -59,123 +60,124 @@ class _QurbanPagesState extends State<QurbanPages> {
                               ),
                             ),
                           ),
-                          Positioned(
-                            left: MediaQuery.of(context).size.width / 3.0 -
-                                20, // Adjust the left position
-                            top: 180 / 3.0 + 20, // Adjust the top position
-                            child: Container(
-                              width: MediaQuery.of(context).size.width - 200,
-                              child: Text(
-                                'Allah SWT berfirman dalam surah Al-Hajj ayat 37, yang artinya:\n\"Daging-daging unta dan darahnya itu sekali-kali tidak dapat  mencapai (keridhaan) Allah, tetapi ketakwaan dari kamulah  yang dapat mencapainya.\"',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(30, 30, 30, 1.0),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 180,
+                            margin: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 15),
+                            decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 6,
+                                  color: Color(0x4B1A1F24),
+                                  offset: Offset(0, 2),
                                 ),
-                                softWrap: true,
+                              ],
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF00968A), Color(0xFFF2A384)],
+                                stops: [0, 1],
+                                begin: AlignmentDirectional(0.94, -1),
+                                end: AlignmentDirectional(-0.94, 1),
                               ),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                          )
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      'Jumlah Hewan Qurban Yang Terkumpul',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(30, 30, 30, 1.0),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            Center(
+                                              child: Text(
+                                                'Sapi',
+                                                style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      30, 30, 30, 1.0),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                            Center(
+                                              child: Text(
+                                                '5',
+                                                style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      30, 30, 30, 1.0),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            Center(
+                                              child: Text(
+                                                'Kambing',
+                                                style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      30, 30, 30, 1.0),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                            Center(
+                                              child: Text(
+                                                '12',
+                                                style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      30, 30, 30, 1.0),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                
+                                Expanded(
+                                  child: Text(
+                                    'Jumlah Qurban Anda Tahun Ini: 1 Sapi',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(30, 30, 30, 1.0),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 180,
-                        margin:
-                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
-                        decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 6,
-                              color: Color(0x4B1A1F24),
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF00968A), Color(0xFFF2A384)],
-                            stops: [0, 1],
-                            begin: AlignmentDirectional(0.94, -1),
-                            end: AlignmentDirectional(-0.94, 1),
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  'Jumlah Hewan Qurban Yang Terkumpul',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(30, 30, 30, 1.0),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Sapi',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(30, 30, 30, 1.0),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Kambing',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(30, 30, 30, 1.0),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '5',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(30, 30, 30, 1.0),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                  Text(
-                                    '12',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(30, 30, 30, 1.0),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                'Jumlah Qurban Anda Tahun Ini: 1 Sapi',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(30, 30, 30, 1.0),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
               FFButtonWidget(
