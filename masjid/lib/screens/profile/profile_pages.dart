@@ -405,7 +405,8 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 16)
                 ],
               ),
             ),

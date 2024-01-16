@@ -115,15 +115,12 @@ flutter:
     - assets/prototype/images/image-1.png
     - assets/prototype/images/image-2.png
     - assets/images/SplashScreen.png
-    - assets/images/masjid1.png
-    - assets/images/moon1.png
-    - assets/images/moon2.png
-    - assets/images/tempLaporan.png
     - assets/images/lomba.png
     - assets/images/infaq.png
     - assets/images/donor.png
     - assets/images/isra.png
     - assets/images/qurban.png
+    - assets/images/avatar.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
