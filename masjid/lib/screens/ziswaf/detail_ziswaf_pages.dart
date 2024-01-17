@@ -16,41 +16,6 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
     late final String title =
         ModalRoute.of(context)?.settings.arguments as String;
     String userDisplayName = "Ahmad";
-    List<Map<String, dynamic>> dataFromDatabase = [
-      {'kolom1': 'Data 1.1', 'kolom2': 'Data 1.2', 'kolom3': 'Data 1.3'},
-      {'kolom1': 'Data 2.1', 'kolom2': 'Data 2.2', 'kolom3': 'Data 2.3'},
-      {'kolom1': 'Data 3.1', 'kolom2': 'Data 3.2', 'kolom3': 'Data 3.3'},
-      {'kolom1': 'Data 4.1', 'kolom2': 'Data 4.2', 'kolom3': 'Data 4.3'},
-      {'kolom1': 'Data 5.1', 'kolom2': 'Data 5.2', 'kolom3': 'Data 5.3'},
-      {'kolom1': 'Data 6.1', 'kolom2': 'Data 6.2', 'kolom3': 'Data 6.3'},
-      {'kolom1': 'Data 7.1', 'kolom2': 'Data 7.2', 'kolom3': 'Data 7.3'},
-      {'kolom1': 'Data 8.1', 'kolom2': 'Data 8.2', 'kolom3': 'Data 8.3'},
-      // ... Tambahkan data lainnya sesuai kebutuhan Anda
-    ];
-
-    DataTable buildDataTable(List<Map<String, dynamic>> data) {
-      final List<DataColumn> columns = [];
-      final List<DataRow> rows = [];
-
-      // Assuming all rows have the same keys, use the keys from the first row
-      final keys = data.isNotEmpty ? data.first.keys.toList() : [];
-
-      // Create DataColumn for each key
-      columns.addAll(keys.map((key) => DataColumn(label: Text(key))));
-
-      // Create DataRow for each item in data
-      rows.addAll(data.map((item) {
-        return DataRow(
-          cells: keys
-              .map(
-                (key) => DataCell(Text(item[key].toString())),
-              )
-              .toList(),
-        );
-      }));
-
-      return DataTable(columns: columns, rows: rows);
-    }
 
     return Scaffold(
       body: SafeArea(
