@@ -215,14 +215,28 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
                     ],
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(
-                      3, // Change this to the number of cards you want
-                      (index) => generateCard(
-                        'Go Far Rewards',
-                        'Income',
-                        '\$50.00',
+                Center(
+                  child: Text(
+                    'Riwayat $title $userDisplayName',
+                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                          fontFamily: 'Lexend',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  height: MediaQuery.of(context).size.height / 3.5,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: List.generate(
+                        10, // Change this to the number of cards you want
+                        (index) => generateCard(
+                          'Go Far Rewards',
+                          'Income',
+                          '\$50.00',
+                        ),
                       ),
                     ),
                   ),

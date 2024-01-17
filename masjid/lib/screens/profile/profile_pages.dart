@@ -262,6 +262,89 @@ class _ProfilePagesState extends State<ProfilePages> {
                   ),
                   decorationProfile(
                     context,
+                    120,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 16.0, left: 24),
+                          child: const Text(
+                            'Koneksi',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 82, 82, 92),
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              top: 8.0, left: 24, right: 24),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              FaIcon(FontAwesomeIcons.google),
+                              SizedBox(width: 10),
+                              Text(
+                                'Google',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 18, 35, 187),
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Spacer(),
+                              Text(
+                                false ? 'Terhubung' : 'Tidak Terhubung',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 0, 128, 116),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              top: 8.0, left: 24, right: 24),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              FaIcon(FontAwesomeIcons.facebook),
+                              SizedBox(width: 10),
+                              Text(
+                                'Facebook',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 18, 35, 187),
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Spacer(),
+                              Text(
+                                true ? 'Terhubung' : 'Tidak Terhubung',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 0, 128, 116),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  decorationProfile(
+                    context,
                     90.0,
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

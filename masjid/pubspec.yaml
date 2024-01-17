@@ -79,6 +79,7 @@ dependencies:
   collection: ^1.17.2
   fl_chart: ^0.64.0
   data_tables: ^1.4.0
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

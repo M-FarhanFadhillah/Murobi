@@ -323,11 +323,6 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 2.5,
-                  margin: const EdgeInsets.only(top: 16),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 139, 206, 158),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
                   child: Column(
                     children: [
                       Container(
@@ -336,11 +331,18 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                           'History Laporan Keuangan',
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14,
+                            color: Color(0xff000000),
+                          ),
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 10),
-                        height: MediaQuery.of(context).size.height / 3,
+                        height: MediaQuery.of(context).size.height / 3.5,
                         child: SingleChildScrollView(
                           child: Column(
                             children: List.generate(

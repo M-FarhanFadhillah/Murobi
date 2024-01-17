@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-ApiModel apiModelFromJson(String str) {
+BannerModel bannerModelFromJson(String str) {
   final jsonData = json.decode(str);
-  return ApiModel.fromJson(jsonData);
+  return BannerModel.fromJson(jsonData);
 }
 
-class ApiModel {
+class BannerModel {
   final int id;
   final String judul;
   final String deskripsi;
@@ -15,7 +15,7 @@ class ApiModel {
   final int kategori;
   final bool status;
 
-  ApiModel({
+  BannerModel({
     required this.id,
     required this.judul,
     required this.deskripsi,
@@ -26,8 +26,8 @@ class ApiModel {
     required this.status,
   });
 
-  factory ApiModel.fromJson(Map<String, dynamic> json) {
-    return ApiModel(
+  factory BannerModel.fromJson(Map<String, dynamic> json) {
+    return BannerModel(
       id: json['id'],
       judul: json['judul'],
       deskripsi: json['deskripsi'],
@@ -39,8 +39,8 @@ class ApiModel {
     );
   }
 
-  factory ApiModel.fromMap(Map<String, dynamic> map) {
-    return ApiModel(
+  factory BannerModel.fromMap(Map<String, dynamic> map) {
+    return BannerModel(
       id: map['id'],
       judul: map['judul'],
       deskripsi: map['deskripsi'],
