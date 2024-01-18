@@ -25,7 +25,7 @@ class _DashboardState extends State<Dashboard> {
 
   final List<Widget> _pages = [
     const HomeWidget(),
-    const EdukasiPages(),
+    const EdukasiWidget(),
     const QiblahCompass(),
     const ZiswafPages(),
     const QurbanPages(),
