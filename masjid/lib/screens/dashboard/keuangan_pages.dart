@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
+import 'package:masjid/flutter_flow/flutter_flow_util.dart';
 import 'package:masjid/models/lapkeu_model.dart';
 import 'package:masjid/models/masjid_model.dart';
 import 'package:masjid/services/api_lapkeu_service.dart';
@@ -17,6 +18,7 @@ class KeuanganPages extends StatefulWidget {
 class _KeuanganPagesState extends State<KeuanganPages> {
   String selectedValue = 'Zakat 2023 Ganjil';
   final double width = 7;
+  final String id_masjid = '8';
 
   late Future<List<MasjidModel>> _apiMasjidModel;
   late Future<List<LapkeuModel>> _apiLapkeuModel;
@@ -48,40 +50,40 @@ class _KeuanganPagesState extends State<KeuanganPages> {
     rawBarGroups = items;
 
     showingBarGroups = rawBarGroups;
-    _getData();
+    _getData(id_masjid);
   }
 
-  void _getData() async {
+  void _getData(String id_masjid) async {
     // _apiMasjidModel = ApiMasjid.getApi(id_masjid);
-    _apiLapkeuModel = ApiLapkeu.getApi();
+    _apiLapkeuModel = ApiLapkeu.getApi(id_masjid);
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Laporan Keuangan',
+          style: FlutterFlowTheme.of(context).titleLarge.override(
+                fontFamily: 'Lexend',
+                color: Colors.black,
+              ),
+        ),
+        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
       body: decorationBuilder(
         context,
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Text(
-                  "Laporan Keuangan",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 20,
-                    color: Color(0xff000000),
-                  ),
-                ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   height: 20,
@@ -319,22 +321,6 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   margin: const EdgeInsets.only(top: 10),
-                      //   height: MediaQuery.of(context).size.height / 3.5,
-                      //   child: SingleChildScrollView(
-                      //     child: Column(
-                      //       children: List.generate(
-                      //         10, // Change this to the number of cards you want
-                      //         (index) => generateCard(
-                      //           'Go Far Rewards',
-                      //           'Income',
-                      //           '\$50.00',
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Container(
                         margin: const EdgeInsets.only(top: 10),
                         height: MediaQuery.of(context).size.height / 3.5,
@@ -359,8 +345,8 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                                       snapshot.data![index]
                                           .note, // Gantilah dengan properti yang sesuai dari LapkeuModel
                                       snapshot.data![index].date.toString(),
-                                      snapshot.data![index]
-                                          .nominal.toString(),
+                                      snapshot.data![index].nominal,
+                                      snapshot.data![index].cashFlow,
                                     ),
                                   ),
                                 ),
@@ -441,7 +427,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
     );
   }
 
-  Widget generateCard(String title, String subtitle, String amount) {
+  Widget generateCard(String note, String date, String nominal, int cashFlow) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
       child: Container(
@@ -465,7 +451,9 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
-                    Icons.monetization_on_rounded,
+                    cashFlow == 1
+                        ? Icons.monetization_on_rounded
+                        : Icons.money_off_rounded,
                     color: FlutterFlowTheme.of(context).tertiary,
                     size: 24.0,
                   ),
@@ -481,14 +469,14 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      note,
                       style: FlutterFlowTheme.of(context).headlineSmall,
                     ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                       child: Text(
-                        subtitle,
+                        DateFormat('dd MMMM yyyy').format(DateTime.parse(date)),
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                     ),
@@ -504,7 +492,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    amount,
+                    nominal,
                     textAlign: TextAlign.end,
                     style: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Lexend',
@@ -514,7 +502,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: Text(
-                      'Hello World',
+                      cashFlow == 1 ? 'Pemasukan' : 'Pengeluaran',
                       textAlign: TextAlign.end,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Lexend',

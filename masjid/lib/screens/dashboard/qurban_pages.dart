@@ -14,17 +14,27 @@ class _QurbanPagesState extends State<QurbanPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Qurban',
+          style: FlutterFlowTheme.of(context).titleLarge.override(
+                fontFamily: 'Lexend',
+                color: Colors.black,
+              ),
+        ),
+        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
       body: decorationBuilder(
         context,
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              textBuilder(
-                  'Qurban', FontWeight.bold, 20, const Color(0xff000000)),
               Expanded(
                 child: OrientationBuilder(
                   builder: (context, orientation) {

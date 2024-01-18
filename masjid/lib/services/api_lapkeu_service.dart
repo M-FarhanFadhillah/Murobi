@@ -5,9 +5,9 @@ import 'dart:developer';
 import 'dart:convert';
 
 class ApiLapkeu {
-  static Future<List<LapkeuModel>> getApi() async {
+  static Future<List<LapkeuModel>> getApi(String id_masjid) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endPoint_lapkeu);
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endPoint_lapkeu + '$id_masjid');
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<LapkeuModel> _apiLapkeuModel = List.from(json.decode(response.body)).map((item) => LapkeuModel.fromJson(item)).toList();

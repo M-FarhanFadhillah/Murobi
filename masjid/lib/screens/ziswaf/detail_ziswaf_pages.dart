@@ -18,28 +18,28 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
     String userDisplayName = "Ahmad";
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          title,
+          style: FlutterFlowTheme.of(context).titleLarge.override(
+                fontFamily: 'Lexend',
+                color: Colors.black,
+              ),
+        ),
+        centerTitle: true,
+        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        elevation: 0,
+      ),
       body: SafeArea(
         child: decorationBuilder(
           context,
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: const TextStyle(
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 20,
-                    color: Color(0xff000000),
-                  ),
-                ),
                 const SizedBox(height: 06),
                 Container(
                   width: MediaQuery.of(context).size.width,

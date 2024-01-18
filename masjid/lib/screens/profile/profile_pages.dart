@@ -75,6 +75,17 @@ class _ProfilePagesState extends State<ProfilePages> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Profile',
+          style: FlutterFlowTheme.of(context).titleLarge.override(
+                fontFamily: 'Lexend',
+                color: Colors.black,
+              ),
+        ),
+        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: decorationBuilder(
           context,
@@ -83,7 +94,6 @@ class _ProfilePagesState extends State<ProfilePages> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  textBuilder("Profile", FontWeight.bold, 20.0, Colors.black),
                   decorationProfile(
                     context,
                     150.0,

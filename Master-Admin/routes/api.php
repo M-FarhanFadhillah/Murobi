@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/lapkeu', [LapkeuController::class, 'lapkeu']); //id masjid
+Route::get('/lapkeu/{id}', [LapkeuController::class, 'lapkeu']); //id masjid
 Route::get('/banner', [BannerController::class, 'banner']); 
 Route::get('/edu/book', [EducationController::class, 'book']);
 Route::get('/edu/video', [EducationController::class, 'video']);
