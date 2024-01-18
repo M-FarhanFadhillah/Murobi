@@ -10,8 +10,8 @@ class ApiUserServices {
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endPoint_user);
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        List<UserModel> _apiModel = List.from(json.decode(response.body)).map((item) => UserModel.fromJson(item)).toList();
-        return _apiModel;
+        List<UserModel> apiModel = List.from(json.decode(response.body)).map((item) => UserModel.fromJson(item)).toList();
+        return apiModel;
       } 
       else {
         throw Exception(

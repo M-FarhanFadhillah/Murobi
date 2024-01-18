@@ -320,7 +320,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                     ],
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 2.5,
                   child: Column(
@@ -430,7 +430,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
 
   Widget generateCard(String title, String subtitle, String amount) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 70.0,
@@ -442,15 +442,15 @@ class _KeuanganPagesState extends State<KeuanganPages> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
               child: Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                color: Color(0x6639D2C0),
+                color: const Color(0x6639D2C0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.monetization_on_rounded,
                     color: FlutterFlowTheme.of(context).tertiary,
@@ -461,7 +461,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -473,7 +473,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                       child: Text(
                         subtitle,
                         style: FlutterFlowTheme.of(context).bodyMedium,
@@ -484,7 +484,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -499,7 +499,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                         ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: Text(
                       'Hello World',
                       textAlign: TextAlign.end,

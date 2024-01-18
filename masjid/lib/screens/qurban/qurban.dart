@@ -3,7 +3,7 @@ import 'package:masjid/services/api_banner_service.dart';
 import 'package:masjid/models/banner_model.dart';
 
 class Qurbandetail extends StatefulWidget {
-  const Qurbandetail({Key? key}) : super(key: key);
+  const Qurbandetail({super.key});
 
   @override
   _QurbanPagesState createState() => _QurbanPagesState();
@@ -29,7 +29,7 @@ class _QurbanPagesState extends State<Qurbandetail> {
         future: _apiModel,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {

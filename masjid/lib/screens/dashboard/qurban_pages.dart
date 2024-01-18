@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:masjid/widget/_build.dart';
 
 class QurbanPages extends StatefulWidget {
-  const QurbanPages({Key? key}) : super(key: key);
+  const QurbanPages({super.key});
 
   @override
   _QurbanPagesState createState() => _QurbanPagesState();
@@ -54,7 +54,7 @@ class _QurbanPagesState extends State<QurbanPages> {
                                 end: AlignmentDirectional(-0.94, 1),
                               ),
                               borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 fit: BoxFit.fill,
                                 image: AssetImage("assets/images/qurban.png"),
                               ),
@@ -81,7 +81,7 @@ class _QurbanPagesState extends State<QurbanPages> {
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Column(
+                            child: const Column(
                               children: [
                                 Expanded(
                                   child: Center(

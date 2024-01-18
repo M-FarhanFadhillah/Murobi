@@ -5,7 +5,7 @@ import 'package:masjid/screens/dashboard/ziswaf_pages.dart';
 import 'package:masjid/screens/dashboard/qurban_pages.dart';
 import 'package:masjid/screens/dashboard/keuangan_pages.dart';
 import 'package:masjid/screens/dashboard/home_pages.dart';
-import 'package:masjid/navigations/qiblah_compass.dart';
+import 'package:masjid/ui/surat_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -26,7 +26,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> _pages = [
     const HomeWidget(),
     const EdukasiWidget(),
-    const QiblahCompass(),
+    const SuratPage(),
     const ZiswafPages(),
     const QurbanPages(),
     const KeuanganPages(),
@@ -55,7 +55,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.mosque_outlined),
-            label: 'qiblat',
+            label: 'surat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.wallet_outlined),

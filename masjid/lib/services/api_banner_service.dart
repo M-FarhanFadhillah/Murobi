@@ -10,8 +10,8 @@ class ApiBannerService {
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endPoint_banner);
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        List<BannerModel> _apiModel = List.from(json.decode(response.body)).map((item) => BannerModel.fromJson(item)).toList();
-        return _apiModel;
+        List<BannerModel> apiModel = List.from(json.decode(response.body)).map((item) => BannerModel.fromJson(item)).toList();
+        return apiModel;
       } 
       else {
         throw Exception(
