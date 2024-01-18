@@ -8,10 +8,10 @@ LapkeuModel lapkeuModelFromJson(String str) {
 class LapkeuModel{
   final int id;
   final int masjidId;
-  final bool cashFlow;
+  final int cashFlow;
   final String note;
   final DateTime date;
-  final int nominal;
+  final String nominal;
   final String createdAt;
   final String updatedAt;
 
@@ -30,7 +30,7 @@ class LapkeuModel{
     return LapkeuModel(
       id: json['id'],
       masjidId: json['masjid_id'],
-      cashFlow: json['cash_flow'],
+      cashFlow: json['cashflow'],
       note: json['note'],
       date: DateTime.parse(json['date']),
       nominal: json['nominal'],

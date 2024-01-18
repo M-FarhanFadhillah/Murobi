@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
+import 'package:masjid/models/lapkeu_model.dart';
+import 'package:masjid/models/masjid_model.dart';
+import 'package:masjid/services/api_lapkeu_service.dart';
+import 'package:masjid/services/api_masjid_service.dart';
 import 'package:masjid/widget/_build.dart';
 
 class KeuanganPages extends StatefulWidget {
@@ -13,6 +17,9 @@ class KeuanganPages extends StatefulWidget {
 class _KeuanganPagesState extends State<KeuanganPages> {
   String selectedValue = 'Zakat 2023 Ganjil';
   final double width = 7;
+
+  late Future<List<MasjidModel>> _apiMasjidModel;
+  late Future<List<LapkeuModel>> _apiLapkeuModel;
 
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
@@ -41,42 +48,13 @@ class _KeuanganPagesState extends State<KeuanganPages> {
     rawBarGroups = items;
 
     showingBarGroups = rawBarGroups;
+    _getData();
   }
 
-  List<Map<String, dynamic>> dataFromDatabase = [
-    {'kolom1': 'Data 1.1', 'kolom2': 'Data 1.2', 'kolom3': 'Data 1.3'},
-    {'kolom1': 'Data 2.1', 'kolom2': 'Data 2.2', 'kolom3': 'Data 2.3'},
-    {'kolom1': 'Data 3.1', 'kolom2': 'Data 3.2', 'kolom3': 'Data 3.3'},
-    {'kolom1': 'Data 4.1', 'kolom2': 'Data 4.2', 'kolom3': 'Data 4.3'},
-    {'kolom1': 'Data 5.1', 'kolom2': 'Data 5.2', 'kolom3': 'Data 5.3'},
-    {'kolom1': 'Data 6.1', 'kolom2': 'Data 6.2', 'kolom3': 'Data 6.3'},
-    {'kolom1': 'Data 7.1', 'kolom2': 'Data 7.2', 'kolom3': 'Data 7.3'},
-    {'kolom1': 'Data 8.1', 'kolom2': 'Data 8.2', 'kolom3': 'Data 8.3'},
-    // ... Tambahkan data lainnya sesuai kebutuhan Anda
-  ];
-
-  DataTable buildDataTable(List<Map<String, dynamic>> data) {
-    final List<DataColumn> columns = [];
-    final List<DataRow> rows = [];
-
-    // Assuming all rows have the same keys, use the keys from the first row
-    final keys = data.isNotEmpty ? data.first.keys.toList() : [];
-
-    // Create DataColumn for each key
-    columns.addAll(keys.map((key) => DataColumn(label: Text(key))));
-
-    // Create DataRow for each item in data
-    rows.addAll(data.map((item) {
-      return DataRow(
-        cells: keys
-            .map(
-              (key) => DataCell(Text(item[key].toString())),
-            )
-            .toList(),
-      );
-    }));
-
-    return DataTable(columns: columns, rows: rows);
+  void _getData() async {
+    // _apiMasjidModel = ApiMasjid.getApi(id_masjid);
+    _apiLapkeuModel = ApiLapkeu.getApi();
+    setState(() {});
   }
 
   @override
@@ -105,57 +83,58 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                   ),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    height: 20,
-                    width: MediaQuery.of(context).size.width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Pilih Periode ZISWAF : ",
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontFamily: 'poppins',
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14,
-                            color: Color(0xff000000),
-                          ),
+                  margin: const EdgeInsets.only(top: 10),
+                  height: 20,
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Pilih Periode ZISWAF : ",
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14,
+                          color: Color(0xff000000),
                         ),
-                        DropdownButton<String>(
-                          value: selectedValue,
-                          onChanged: (String? value) {
-                            setState(() {
-                              selectedValue = value!;
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.black,
-                          ),
-                          items: [
-                            "Zakat 2023 Ganjil",
-                            "Infaq 2023 Ganjil",
-                            "Shodaqoh 2023 Ganjil",
-                            "Wakaf 2023 Ganjil"
-                          ].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: const TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 14,
-                                  color: Color(0xff000000),
-                                ),
+                      ),
+                      DropdownButton<String>(
+                        value: selectedValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValue = value!;
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black,
+                        ),
+                        items: [
+                          "Zakat 2023 Ganjil",
+                          "Infaq 2023 Ganjil",
+                          "Shodaqoh 2023 Ganjil",
+                          "Wakaf 2023 Ganjil"
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                fontFamily: 'poppins',
+                                fontStyle: FontStyle.normal,
+                                fontSize: 14,
+                                color: Color(0xff000000),
                               ),
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    )),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 16),
@@ -340,22 +319,56 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                           ),
                         ),
                       ),
+                      // Container(
+                      //   margin: const EdgeInsets.only(top: 10),
+                      //   height: MediaQuery.of(context).size.height / 3.5,
+                      //   child: SingleChildScrollView(
+                      //     child: Column(
+                      //       children: List.generate(
+                      //         10, // Change this to the number of cards you want
+                      //         (index) => generateCard(
+                      //           'Go Far Rewards',
+                      //           'Income',
+                      //           '\$50.00',
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Container(
                         margin: const EdgeInsets.only(top: 10),
                         height: MediaQuery.of(context).size.height / 3.5,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: List.generate(
-                              10, // Change this to the number of cards you want
-                              (index) => generateCard(
-                                'Go Far Rewards',
-                                'Income',
-                                '\$50.00',
-                              ),
-                            ),
-                          ),
+                        child: FutureBuilder<List<LapkeuModel>>(
+                          future: _apiLapkeuModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator(); // Tampilkan indikator loading jika data masih dimuat.
+                            } else if (snapshot.hasError) {
+                              return Text('Error di Fronts: ${snapshot.error}');
+                            } else if (!snapshot.hasData ||
+                                snapshot.data!.isEmpty) {
+                              return Text(
+                                  'Tidak ada data'); // Tampilkan pesan jika tidak ada data.
+                            } else {
+                              return SingleChildScrollView(
+                                child: Column(
+                                  children: List.generate(
+                                    snapshot.data!.length,
+                                    (index) => generateCard(
+                                      snapshot.data![index]
+                                          .note, // Gantilah dengan properti yang sesuai dari LapkeuModel
+                                      snapshot.data![index].date.toString(),
+                                      snapshot.data![index]
+                                          .nominal.toString(),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

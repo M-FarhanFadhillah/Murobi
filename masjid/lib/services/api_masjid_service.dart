@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class ApiMasjid {
   static Future<List<MasjidModel>> getApi(String id_masjid) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endPoint_masjid + '/$id_masjid' );
+      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endPoint_masjid + '/8');
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<MasjidModel> _apiMasjidModel = List.from(json.decode(response.body)).map((item) => MasjidModel.fromJson(item)).toList();
