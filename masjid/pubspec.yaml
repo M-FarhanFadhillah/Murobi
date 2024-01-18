@@ -37,6 +37,8 @@ dependencies:
   smooth_page_indicator: 1.1.0
   auto_size_text: 3.0.0
   cached_network_image: 3.2.1
+
+  dropdown_button2: 2.3.9
   flutter_animate: 4.1.1+1
   flutter_cache_manager: 3.3.0
   font_awesome_flutter: 10.1.0
@@ -92,7 +94,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: 3.0.0
+  lints: 3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -122,6 +125,11 @@ flutter:
     - assets/images/isra.png
     - assets/images/qurban.png
     - assets/images/avatar.png
+    - assets/images/left.png
+    - assets/images/right.png
+    - assets/images/anak.png
+    - assets/images/awan.png
+    - assets/images/rekomendasi.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

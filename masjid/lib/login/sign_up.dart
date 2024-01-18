@@ -77,8 +77,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(0, 0, 175, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 175, 0),
                             child: Text(
                               'MEMBUAT AKUN',
                               style: FlutterFlowTheme.of(context)
@@ -93,8 +93,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(17, 0, 110, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                17, 0, 110, 0),
                             child: Text(
                               'Mari mulai dengan mengisi Form dibawah ini',
                               style: FlutterFlowTheme.of(context)
@@ -107,8 +107,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16, 16, 16, 16),
                             child: Container(
                               width: double.infinity,
                               constraints: const BoxConstraints(
@@ -126,7 +126,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Align(
-                                alignment: const AlignmentDirectional(0.00, 0.00),
+                                alignment:
+                                    const AlignmentDirectional(0.00, 0.00),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       32, 32, 32, 32),
@@ -136,8 +137,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 16),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 16),
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
@@ -158,7 +159,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                   .override(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -196,14 +198,16 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                     BorderRadius.circular(12),
                                               ),
                                               filled: true,
-                                              fillColor: const Color(0xFFF1F4F8),
+                                              fillColor:
+                                                  const Color(0xFFF1F4F8),
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF101213),
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -216,8 +220,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 16),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 16),
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
@@ -239,7 +243,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                   .override(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -277,7 +282,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                     BorderRadius.circular(12),
                                               ),
                                               filled: true,
-                                              fillColor: const Color(0xFFF1F4F8),
+                                              fillColor:
+                                                  const Color(0xFFF1F4F8),
                                               suffixIcon: InkWell(
                                                 onTap: () => setState(
                                                   () => _model
@@ -293,7 +299,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                           .visibility_outlined
                                                       : Icons
                                                           .visibility_off_outlined,
-                                                  color: const Color(0xFF57636C),
+                                                  color:
+                                                      const Color(0xFF57636C),
                                                   size: 24,
                                                 ),
                                               ),
@@ -303,7 +310,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF101213),
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -314,8 +322,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 16),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 16),
                                         child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
@@ -337,7 +345,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                   .override(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF57636C),
+                                                    color:
+                                                        const Color(0xFF57636C),
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -375,7 +384,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                     BorderRadius.circular(12),
                                               ),
                                               filled: true,
-                                              fillColor: const Color(0xFFF1F4F8),
+                                              fillColor:
+                                                  const Color(0xFFF1F4F8),
                                               suffixIcon: InkWell(
                                                 onTap: () => setState(
                                                   () => _model
@@ -391,7 +401,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                           .visibility_outlined
                                                       : Icons
                                                           .visibility_off_outlined,
-                                                  color: const Color(0xFF57636C),
+                                                  color:
+                                                      const Color(0xFF57636C),
                                                   size: 24,
                                                 ),
                                               ),
@@ -401,7 +412,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                 .override(
                                                   fontFamily:
                                                       'Plus Jakarta Sans',
-                                                  color: const Color(0xFF101213),
+                                                  color:
+                                                      const Color(0xFF101213),
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -412,8 +424,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 16),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 16),
                                         child: FFButtonWidget(
                                           onPressed: () {
                                             Navigator.pushNamed(
@@ -423,12 +435,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 44,
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 0, 0, 0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 0),
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 0),
                                             color: const Color(0xFF4B39EF),
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
@@ -452,8 +463,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0, 12, 0, 12),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 12, 0, 12),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -479,8 +490,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                       .override(
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
-                                                        color:
-                                                            const Color(0xFF4B39EF),
+                                                        color: const Color(
+                                                            0xFF4B39EF),
                                                         fontSize: 14,
                                                         fontWeight:
                                                             FontWeight.w600,
@@ -493,12 +504,12 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                   .override(
                                                     fontFamily:
                                                         'Plus Jakarta Sans',
-                                                    color: const Color(0xFF101213),
+                                                    color:
+                                                        const Color(0xFF101213),
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,
                                                   ),
-                                            ), textScaler: TextScaler.linear(MediaQuery.of(context)
-                                                    .textScaleFactor),
+                                            ),
                                           ),
                                         ),
                                       ),
