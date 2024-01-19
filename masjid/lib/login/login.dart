@@ -8,7 +8,7 @@ import '../models/login_model.dart';
 export '../models/login_model.dart';
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+  const LoginWidget({super.key});
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
 }

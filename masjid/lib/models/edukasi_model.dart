@@ -13,8 +13,10 @@ class EdukasiModel extends FlutterFlowModel<EdukasiWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();

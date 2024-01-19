@@ -10,6 +10,15 @@ import 'package:masjid/screens/profile/profile_pages.dart';
 import 'package:masjid/login/login.dart';
 import 'package:masjid/login/sign_up.dart';
 import 'package:masjid/navigations/qiblah_compass.dart';
+import 'package:masjid/bloc/ayat/ayat_bloc.dart';
+import 'package:masjid/cubit/surat/surat_cubit.dart';
+import 'package:masjid/data/api_service.dart';
+import 'package:masjid/ui/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:masjid/ui/surat_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +34,11 @@ void main() async {
       '/qiblat': (context) => QiblahCompass(),
       '/reportproblem': (context) => ChatPage(),
       '/qurban': (context) => Qurbandetail(),
+<<<<<<< HEAD
       '/Payment': (context) => PaymentPages(),
+=======
+      '/surat': (context) => SuratPage(),
+>>>>>>> 19d8265d2e9cfd6ad0e261e1961c6d703722ec94
     },
   ));
 }
@@ -35,8 +48,99 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: SplashScreen());
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => SuratCubit(
+                  ApiService(
+                    client: http.Client(),
+                  ),
+                ),
+              ),
+              // BlocProvider(
+              //   create: (context) => AyatCubit(
+              //     ApiService(
+              //       client: http.Client(),
+              //     ),
+              //   ),
+              // ),
+              BlocProvider(
+                create: (context) => AyatBloc(
+                  ApiService(
+                    client: http.Client(),
+                  ),
+                ),
+              ),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: '-',
+              theme: ThemeData(
+                primarySwatch: Colors.green,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+              ),
+              home: const SplashScreen(),
+            ),
+          );
+        });
   }
 
   static of(BuildContext context) {}
 }
+
+// void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ScreenUtilInit(
+//         designSize: const Size(360, 690),
+//         minTextAdapt: true,
+//         splitScreenMode: true,
+//         builder: (context, child) {
+//           return MultiBlocProvider(
+//             providers: [
+//               BlocProvider(
+//                 create: (context) => SuratCubit(
+//                   ApiService(
+//                     client: http.Client(),
+//                   ),
+//                 ),
+//               ),
+//               // BlocProvider(
+//               //   create: (context) => AyatCubit(
+//               //     ApiService(
+//               //       client: http.Client(),
+//               //     ),
+//               //   ),
+//               // ),
+//               BlocProvider(
+//                 create: (context) => AyatBloc(
+//                   ApiService(
+//                     client: http.Client(),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//             child: MaterialApp(
+//               debugShowCheckedModeBanner: false,
+//               title: 'Ahlul Quran App',
+//               theme: ThemeData(
+//                 primarySwatch: Colors.green,
+//                 fontFamily: GoogleFonts.poppins().fontFamily,
+//               ),
+//               home: const SuratPage(),
+//             ),
+//           );
+//         });
+//   }
+// }

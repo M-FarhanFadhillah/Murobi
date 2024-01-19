@@ -8,7 +8,7 @@ export 'package:masjid/models/signup_model.dart';
 export 'sign_up.dart';
 
 class SignUpWidget extends StatefulWidget {
-  const SignUpWidget({Key? key}) : super(key: key);
+  const SignUpWidget({super.key});
 
   @override
   _SignUpWidgetState createState() => _SignUpWidgetState();

@@ -499,7 +499,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16)
+                  const SizedBox(height: 16)
                 ],
               ),
             ),

@@ -1,5 +1,4 @@
 import 'package:masjid/widget/_build.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,7 +9,7 @@ import '../../models/home_model.dart';
 export '../../models/home_model.dart';
 
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({Key? key}) : super(key: key);
+  const HomeWidget({super.key});
 
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
@@ -151,12 +150,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                       //     ),
                       //   ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 12.0, 12.0),
                         child: Container(
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).secondary,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4.0,
                                 color: Color(0x34090F13),
@@ -173,7 +172,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.asset(
@@ -186,7 +185,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                   Expanded(
                                     child: Align(
-                                      alignment: AlignmentDirectional(2.5, 0.0),
+                                      alignment: const AlignmentDirectional(2.5, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         crossAxisAlignment:
@@ -203,7 +202,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 0.0),
                                             child: Text(
                                               '27 Agustus 2023',
@@ -225,7 +224,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                   Flexible(
                                     child: Align(
-                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      alignment: const AlignmentDirectional(1.0, 0.0),
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
@@ -244,7 +243,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.asset(
@@ -257,9 +256,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                   Expanded(
                                     child: Align(
-                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      alignment: const AlignmentDirectional(1.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 20.0, 20.0, 0.0),
                                         child: FlutterFlowDropDown<String>(
                                           controller:
@@ -268,7 +267,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             _model.dropDownValue ??=
                                                 'Masjid As-Syifa',
                                           ),
-                                          options: <String>[],
+                                          options: const <String>[],
                                           onChanged: (val) => setState(
                                               () => _model.dropDownValue = val),
                                           width: 150.0,
@@ -288,7 +287,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 .secondaryText,
                                             size: 24.0,
                                           ),
-                                          fillColor: Color(0xFF1D8B1D),
+                                          fillColor: const Color(0xFF1D8B1D),
                                           elevation: 2.0,
                                           borderColor:
                                               FlutterFlowTheme.of(context)
@@ -296,7 +295,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           borderWidth: 2.0,
                                           borderRadius: 8.0,
                                           margin:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 4.0, 16.0, 4.0),
                                           hidesUnderline: true,
                                           isOverButton: true,
@@ -313,12 +312,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 12.0, 12.0),
                         child: Container(
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).secondary,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4.0,
                                 color: Color(0x34090F13),
