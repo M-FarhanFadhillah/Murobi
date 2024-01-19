@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:masjid/screens/dashboard.dart';
+import 'package:masjid/screens/payment/payment.dart';
 import 'package:masjid/screens/profile/report_problem.dart';
 import 'package:masjid/screens/qurban/qurban.dart';
 import 'package:masjid/screens/splashscreen.dart';
@@ -9,7 +11,9 @@ import 'package:masjid/login/login.dart';
 import 'package:masjid/login/sign_up.dart';
 import 'package:masjid/navigations/qiblah_compass.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: "../.env");
   runApp(MaterialApp(
     home: const SplashScreen(),
     routes: {
@@ -21,6 +25,7 @@ void main() {
       '/qiblat': (context) => QiblahCompass(),
       '/reportproblem': (context) => ChatPage(),
       '/qurban': (context) => Qurbandetail(),
+      '/Payment': (context) => PaymentPages(),
     },
   ));
 }
