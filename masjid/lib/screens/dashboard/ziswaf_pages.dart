@@ -8,16 +8,27 @@ class ZiswafPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'ZISWAF',
+          style: FlutterFlowTheme.of(context).titleLarge.override(
+                fontFamily: 'Lexend',
+                color: Colors.black,
+              ),
+        ),
+        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
       body: decorationBuilder(
         context,
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              textBuilder('ZISWAF', FontWeight.bold, 20, const Color(0xff000000)),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(

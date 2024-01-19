@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LapkeuController extends Controller
 {
     public function lapkeu($id){
-        $lapkeu = \App\Models\lap_keu::where('masjid_id', $id)->filter()->orderBy('date','asc')->get();
+        $lapkeu = \App\Models\lap_keu::where('masjid_id', $id)->filter()->orderBy('date','desc')->get();
         return response()->json($lapkeu);
         // Lapkeu Arus Kas Beneran jangan terpisah (yang sudah di olah)
     }
