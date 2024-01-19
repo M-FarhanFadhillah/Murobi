@@ -33,11 +33,8 @@ void main() async {
       '/qiblat': (context) => QiblahCompass(),
       '/reportproblem': (context) => ChatPage(),
       '/qurban': (context) => Qurbandetail(),
-<<<<<<< HEAD
       '/Payment': (context) => PaymentPages(),
-=======
       '/surat': (context) => SuratPage(),
->>>>>>> 19d8265d2e9cfd6ad0e261e1961c6d703722ec94
     },
   ));
 }
