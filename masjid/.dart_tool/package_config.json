@@ -147,7 +147,11 @@
     },
     {
       "name": "dartz",
+<<<<<<< HEAD
+      "rootUri": "file:///C:/Users/upttik/AppData/Local/Pub/Cache/hosted/pub.dev/dartz-0.10.1",
+=======
       "rootUri": "file:///C:/Users/fadhi/AppData/Local/Pub/Cache/hosted/pub.dev/dartz-0.10.1",
+>>>>>>> 19d8265d2e9cfd6ad0e261e1961c6d703722ec94
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -268,6 +272,12 @@
     {
       "name": "flutter_compass",
       "rootUri": "file:///C:/Users/fadhi/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_compass-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_dotenv",
+      "rootUri": "file:///C:/Users/upttik/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -926,7 +936,11 @@
       "languageVersion": "3.1"
     }
   ],
+<<<<<<< HEAD
+  "generated": "2024-01-19T03:42:02.865641Z",
+=======
   "generated": "2024-01-18T23:59:44.062869Z",
+>>>>>>> 19d8265d2e9cfd6ad0e261e1961c6d703722ec94
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }

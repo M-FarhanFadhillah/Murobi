@@ -86,6 +86,8 @@ dependencies:
   fl_chart: ^0.64.0
   data_tables: ^1.4.0
   http: ^0.13.6
+  dartz: ^0.10.1
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
