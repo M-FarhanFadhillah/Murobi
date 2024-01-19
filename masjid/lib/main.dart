@@ -11,7 +11,6 @@ import 'package:masjid/navigations/qiblah_compass.dart';
 import 'package:masjid/bloc/ayat/ayat_bloc.dart';
 import 'package:masjid/cubit/surat/surat_cubit.dart';
 import 'package:masjid/data/api_service.dart';
-import 'package:masjid/ui/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,13 +53,6 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              // BlocProvider(
-              //   create: (context) => AyatCubit(
-              //     ApiService(
-              //       client: http.Client(),
-              //     ),
-              //   ),
-              // ),
               BlocProvider(
                 create: (context) => AyatBloc(
                   ApiService(
@@ -108,13 +100,6 @@ class MyApp extends StatelessWidget {
 //                   ),
 //                 ),
 //               ),
-//               // BlocProvider(
-//               //   create: (context) => AyatCubit(
-//               //     ApiService(
-//               //       client: http.Client(),
-//               //     ),
-//               //   ),
-//               // ),
 //               BlocProvider(
 //                 create: (context) => AyatBloc(
 //                   ApiService(
@@ -125,7 +110,7 @@ class MyApp extends StatelessWidget {
 //             ],
 //             child: MaterialApp(
 //               debugShowCheckedModeBanner: false,
-//               title: 'Ahlul Quran App',
+//               title: 'Murobi',
 //               theme: ThemeData(
 //                 primarySwatch: Colors.green,
 //                 fontFamily: GoogleFonts.poppins().fontFamily,

@@ -47,7 +47,7 @@ class _AyatPageState extends State<AyatPage> {
                 return Card(
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: AppColors.primary,
+                      backgroundColor: const Color.fromARGB(255, 101, 218, 86),
                       child: Text(
                         '${ayat.nomor}',
                         style: const TextStyle(
