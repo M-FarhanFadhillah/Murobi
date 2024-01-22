@@ -90,7 +90,7 @@ class _ProfilePagesState extends State<ProfilePages> {
         child: decorationBuilder(
           context,
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -499,7 +499,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16)
+                  SizedBox(height: 16)
                 ],
               ),
             ),
