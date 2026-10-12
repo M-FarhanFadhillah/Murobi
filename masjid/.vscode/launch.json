@@ -8,6 +8,9 @@
             "program": "lib/main.dart",
             "deviceId": "127.0.0.1:16384",
             "preLaunchTask": "MuMu: sambungkan adb",
+            "args": [
+                "--dart-define=GOOGLE_CLIENT_ID=11242990333-blv88asbo5hru9fhrmjqhn5meoga07k2.apps.googleusercontent.com"
+            ],
             "env": {
                 "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17.0.4"
             }
@@ -17,7 +20,12 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
-            "deviceId": "chrome"
+            "deviceId": "chrome",
+            "args": [
+                "--web-hostname=localhost",
+                "--web-port=5555",
+                "--dart-define=GOOGLE_CLIENT_ID=11242990333-blv88asbo5hru9fhrmjqhn5meoga07k2.apps.googleusercontent.com"
+            ]
         },
         {
             "name": "3. Dengan server Laravel - Emulator MuMu",
@@ -27,7 +35,8 @@
             "deviceId": "127.0.0.1:16384",
             "preLaunchTask": "MuMu: sambungkan adb",
             "args": [
-                "--dart-define=API_BASE_URL=http://10.0.2.2:8000"
+                "--dart-define=API_BASE_URL=http://10.0.2.2:8000",
+                "--dart-define=GOOGLE_CLIENT_ID=11242990333-blv88asbo5hru9fhrmjqhn5meoga07k2.apps.googleusercontent.com"
             ],
             "env": {
                 "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17.0.4"
@@ -40,7 +49,10 @@
             "program": "lib/main.dart",
             "deviceId": "chrome",
             "args": [
-                "--dart-define=API_BASE_URL=http://127.0.0.1:8000"
+                "--web-hostname=localhost",
+                "--web-port=5555",
+                "--dart-define=API_BASE_URL=http://127.0.0.1:8000",
+                "--dart-define=GOOGLE_CLIENT_ID=11242990333-blv88asbo5hru9fhrmjqhn5meoga07k2.apps.googleusercontent.com"
             ]
         }
     ]

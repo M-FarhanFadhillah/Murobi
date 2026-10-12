@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:masjid/data/api/api_client.dart';
 import 'package:masjid/data/api/api_config.dart';
 import 'package:masjid/data/api/murobi_api.dart';
@@ -73,7 +74,10 @@ class AccountService {
       return const AuthResult.error(
         'Login Google belum dikonfigurasi (GOOGLE_CLIENT_ID belum diisi).',
       );
-    } catch (_) {
+    } catch (error) {
+      // Penyebab aslinya (mis. People API belum aktif, origin belum didaftarkan)
+      // hanya dicatat pada mode debug; pengguna melihat pesan umum.
+      if (kDebugMode) debugPrint('Login Google gagal: $error');
       return const AuthResult.error(
         'Login Google gagal. Periksa koneksi internet lalu coba lagi.',
       );
