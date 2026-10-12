@@ -20,15 +20,16 @@ bagian "Keterbatasan", bukan ditandai berhasil.
 
 | Jenis bukti | Kode | Jumlah | Hasil |
 | --- | --- | --- | --- |
-| Tes otomatis Flutter (`flutter test`) | **F** | 213 tes | 213 lulus |
-| Tes otomatis Laravel (`php artisan test`) | **L** | 28 tes (26 API + 2 bawaan) | 28 lulus |
+| Tes otomatis Flutter (`flutter test`) | **F** | 253 tes | 253 lulus |
+| Tes otomatis Laravel (`php artisan test`) | **L** | 41 tes (39 API + 2 bawaan) | 41 lulus |
+| Uji langsung `curl` ke Laravel lokal (SQLite sementara): endpoint laporan | **C** | 9 permintaan | sesuai |
 | Pengamatan langsung di emulator MuMu | **A** | lihat tabel | sesuai |
 | Pengamatan langsung di peramban | **W** | lihat tabel | sesuai |
 | Skrip uji terpadu: kode aplikasi memanggil server Laravel lokal | **S** | 4 skenario | sesuai (skrip sementara, sudah dihapus) |
 
 Rincian tes Flutter per berkas: `account_test` 18, `api_test` 75, `api_ui_test`
-25, `auth_test` 11, `edukasi_test` 32, `kegiatan_test` 11, `quran_library_test`
-22, `quran_test` 18, `widget_test` 1.
+25, `auth_test` 11, `edukasi_test` 32, `google_test` 18, `kegiatan_test` 11,
+`quran_library_test` 22, `quran_test` 18, `report_test` 22, `widget_test` 1.
 
 ## 3. Kasus uji
 
@@ -53,6 +54,12 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | AUT-13 | Masuk dengan kata sandi lama (teks polos) | Diterima dan data tidak diubah | Sesuai | L kata sandi polos data lama diterima; A (admin) |
 | AUT-14 | Percobaan masuk beruntun melebihi batas | Pesan "Terlalu banyak percobaan…" berbahasa Indonesia | Sesuai | F `api_test` (kode 429); S (server memang membalas 429) |
 
+| AUT-15 | Masuk dengan Google (mode lokal) | Profil Google menjadi akun jamaah; menuju beranda; email yang sama dengan akun demo tidak menjadikannya admin | Sesuai (Google tiruan) | F `google_test` |
+| AUT-16 | Masuk dengan Google (server) | Token dikirim ke server; sesi dan token tersimpan; web hanya mengirim access token | Sesuai (Google tiruan) | F `google_test`; L `GoogleAuthApiTest` (akun baru, akun lama dicocokkan lewat email) |
+| AUT-17 | Google dibatalkan / ID klien belum diisi / error / ketukan ganda | Pesan jelas, tidak ada sesi, Google tidak dibuka dua kali | Sesuai | F `google_test` |
+| AUT-18 | Token Google tidak sah: `aud` aplikasi lain, email belum terverifikasi, ditolak Google, kosong | 401 "Akun Google tidak dapat diverifikasi."; tidak ada akun dibuat | Sesuai | L `GoogleAuthApiTest`; C (503 saat ID klien kosong) |
+| AUT-19 | Akun Google berstatus menunggu / ditolak, atau persetujuan otomatis dimatikan | 403 dengan pesan status | Sesuai | L `GoogleAuthApiTest` |
+
 ### 3.2 Profil
 
 | ID | Skenario | Hasil yang diharapkan | Hasil | Bukti |
@@ -63,6 +70,7 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | PRF-04 | Ubah foto dari galeri | Avatar berganti; berkas tersimpan di server; tetap tampil setelah aplikasi dibuka ulang | Sesuai | F `api_test` (unggah multipart); L unggah foto profil; **A**; S |
 | PRF-05 | Sesi berakhir saat menyimpan | Kembali ke halaman masuk | Sesuai | F `api_ui` |
 | PRF-06 | Baris "Ubah Kata Sandi" / EDIT di layar sempit | Tidak meluap | Sesuai | F `api_ui` (temuan T-3) |
+| PRF-07 | Buka Profil | Tidak ada lagi kartu pengaturan "Bahasa" | Sesuai | F `report_test` (halaman profil) |
 
 ### 3.3 Beranda
 
@@ -134,6 +142,21 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | HAK-04 | Permintaan `Range` untuk video | 206 dengan `Content-Range` | Sesuai | L berkas mendukung range |
 | HAK-05 | Kata sandi baru disimpan | Berupa hash bcrypt, bukan teks polos | Sesuai | L register membuat akun … dengan hash |
 
+### 3.9 Laporan masalah
+
+| ID | Skenario | Hasil yang diharapkan | Hasil | Bukti |
+| --- | --- | --- | --- | --- |
+| LAP-01 | Jamaah menulis laporan | Muncul sebagai gelembung "Terkirim"; kolom dikosongkan; tidak ada balasan otomatis lagi | Sesuai | F `report_test`; L `ReportApiTest`; C |
+| LAP-02 | Laporan terlalu pendek (< 5) / terlalu panjang (> 1000) | Pesan "Isi laporan minimal 5 karakter." / maksimal 1000; tidak tersimpan | Sesuai | F `report_test`; L |
+| LAP-03 | Jamaah melihat laporannya | Hanya miliknya; yang sudah ditangani bertanda "Sudah ditangani admin" | Sesuai | F `report_test`; L; C |
+| LAP-04 | Admin membuka menu "Laporan Masalah Jamaah" | Daftar laporan semua jamaah (pengirim, email, waktu, isi, status), terbaru di atas, ringkasan "N laporan baru" | Sesuai | F `report_test`; L; C |
+| LAP-05 | Admin menandai selesai / membuka lagi | Status berubah; jamaah melihat statusnya | Sesuai | F `report_test`; L; C |
+| LAP-06 | Admin menghapus laporan | Konfirmasi dulu; Batal = tetap ada; hapus = hilang; 404 dianggap sudah terhapus | Sesuai | F `report_test`; L; C |
+| LAP-07 | Jamaah mencoba melihat semua / mengubah / menghapus laporan; tanpa token | 403 / 401, data tidak berubah | Sesuai | L `ReportApiTest`; C (403) |
+| LAP-08 | Gagal memuat / mengubah | Pesan + "Coba lagi"; perubahan yang gagal tidak mengubah daftar | Sesuai | F `report_test` |
+| LAP-09 | Mode lokal | Laporan jamaah tersimpan di perangkat dan terbaca admin pada perangkat yang sama; jamaah lain tidak melihat laporan orang lain | Sesuai | F `report_test` |
+| LAP-10 | Keluar akun | Laporan akun sebelumnya dibersihkan dari memori | Sesuai | F `report_test` (reset) |
+
 ## 4. Temuan selama pengujian dan perbaikannya
 
 | ID | Temuan | Perbaikan |
@@ -147,6 +170,7 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | T-7 | Android 9+ memblokir HTTP biasa sehingga aplikasi gagal terhubung | Build debug mengizinkan HTTP (`src/debug/AndroidManifest.xml`); rilis tetap HTTPS |
 | T-8 | Tes backend memakai `RefreshDatabase`; tanpa pengaturan, tes dapat memakai koneksi `.env` (PostgreSQL asli) dan menghapus tabelnya | `phpunit.xml` memaksa SQLite memori dan tes menolak berjalan bila koneksi bukan SQLite |
 | T-9 | Kata sandi lama di data asli berupa teks polos | Diterima apa adanya (agar panel web tetap berfungsi) dan tidak diubah; risiko dicatat di `docs/API.md` |
+| T-10 | Kolom `users.no_hp` wajib dan unik, sedangkan akun Google tidak punya nomor HP | Disimpan nilai pengganti `google:<id>` yang disembunyikan dari aplikasi (tampil kosong); jamaah mengisi nomor asli lewat Profil. Tanpa mengubah skema tabel `users` |
 
 ## 5. Keterbatasan (belum terbukti)
 
@@ -157,8 +181,10 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
    tautan YouTube, dan penyajian berkas dengan `Range` di sisi server.
 3. **Bacaan audio sungguhan** di perangkat belum diuji; tes memakai pemutar tiruan.
 4. **Build rilis (APK) dan HTTPS** belum dicoba.
-5. **Login Google dan OTP nomor HP** belum berfungsi (backend/OAuth belum ada).
-   "Lupa kata sandi" belum mengirim email.
+5. **Login Google**: kode aplikasi dan server selesai dan teruji dengan Google
+   tiruan, tetapi **belum dicoba dengan akun Google sungguhan** (butuh ID klien
+   OAuth milik pengguna; lihat `docs/LOGIN_GOOGLE.md`). **OTP nomor HP** belum
+   berfungsi (backend belum ada). "Lupa kata sandi" belum mengirim email.
 6. **Perangkat fisik**, iOS, uji beban, dan aksesibilitas belum diuji.
 7. **Gambar besar**: di komputer uji ini server bawaan PHP tidak andal untuk
    respons lebih dari sekitar 64 KB, jadi pengujian memakai gambar kecil

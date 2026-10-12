@@ -43,8 +43,10 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
 2. **Edukasi**: kategori, buka artikel, buka video lalu "Tonton Video" (membuka YouTube).
 3. **Al-Qur'an**: daftar surah, Juz, Bookmark; buka surah, zoom, mode "Arab saja", putar bacaan.
 4. **Profil**: ubah data, ganti foto dari galeri, ubah kata sandi, keluar.
-5. **Masuk sebagai admin** → Profil → **Kelola Kegiatan Masjid** (unggah dan geser-hapus poster).
-6. **Edukasi** sebagai admin: **Tambah materi** (artikel dengan sampul, atau video dengan tautan YouTube), ubah, hapus.
+5. **Laporan masalah**: sebagai jamaah buka Profil → **Laporkan Permasalahan**, tulis
+   laporan, kirim. Keluar, masuk sebagai admin → Profil → **Laporan Masalah Jamaah**: laporan tadi muncul; coba **Tandai selesai** dan hapus.
+6. **Masuk sebagai admin** → Profil → **Kelola Kegiatan Masjid** (unggah dan geser-hapus poster).
+7. **Edukasi** sebagai admin: **Tambah materi** (artikel dengan sampul, atau video dengan tautan YouTube), ubah, hapus.
 
 ## 4. Yang perlu disiapkan sebelum seminar
 
@@ -61,8 +63,10 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
   ```bash
   "%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe" -s 127.0.0.1:16384 shell pm clear com.example.masjid
   ```
-- **Jangan klik tombol Google / OTP**: butuh server dan OAuth yang belum ada
-  (muncul pesan "belum dikonfigurasi").
+- **Tombol Google** hanya berfungsi bila ID klien Google sudah dipasang
+  (`docs/LOGIN_GOOGLE.md`) dan butuh internet; bila belum, ia menampilkan pesan
+  "belum dikonfigurasi". **OTP** belum tersedia (butuh backend). Jangan didemokan
+  bila belum disiapkan.
 - Akun yang dibuat lewat **Daftar** di mode lokal hanya hidup selama aplikasi terbuka.
 
 ## 5. Bila ada masalah
@@ -77,4 +81,4 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
 | Jadwal sholat kosong | Periksa internet, lalu ketuk ikon muat ulang di kartu jadwal |
 
 Tes otomatis dapat dijalankan dari **Terminal → Run Task → "Flutter: jalankan
-semua tes"** (213 tes).
+semua tes"** (253 tes).

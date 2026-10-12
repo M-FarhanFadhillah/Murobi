@@ -155,6 +155,21 @@ Body JSON: `login` (email **atau** no_hp), `password`, `device_name` (opsional).
 menerima kedua bentuk (hash bcrypt atau polos) dan **tidak mengubah** data yang
 tersimpan, supaya login admin di panel web tetap berfungsi.
 
+### `POST /api/auth/google` (baru)
+
+Masuk dengan akun Google (panduan lengkap: `docs/LOGIN_GOOGLE.md`). Body JSON:
+`id_token` (Android/iOS) **atau** `access_token` (web), `device_name` (opsional).
+Server memeriksa token langsung ke Google; `aud` harus salah satu ID di
+`GOOGLE_CLIENT_ID` dan email harus terverifikasi. Akun dicocokkan lewat email dan
+dibuat bila belum ada (nomor HP kosong; di basis data tersimpan `google:<id>`).
+
+- 200 → sama seperti `POST /api/login` (`token`, `user`)
+- 401 → `Akun Google tidak dapat diverifikasi.`
+- 403 → status akun menunggu / ditolak (pesan sama seperti login)
+- 503 → `Login Google belum dikonfigurasi di server.` (`GOOGLE_CLIENT_ID` kosong)
+
+Pembatasan 10 permintaan/menit seperti login.
+
 ### `POST /api/logout` (baru, perlu token)
 
 Mencabut token yang dipakai. 200 → `{ "message": "Berhasil keluar." }`.
@@ -179,6 +194,33 @@ Body JSON: `old_password`, `new_password` (min 8, harus berbeda).
 200 → `{ "message": "Kata sandi berhasil diubah." }`; 422 jika kata sandi lama
 salah. Akun admin (`is_admin` = true) ditolak dengan 403: kata sandi admin
 diubah lewat panel web karena disimpan dalam format lama.
+
+## Laporan masalah
+
+Jamaah melaporkan kendala pemakaian aplikasi; admin membacanya di aplikasi
+(Profil → *Laporan Masalah Jamaah*). Tabel baru `reports` (migrasi
+`2026_10_12_000001_create_reports_table`; tabel lain tidak diubah). Semua perlu
+token. Status laporan: **0** baru, **1** sudah ditangani.
+
+Objek laporan:
+
+```json
+{ "id": 1, "user_id": 2, "user_name": "Siti Aminah", "user_email": "siti@gmail.com",
+  "message": "Jadwal sholat tidak muncul", "status": 0,
+  "created_at": "2026-10-12T12:58:23+00:00" }
+```
+
+| Endpoint | Siapa | Isi |
+| --- | --- | --- |
+| `POST /api/reports` | semua akun masuk | JSON `{ "message": "…" }` (5-1000 karakter). 201 → objek laporan. Maks. 20/menit. |
+| `GET /api/reports/mine` | semua akun masuk | Laporan milik sendiri, terbaru di atas (maks. 100). |
+| `GET /api/reports` | admin | Laporan semua jamaah, terbaru di atas (maks. 200). Jamaah biasa 403. |
+| `PATCH /api/reports/{id}` | admin | JSON `{ "status": 0 \| 1 }` → objek laporan. 404 bila tidak ada. |
+| `DELETE /api/reports/{id}` | admin | 200 `{ "message": "Laporan dihapus." }`; 404 bila tidak ada. |
+
+Validasi gagal → 422 dengan pesan Indonesia (mis. *Isi laporan minimal 5
+karakter.*). Pada mode lokal aplikasi (tanpa server) laporan disimpan di
+perangkat dan admin pada perangkat yang sama dapat membacanya.
 
 ## Kelola konten (khusus admin)
 
@@ -239,6 +281,9 @@ server, beri alamat dasarnya saat menjalankan:
 flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000      # emulator Android
 flutter run --dart-define=API_BASE_URL=http://192.168.1.10:8000  # HP asli, satu Wi-Fi
 ```
+
+Login Google memerlukan ID klien dari Google Cloud (`--dart-define=GOOGLE_CLIENT_ID=…`,
+lihat `docs/LOGIN_GOOGLE.md`).
 
 Pada mode server: masuk/daftar/profil/foto/kata sandi lewat API (token disimpan
 di perangkat dan dipulihkan saat aplikasi dibuka), daftar masjid, banner,

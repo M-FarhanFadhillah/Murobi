@@ -42,11 +42,20 @@ kosong.
    ```
    Cara permanen: hapus tanda `;` pada `;extension=pdo_pgsql` dan
    `;extension=pgsql` di `C:\xampp\php\php.ini`, lalu mulai ulang Apache/terminal.
-4. **`.env`** (milik Anda; jangan dibagikan): `DB_CONNECTION=pgsql`, `DB_HOST`,
+4. **Tabel laporan masalah.** Fitur "Laporan Masalah" memakai satu tabel baru
+   `reports`. Tambahkan **hanya migrasi itu** (jangan menjalankan `php artisan
+   migrate` polos: bila basis data dibuat dari cadangan SQL, Laravel dapat
+   mencoba membuat ulang tabel lama):
+   ```bash
+   C:\xampp\php\php.exe -d extension=pdo_pgsql -d extension=pgsql artisan migrate --path=database/migrations/2026_10_12_000001_create_reports_table.php
+   ```
+   Tabel lain tidak diubah. (Login Google, bila dipakai, tidak butuh tabel
+   baru; lihat `docs/LOGIN_GOOGLE.md`.)
+5. **`.env`** (milik Anda; jangan dibagikan): `DB_CONNECTION=pgsql`, `DB_HOST`,
    `DB_PORT=5432`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`, dan
    `FILESYSTEM_DISK=public`. Berkas gambar disajikan lewat `/api/files/...`,
    jadi `php artisan storage:link` tidak diperlukan oleh API.
-5. Bila panel web menampilkan *No application encryption key*, jalankan
+6. Bila panel web menampilkan *No application encryption key*, jalankan
    `php artisan key:generate` (API sendiri tidak membutuhkannya).
 
 ## 3. Server
