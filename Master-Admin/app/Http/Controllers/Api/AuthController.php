@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Support\FileUrl;
+use App\Support\GoogleIdentity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -21,6 +23,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 class AuthController extends Controller
 {
     private const PHONE_REGEX = '/^(\+62|0)[0-9]{8,13}$/';
+    private const GOOGLE_PHONE_PREFIX = 'google:';
 
     public function register(Request $request): JsonResponse
     {
@@ -64,6 +67,61 @@ class AuthController extends Controller
         if (!$user || !self::passwordMatches($user, $data['password'])) {
             return response()->json(['message' => 'ID atau kata sandi salah.'], 401);
         }
+        if ((int) $user->status === 0) {
+            return response()->json(['message' => 'Akun Anda menunggu persetujuan admin.'], 403);
+        }
+        if ((int) $user->status === 2) {
+            return response()->json(['message' => 'Pendaftaran Anda ditolak oleh admin.'], 403);
+        }
+
+        $token = $user->createToken($data['device_name'] ?? 'mobile')->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            'token_type' => 'Bearer',
+            'user' => self::userPayload($user),
+        ]);
+    }
+
+    /**
+     * Masuk dengan akun Google. Aplikasi mengirim id_token (Android) atau
+     * access_token (web); keduanya diperiksa langsung ke Google. Akun dicocokkan
+     * lewat email, dan dibuat bila belum ada.
+     */
+    public function google(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'id_token' => ['nullable', 'string', 'max:4096'],
+            'access_token' => ['nullable', 'string', 'max:4096'],
+            'device_name' => ['nullable', 'string', 'max:100'],
+        ]);
+
+        if (!GoogleIdentity::configured()) {
+            return response()->json(['message' => 'Login Google belum dikonfigurasi di server.'], 503);
+        }
+
+        $identity = GoogleIdentity::verify($data['id_token'] ?? null, $data['access_token'] ?? null);
+        if (!$identity) {
+            return response()->json(['message' => 'Akun Google tidak dapat diverifikasi.'], 401);
+        }
+
+        $user = User::whereRaw('lower(email) = ?', [$identity['email']])->first();
+        if (!$user) {
+            $user = User::create([
+                'name' => $identity['name'],
+                'email' => $identity['email'],
+                // Kolom no_hp wajib dan unik, sedangkan akun Google belum punya nomor.
+                // Nilai pengganti ini tidak ditampilkan; jamaah mengisinya di Profil.
+                'no_hp' => self::GOOGLE_PHONE_PREFIX . $identity['sub'],
+                'profil_pict' => '',
+                // Kata sandi acak yang tidak diketahui siapa pun: akun ini hanya
+                // bisa dimasuki lewat Google (atau setelah "lupa kata sandi").
+                'password' => Hash::make(Str::random(40)),
+                'is_admin' => false,
+                'status' => config('services.google.auto_approve') ? 1 : 0,
+            ]);
+        }
+
         if ((int) $user->status === 0) {
             return response()->json(['message' => 'Akun Anda menunggu persetujuan admin.'], 403);
         }
@@ -201,7 +259,7 @@ class AuthController extends Controller
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'no_hp' => $user->no_hp,
+            'no_hp' => str_starts_with((string) $user->no_hp, self::GOOGLE_PHONE_PREFIX) ? '' : $user->no_hp,
             'profil_pict' => $user->profil_pict,
             'profil_pict_url' => FileUrl::for($user->profil_pict),
             'is_admin' => (bool) $user->is_admin,

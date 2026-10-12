@@ -31,4 +31,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Login Google dari aplikasi mobile (POST /api/auth/google). GOOGLE_CLIENT_ID
+    // boleh berisi beberapa ID klien, dipisah koma (web dan Android).
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        // Akun baru dari Google langsung aktif (email sudah diverifikasi Google).
+        // Isi false agar tetap menunggu persetujuan admin.
+        'auto_approve' => env('GOOGLE_AUTO_APPROVE', true),
+    ],
+
 ];

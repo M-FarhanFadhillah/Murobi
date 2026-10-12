@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\EducationController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\LapkeuController;
 use App\Http\Controllers\Api\MasjidController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\userController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::get('/files/{path}', [FileController::class, 'show'])->where('path', '.*'
 
 Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:10,1');
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+Route::post('/auth/google', [AuthController::class, 'google'])->middleware('throttle:10,1');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -42,6 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/me', [AuthController::class, 'updateMe']);
     Route::post('/me/photo', [AuthController::class, 'updatePhoto']);
     Route::post('/me/password', [AuthController::class, 'changePassword']);
+
+    // Laporan masalah: jamaah mengirim dan melihat laporannya sendiri.
+    Route::post('/reports', [ReportController::class, 'store'])->middleware('throttle:20,1');
+    Route::get('/reports/mine', [ReportController::class, 'mine']);
 
     // Kelola konten dari aplikasi: hanya admin. Pembaruan memakai POST (multipart)
     // karena PHP tidak membaca berkas pada PATCH/PUT.
@@ -53,5 +59,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/edu', [EducationController::class, 'store']);
         Route::post('/edu/{id}', [EducationController::class, 'update'])->whereNumber('id');
         Route::delete('/edu/{id}', [EducationController::class, 'destroy'])->whereNumber('id');
+
+        // Laporan masalah dari semua jamaah.
+        Route::get('/reports', [ReportController::class, 'index']);
+        Route::patch('/reports/{id}', [ReportController::class, 'update'])->whereNumber('id');
+        Route::delete('/reports/{id}', [ReportController::class, 'destroy'])->whereNumber('id');
     });
 });
