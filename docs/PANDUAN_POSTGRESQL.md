@@ -1,148 +1,101 @@
-# Panduan: menjalankan Murobi terhadap PostgreSQL asli
+# Murobi terhadap PostgreSQL asli
 
-Semua pengujian sejauh ini memakai SQLite sementara. Panduan ini untuk
-membuktikan bahwa API dan aplikasi juga bekerja di database PostgreSQL yang
-dipakai panel web Anda. Langkah ini **Anda** yang menjalankan, karena database
-dan `.env` Anda tidak pernah saya buka atau sentuh.
+**Status: sudah dijalankan dan terbukti pada 12 Oktober 2026** di komputer pengembangan
+ini (PostgreSQL 16, PHP 8.2 XAMPP, Laravel 9). Dokumen ini merangkum hasilnya, temuan
+yang harus diketahui, dan cara menjalankannya lagi.
 
-## 1. Yang sudah dicek (hanya dengan membaca)
+## 1. Apa yang dibuktikan
 
-Dari cadangan `db-backups/api.sql` (9 Januari 2024) dan kode:
+Terhadap basis data PostgreSQL asli milik proyek ini (3 akun, 2 masjid, 6 kegiatan,
+2 materi, 4 banner):
 
 | Pemeriksaan | Hasil |
 | --- | --- |
-| Tabel `personal_access_tokens` (dibutuhkan Sanctum) | Ada |
-| `users.is_admin` / `users.status` | `bool` / `int4 default 0` — sesuai yang dipakai API |
-| `activities.decription`, `activities.pict` | `text` / `varchar(255)` — sesuai |
-| `education.content` (varchar 255), `education.deskripsi` (text) | Sesuai (tautan YouTube muat di `content`) |
-| Migrasi atau kolom baru dari pekerjaan API | **Tidak ada** (`git status Master-Admin/database` bersih) |
-| Login panel web | Memakai tabel **`users`** dengan `is_admin = true` (`AdminsController::authenticate`), bukan tabel `admins` |
-| Isi `users` pada cadangan | Hanya 1 baris: `ahmad@gmail.com`, bukan admin, `status = 1`, kata sandi teks polos |
+| Koneksi Laravel → PostgreSQL, skema 15 migrasi lama sudah ada | Berhasil |
+| Migrasi baru `reports` (hanya tabel itu ditambahkan) | Berhasil |
+| Data publik: `/api/masjid`, `/banner`, `/activity`, `/edu/book`, `/edu/video` | 200, jumlah sesuai isi basis data |
+| Masuk dengan email + kata sandi (akun hash bcrypt), kata sandi salah → 401 | Sesuai |
+| `GET /api/me`, keluar (token dicabut) | Sesuai |
+| Laporan masalah: jamaah kirim, admin lihat/tandai selesai, jamaah dilarang melihat semua (403) | Sesuai |
+| Admin menambah kegiatan dengan gambar, muncul di daftar publik, gambar dilayani **byte-per-byte sama**, lalu dihapus (berkas ikut terhapus) | Sesuai |
+| Login Google dengan akun Google sungguhan lewat aplikasi → server memeriksa token ke Google → akun jamaah dibuat → Beranda tampil dengan data masjid dari PostgreSQL | Berhasil |
+| Token Google palsu → 401 (bukan 503), artinya server benar-benar menghubungi Google | Sesuai |
+| Semua data uji dihapus; jumlah baris kembali persis seperti semula | Terverifikasi |
 
-Artinya: tidak ada perubahan skema yang perlu dijalankan. Yang perlu dipastikan
-adalah **ada akun admin** di `users` (lihat langkah 4).
+**Belum terbukti:** login dengan akun *asli* yang sudah ada (kata sandi teks polos) karena
+kata sandinya tidak diketahui; perilakunya sudah diuji otomatis (SQLite) dan tidak
+dijalankan terhadap data asli. Berkas video (mp4), HTTPS/rilis, dan perangkat fisik juga belum.
 
-Kondisi di komputer ini (saat diperiksa): layanan `postgresql-x64-16` berhenti;
-ekstensi PHP `pdo_pgsql` belum aktif di XAMPP maupun Herd; `APP_KEY` di `.env`
-kosong.
+## 2. Temuan penting
 
-## 2. Persiapan
+| ID | Temuan | Penanganan |
+| --- | --- | --- |
+| P-1 | **Sequence id tertinggal.** Data hasil restore cadangan memakai id eksplisit tanpa menaikkan sequence, sehingga *menambah* data gagal: `duplicate key value violates unique constraint "activities_pkey"`. 10 dari 16 tabel terdampak (juga panel web). Tidak terlihat di SQLite. | Perintah baru `php artisan db:fix-sequences` (`--dry-run` hanya melaporkan). Sudah dijalankan; sekarang semua tabel `ok`. **Jalankan lagi setiap habis restore cadangan.** |
+| P-2 | **`libpq.dll` hilang dari `C:\Program Files\PostgreSQL\16\bin`.** `pg_dump`, `psql`, `pg_ctl` memuat `libpq.dll` milik XAMPP dari PATH sistem (versi tidak cocok) dan gagal dengan kode `0xC0000138`. | `libpq.dll` asli PostgreSQL 16 (sudah ada di folder `lib`) disalin ke `bin`. Sekarang semua alat berjalan tanpa trik PATH. |
+| P-3 | **Layanan Windows `postgresql-x64-16` tidak mau start** (error 1053), baik sebelum maupun sesudah P-2 diperbaiki, dan tanpa catatan di log PostgreSQL maupun Event Log. | Tidak mengubah akun layanan sistem. Disediakan `scripts\postgres-mulai.bat` yang menyalakan PostgreSQL yang sama (data yang sama) sebagai proses pengguna. Setelah komputer dimulai ulang, jalankan skrip itu lagi. |
+| P-4 | `APP_DEBUG=true` di `.env`: respons error API memuat jejak tumpukan lengkap (jalur berkas). | Belum diubah (berkas `.env` milik Anda). Untuk server sungguhan isi `APP_DEBUG=false`. |
+| P-5 | `php -S` (server bawaan PHP) satu utas mereset koneksi paralel browser dan respons besar di komputer ini. | `scripts\server-laravel.bat` memasang proxy berutas banyak di depannya. Untuk demo yang sungguh-sungguh pakai Apache XAMPP. |
+| P-6 | Cadangan penuh dibuat sebelum perubahan apa pun. | `D:\Tugas Kuliah\Enlight\cadangan-postgres-sebelum-uji-2026-10-12.sql` (di luar repo karena memuat data akun). |
 
-1. **Cadangkan dulu.** API baru menulis ke `users` (daftar), `personal_access_tokens`
-   (masuk), `activities`, `education`, dan berkas di `storage/app/public`.
-   ```bash
-   pg_dump -U postgres -d <nama_database> --clean --if-exists -f cadangan-sebelum-uji.sql
-   ```
-2. **Nyalakan PostgreSQL**: Services → `postgresql-x64-16` → Start (atau
-   `net start postgresql-x64-16` di PowerShell administrator).
-3. **Aktifkan ekstensi PHP tanpa mengubah `php.ini`** — cukup tambahkan dua
-   argumen setiap kali menjalankan PHP (sudah diperiksa: driver `pgsql` muncul):
-   ```bash
-   C:\xampp\php\php.exe -d extension=pdo_pgsql -d extension=pgsql artisan serve --host=0.0.0.0 --port=8000
-   ```
-   Cara permanen: hapus tanda `;` pada `;extension=pdo_pgsql` dan
-   `;extension=pgsql` di `C:\xampp\php\php.ini`, lalu mulai ulang Apache/terminal.
-4. **Tabel laporan masalah.** Fitur "Laporan Masalah" memakai satu tabel baru
-   `reports`. Tambahkan **hanya migrasi itu** (jangan menjalankan `php artisan
-   migrate` polos: bila basis data dibuat dari cadangan SQL, Laravel dapat
-   mencoba membuat ulang tabel lama):
-   ```bash
-   C:\xampp\php\php.exe -d extension=pdo_pgsql -d extension=pgsql artisan migrate --path=database/migrations/2026_10_12_000001_create_reports_table.php
-   ```
-   Tabel lain tidak diubah. (Login Google, bila dipakai, tidak butuh tabel
-   baru; lihat `docs/LOGIN_GOOGLE.md`.)
-5. **`.env`** (milik Anda; jangan dibagikan): `DB_CONNECTION=pgsql`, `DB_HOST`,
-   `DB_PORT=5432`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`, dan
-   `FILESYSTEM_DISK=public`. Berkas gambar disajikan lewat `/api/files/...`,
-   jadi `php artisan storage:link` tidak diperlukan oleh API.
-6. Bila panel web menampilkan *No application encryption key*, jalankan
-   `php artisan key:generate` (API sendiri tidak membutuhkannya).
+## 3. Menjalankan sehari-hari
 
-## 3. Server
+```bat
+rem 1) Nyalakan PostgreSQL (sekali setelah komputer menyala)
+scripts\postgres-mulai.bat
 
-`php artisan serve` hanya melayani satu permintaan sekali waktu. Untuk uji yang
-lebih mulus pakai Apache dari XAMPP. Di komputer yang saya pakai, server bawaan
-PHP juga tidak andal untuk respons lebih dari sekitar 64 KB (gambar besar bisa
-gagal dimuat), jadi gunakan gambar kecil saat mencoba atau pakai Apache.
+rem 2) Nyalakan API Laravel di http://127.0.0.1:8000 (biarkan jendelanya terbuka)
+scripts\server-laravel.bat
 
-## 4. Pastikan ada akun admin
+rem 3) Aplikasi: VS Code konfigurasi "3. Dengan server Laravel - Emulator MuMu" atau
+rem    "4. Dengan server Laravel - Chrome" (sudah diatur di masjid\.vscode\launch.json)
 
-Jalankan di psql/pgAdmin (membaca saja):
+rem Berhenti
+scripts\postgres-berhenti.bat
+```
+
+`scripts\server-laravel.bat` memakai PHP XAMPP dengan argumen
+`-d extension=pdo_pgsql -d extension=pgsql` hanya untuk proses itu; `php.ini` tidak diubah.
+Bila `Master-Admin\.env` belum memakai `DB_CONNECTION=pgsql`, atur dulu (`DB_HOST`, `DB_PORT`,
+`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`, `FILESYSTEM_DISK=public`).
+
+## 4. Setelah restore cadangan atau pindah komputer
+
+```bash
+# dari folder Master-Admin, dengan ekstensi pgsql aktif
+php -d extension=pdo_pgsql -d extension=pgsql artisan migrate --path=database/migrations/2026_10_12_000001_create_reports_table.php
+php -d extension=pdo_pgsql -d extension=pgsql artisan db:fix-sequences
+```
+
+Jangan menjalankan `php artisan migrate` polos pada basis data hasil restore (Laravel
+dapat mencoba membuat ulang tabel lama). Pastikan juga ada akun admin:
 
 ```sql
 select id, email, is_admin, status from users order by id;
-```
-
-Akun yang dipakai aplikasi sebagai admin harus `is_admin = true` dan
-`status = 1`. Bila belum ada, tentukan sendiri akunnya lalu:
-
-```sql
 update users set is_admin = true, status = 1 where email = '<email admin Anda>';
 ```
 
-Kata sandi lama berupa teks polos tetap diterima dan **tidak diubah** oleh API
-(supaya login panel web tidak rusak). Kata sandi akun baru dari aplikasi
-disimpan sebagai hash bcrypt.
+Kata sandi lama berupa teks polos tetap diterima dan **tidak diubah** oleh API (agar login
+panel web tidak rusak). Kata sandi akun baru dari aplikasi disimpan sebagai hash bcrypt.
 
 ## 5. Uji cepat dengan curl
 
-Ganti `<...>` dengan data Anda. Port sesuai langkah 3.
-
 ```bash
-# 1) Data publik
 curl http://127.0.0.1:8000/api/masjid
-curl "http://127.0.0.1:8000/api/activity?masjid_id=<id masjid>"
-curl http://127.0.0.1:8000/api/edu/book
-
-# 2) Masuk sebagai admin -> catat "token"
 curl -X POST http://127.0.0.1:8000/api/login -H "Accept: application/json" \
-  -H "Content-Type: application/json" \
-  -d '{"login":"<email admin>","password":"<kata sandi>"}'
-
-# 3) Data akun
+  -H "Content-Type: application/json" -d '{"login":"<email>","password":"<kata sandi>"}'
 curl http://127.0.0.1:8000/api/me -H "Accept: application/json" -H "Authorization: Bearer <token>"
-
-# 4) Tambah lalu hapus materi uji (bukti tulis ke PostgreSQL)
-curl -X POST http://127.0.0.1:8000/api/edu -H "Accept: application/json" \
-  -H "Authorization: Bearer <token>" -F jenis=book -F "judul=Materi uji" \
-  -F kategori=0 -F "deskripsi=Hanya untuk uji."
-curl -X DELETE http://127.0.0.1:8000/api/edu/<id dari langkah di atas> \
-  -H "Accept: application/json" -H "Authorization: Bearer <token>"
-
-# 5) Keluar (mencabut token)
-curl -X POST http://127.0.0.1:8000/api/logout -H "Accept: application/json" -H "Authorization: Bearer <token>"
 ```
 
-Hasil yang diharapkan: langkah 1 berupa larik JSON; langkah 2 mengembalikan
-`token`; langkah 3 menampilkan `is_admin: true`; langkah 4 membalas 201 lalu
-200; langkah 5 membalas 200.
+## 6. Peringatan tentang tes otomatis
 
-## 6. Aplikasi
+Tes backend memakai `RefreshDatabase`, yang menghapus semua tabel. Karena itu `phpunit.xml`
+**memaksa SQLite memori** dan tes menolak berjalan bila koneksinya bukan SQLite. Jangan
+menghapus pengaman itu dan jangan menjalankan tes dengan `DB_CONNECTION=pgsql`.
 
-```bash
-# Emulator MuMu (JDK 17)
-flutter run -d 127.0.0.1:16384 --dart-define=API_BASE_URL=http://10.0.2.2:8000
+## 7. Memulihkan dari cadangan
 
-# HP asli di Wi-Fi yang sama (izinkan port 8000 di Windows Firewall)
-flutter run --dart-define=API_BASE_URL=http://<IP-LAN-komputer>:8000
+```bat
+"C:\Program Files\PostgreSQL\16\bin\psql.exe" -h 127.0.0.1 -U <pengguna> -d <nama_database> -f "D:\Tugas Kuliah\Enlight\cadangan-postgres-sebelum-uji-2026-10-12.sql"
 ```
 
-Lalu ulangi alur utama dari `docs/PENGUJIAN_BLACKBOX.md`: masuk, Beranda, ganti
-masjid, Edukasi, Profil, serta (sebagai admin) tambah dan hapus satu kegiatan
-dan satu materi.
-
-## 7. Peringatan tentang tes otomatis
-
-Tes backend memakai `RefreshDatabase`, yang menghapus semua tabel. Karena itu
-`phpunit.xml` sekarang **memaksa SQLite memori** dan tes menolak berjalan bila
-koneksinya bukan SQLite. Jangan menghapus pengaman itu, dan jangan menjalankan
-tes dengan `DB_CONNECTION=pgsql`.
-
-## 8. Setelah selesai
-
-Hapus data uji (lewat API atau panel web), matikan server, dan bila ada
-masalah pulihkan dari cadangan langkah 2:
-
-```bash
-psql -U postgres -d <nama_database> -f cadangan-sebelum-uji.sql
-```
+(Cadangan dibuat dengan `--clean --if-exists`, jadi menimpa tabel yang ada.)

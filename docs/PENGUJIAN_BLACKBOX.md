@@ -10,7 +10,7 @@ bagian "Keterbatasan", bukan ditandai berhasil.
 | Komponen | Keterangan |
 | --- | --- |
 | Aplikasi | Flutter 3.13.7 (Dart 3.1.3), tema Material, `flutter_bloc`, `just_audio`, `http` |
-| Server | Laravel 9.52 + Sanctum 3, PHP 8.2 (XAMPP). **Database uji: SQLite sementara**, bukan PostgreSQL asli |
+| Server | Laravel 9.52 + Sanctum 3, PHP 8.2 (XAMPP). Tes otomatis memakai **SQLite memori**; uji langsung (kolom bukti **P**) memakai **PostgreSQL 16 asli** |
 | Perangkat Android | MuMu Player, Android 15 (API 35), x86_64, layar 1080×1920, build debug |
 | Peramban | Chrome (panel peramban), Flutter web, lebar 390 px |
 | Alamat server dari emulator | `http://10.0.2.2:8000` |
@@ -21,8 +21,9 @@ bagian "Keterbatasan", bukan ditandai berhasil.
 | Jenis bukti | Kode | Jumlah | Hasil |
 | --- | --- | --- | --- |
 | Tes otomatis Flutter (`flutter test`) | **F** | 266 tes | 266 lulus |
-| Tes otomatis Laravel (`php artisan test`) | **L** | 41 tes (39 API + 2 bawaan) | 41 lulus |
+| Tes otomatis Laravel (`php artisan test`) | **L** | 42 tes (40 API + 2 bawaan) | 42 lulus |
 | Uji langsung `curl` ke Laravel lokal (SQLite sementara): endpoint laporan | **C** | 9 permintaan | sesuai |
+| Uji langsung ke **PostgreSQL asli** (data publik, login, laporan, kelola kegiatan + gambar, login Google) | **P** | lihat `docs/PANDUAN_POSTGRESQL.md` | sesuai; 3 temuan (T-13 s.d. T-15) |
 | Pengamatan langsung di emulator MuMu | **A** | lihat tabel | sesuai |
 | Pengamatan langsung di peramban | **W** | lihat tabel | sesuai |
 | Skrip uji terpadu: kode aplikasi memanggil server Laravel lokal | **S** | 4 skenario | sesuai (skrip sementara, sudah dihapus) |
@@ -60,6 +61,7 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | AUT-17 | Google dibatalkan / ID klien belum diisi / error / ketukan ganda | Pesan jelas, tidak ada sesi, Google tidak dibuka dua kali | Sesuai | F `google_test` |
 | AUT-18 | Token Google tidak sah: `aud` aplikasi lain, email belum terverifikasi, ditolak Google, kosong | 401 "Akun Google tidak dapat diverifikasi."; tidak ada akun dibuat | Sesuai | L `GoogleAuthApiTest`; C (503 saat ID klien kosong) |
 | AUT-19 | Akun Google berstatus menunggu / ditolak, atau persetujuan otomatis dimatikan | 403 dengan pesan status | Sesuai | L `GoogleAuthApiTest` |
+| AUT-20 | Login Google dengan akun Google sungguhan di Chrome (mode lokal, lalu mode server terhadap PostgreSQL asli) | Masuk ke Beranda; di mode server akun jamaah dibuat dan data masjid dari PostgreSQL tampil | Sesuai | **P** (lihat `docs/LOGIN_GOOGLE.md` bagian 5) |
 
 ### 3.2 Profil
 
@@ -177,20 +179,22 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | T-10 | Kolom `users.no_hp` wajib dan unik, sedangkan akun Google tidak punya nomor HP | Disimpan nilai pengganti `google:<id>` yang disembunyikan dari aplikasi (tampil kosong); jamaah mengisi nomor asli lewat Profil. Tanpa mengubah skema tabel `users` |
 | T-11 | Tombol "Muat ulang" pada kartu jadwal sholat memicu assertion di mode debug (`setState` mengembalikan Future) | `setState` memakai blok; ada tes yang mengetuk tombol itu |
 | T-12 | Pesan "Jadwal sholat belum tersedia" + tombol dapat meluap pada layar sempit / huruf besar | Teks dibungkus `Flexible` |
+| T-13 | Pada PostgreSQL asli hasil restore cadangan, sequence id sepuluh tabel tertinggal dari id tertinggi sehingga menambah data gagal (`duplicate key ... _pkey`); tidak muncul di SQLite | Perintah `php artisan db:fix-sequences` (+ tes), dijalankan pada basis data asli |
+| T-14 | `libpq.dll` hilang dari folder `bin` PostgreSQL 16 sehingga `pg_dump`/`psql`/`pg_ctl` memuat `libpq.dll` XAMPP yang tidak cocok; layanan Windows PostgreSQL juga tidak mau start | `libpq.dll` asli disalin ke `bin`; disediakan `scripts/postgres-mulai.bat` (lihat `docs/PANDUAN_POSTGRESQL.md`, P-2 dan P-3) |
+| T-15 | Login Google di web gagal dengan pesan umum karena **Google People API** belum diaktifkan di project (dipanggil plugin web setelah token terbit) | API diaktifkan; log debug penyebab asli ditambahkan di `AccountService.signInWithGoogle` |
 
 ## 5. Keterbatasan (belum terbukti)
 
-1. **PostgreSQL asli** belum dipakai. Skema pada cadangan `db-backups/api.sql`
-   telah dicocokkan secara membaca, tetapi belum dijalankan. Lihat
-   `docs/PANDUAN_POSTGRESQL.md`.
+1. **PostgreSQL asli** sudah dipakai untuk uji langsung (kolom bukti **P**), kecuali login dengan
+   akun lama berkata sandi teks polos (kata sandinya tidak diketahui; diuji otomatis saja).
+   Lihat `docs/PANDUAN_POSTGRESQL.md`.
 2. **Berkas video (mp4) dari server** belum diputar di perangkat. Yang terbukti:
    tautan YouTube, dan penyajian berkas dengan `Range` di sisi server.
 3. **Bacaan audio sungguhan** di perangkat belum diuji; tes memakai pemutar tiruan.
 4. **Build rilis (APK) dan HTTPS** belum dicoba.
-5. **Login Google**: kode aplikasi dan server selesai dan teruji dengan Google
-   tiruan, tetapi **belum dicoba dengan akun Google sungguhan** (butuh ID klien
-   OAuth milik pengguna; lihat `docs/LOGIN_GOOGLE.md`). **OTP nomor HP** belum
-   berfungsi (backend belum ada). "Lupa kata sandi" belum mengirim email.
+5. **Login Google** terbukti dengan akun sungguhan di **Chrome** (mode lokal dan server), tetapi
+   **belum dicoba di Android/emulator MuMu/HP fisik** (lihat `docs/LOGIN_GOOGLE.md`). **OTP nomor
+   HP** belum berfungsi (backend belum ada). "Lupa kata sandi" belum mengirim email.
 6. **Perangkat fisik**, iOS, uji beban, dan aksesibilitas belum diuji.
 7. **Gambar besar**: di komputer uji ini server bawaan PHP tidak andal untuk
    respons lebih dari sekitar 64 KB, jadi pengujian memakai gambar kecil

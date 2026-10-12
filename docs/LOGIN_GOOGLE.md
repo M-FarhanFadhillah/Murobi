@@ -1,10 +1,8 @@
 # Login dengan Google
 
-Tombol **G** di halaman Masuk dan Daftar sudah tersambung. Agar bisa dipakai,
-Anda perlu **ID klien OAuth** dari Google Cloud Console (gratis, memakai akun
-Google Anda sendiri). ID itu tidak dapat dibuatkan dari luar, jadi tanpa ID
-tersebut tombol hanya menampilkan pesan *"Login Google belum dikonfigurasi
-(GOOGLE_CLIENT_ID belum diisi)"*.
+**Status: berfungsi dan terbukti dengan akun Google sungguhan (12 Oktober 2026)**, baik mode
+lokal maupun mode server (aplikasi → Laravel → PostgreSQL). Tombol **G** ada di halaman Masuk
+dan Daftar.
 
 ## 1. Cara kerja
 
@@ -28,79 +26,81 @@ Aturan di server (`Master-Admin/app/Http/Controllers/Api/AuthController.php`,
 - Kata sandi akun baru acak dan tidak diketahui siapa pun: akun itu hanya bisa
   dimasuki lewat Google.
 
-## 2. Menyiapkan Google Cloud Console (sekali saja)
+## 2. Konfigurasi yang sudah dibuat (Google Cloud project `murobi`)
 
-1. Buka <https://console.cloud.google.com/> → buat **Project** baru (mis. `murobi`).
-2. **APIs & Services → OAuth consent screen**: pilih *External*, isi nama aplikasi
-   dan email Anda. Biarkan status **Testing**, lalu tambahkan email yang akan
-   dipakai mencoba/demo di **Test users** (selama Testing hanya akun itu yang
-   boleh masuk).
-3. **APIs & Services → Credentials → Create credentials → OAuth client ID**:
-   1. Jenis **Web application**. Ini ID yang dipakai aplikasi dan server
-      (`GOOGLE_CLIENT_ID`). Untuk mencoba di Chrome, isi
-      **Authorized JavaScript origins** dengan `http://localhost:5555`
-      (jalankan web dengan `--web-hostname localhost --web-port 5555`).
-   2. Jenis **Android** (untuk emulator/HP): *Package name* `com.example.masjid`
-      dan *SHA-1* sertifikat debug komputer ini:
+Dibuat lewat Google Cloud Console dengan akun `fadhillah28.mff@gmail.com`:
 
-      ```
-      C2:4C:E1:25:4B:F8:44:23:DF:40:55:AB:38:D4:CB:24:77:54:1F:C2
-      ```
+| Bagian | Nilai |
+| --- | --- |
+| Project | `murobi` |
+| Layar persetujuan | Nama aplikasi *Murobi*, audience **External**, status **Testing** |
+| Test users | `fadhillah28.mff@gmail.com` (selama Testing **hanya** akun yang terdaftar di sini yang boleh masuk; tambah akun lain di *Google Auth Platform → Audience → Test users*) |
+| Klien OAuth **Web** `Murobi Web` | ID: `11242990333-blv88asbo5hru9fhrmjqhn5meoga07k2.apps.googleusercontent.com`. Authorized JavaScript origin: `http://localhost:5555` |
+| Klien OAuth **Android** `Murobi Android (debug)` | Package `com.example.masjid`, SHA-1 sertifikat debug komputer ini: `C2:4C:E1:25:4B:F8:44:23:DF:40:55:AB:38:D4:CB:24:77:54:1F:C2` |
+| API yang diaktifkan | **Google People API** (wajib untuk login di web: plugin `google_sign_in_web` memanggilnya untuk mengambil nama/email) |
 
-      Dibaca dengan:
-      ```bash
-      "C:\Program Files\Java\jdk-17.0.4\bin\keytool.exe" -list -v -keystore "%USERPROFILE%\.android\debug.keystore" -alias androiddebugkey -storepass android
-      ```
-      Untuk APK rilis, daftarkan juga SHA-1 kunci rilisnya.
+ID klien bukan rahasia (ia terlihat di aplikasi); rahasia klien tidak dipakai dan tidak disimpan.
+Aplikasi memakai ID **Web** sebagai `serverClientId` di Android supaya Google mengeluarkan *id token*;
+klien **Android** hanya perlu terdaftar.
 
-   Aplikasi memakai ID **Web** sebagai `serverClientId` supaya Google
-   mengeluarkan *id token*; ID **Android** hanya perlu terdaftar (tidak perlu
-   disalin ke mana pun).
+Tempat ID dipasang:
+
+- `masjid/.vscode/launch.json`: keempat konfigurasi sudah berisi `--dart-define=GOOGLE_CLIENT_ID=…`;
+  konfigurasi Chrome memakai `--web-hostname=localhost --web-port=5555` (harus **persis** sama
+  dengan *origin* yang didaftarkan).
+- `Master-Admin/.env`: baris `GOOGLE_CLIENT_ID=…` (ditambahkan; berkas itu tidak ikut git).
+
+Untuk APK **rilis** daftarkan juga SHA-1 kunci rilis pada klien Android baru, dan untuk domain
+server sungguhan tambahkan sebagai *Authorized JavaScript origin*. Untuk dipakai orang banyak,
+status aplikasi harus dipublikasikan (*Publish app*) dan melalui verifikasi Google bila
+meminta cakupan sensitif; cakupan `email`/`profile` yang dipakai di sini tidak sensitif.
 
 ## 3. Menjalankan
 
-Ganti `XXXX` dengan ID klien **Web** (berakhiran `.apps.googleusercontent.com`).
-
 ```bash
 # Mode lokal, Chrome
-flutter run -d chrome --web-hostname localhost --web-port 5555 --dart-define=GOOGLE_CLIENT_ID=XXXX
+flutter run -d chrome --web-hostname localhost --web-port 5555 --dart-define=GOOGLE_CLIENT_ID=<ID web>
 
 # Mode lokal, emulator/HP Android (JDK 17)
-flutter run -d 127.0.0.1:16384 --dart-define=GOOGLE_CLIENT_ID=XXXX
+flutter run -d 127.0.0.1:16384 --dart-define=GOOGLE_CLIENT_ID=<ID web>
 
 # Mode server: tambahkan alamat server
-flutter run -d 127.0.0.1:16384 --dart-define=GOOGLE_CLIENT_ID=XXXX --dart-define=API_BASE_URL=http://10.0.2.2:8000
+flutter run -d 127.0.0.1:16384 --dart-define=GOOGLE_CLIENT_ID=<ID web> --dart-define=API_BASE_URL=http://10.0.2.2:8000
 ```
 
-Di VS Code, tambahkan `"--dart-define=GOOGLE_CLIENT_ID=XXXX"` pada `args`
-konfigurasi di `.vscode/launch.json`.
+Lebih mudah: pakai konfigurasi VS Code (F5), semuanya sudah terisi.
 
-Server (mode server saja), di `Master-Admin/.env` milik Anda:
-
-```
-GOOGLE_CLIENT_ID=XXXX
-# Beberapa ID dipisah koma: GOOGLE_CLIENT_ID=ID_WEB,ID_LAIN
-# GOOGLE_AUTO_APPROVE=false     # opsional: akun baru Google tetap menunggu admin
-```
-
-lalu `php artisan config:clear`. Tanpa `GOOGLE_CLIENT_ID` di server, endpoint
-menjawab 503 *"Login Google belum dikonfigurasi di server."*.
+Server: `GOOGLE_CLIENT_ID` di `Master-Admin/.env` (boleh beberapa ID dipisah koma) lalu
+`php artisan config:clear`. Tanpa itu endpoint menjawab 503
+*"Login Google belum dikonfigurasi di server."*.
 
 ## 4. Catatan penting
 
-- **Emulator MuMu** harus punya *Google Play Services* dan akun Google yang
-  sudah masuk; sebagian citra emulator tidak memilikinya. Jika tombol G gagal di
-  emulator, uji di Chrome atau HP asli. (Belum bisa saya pastikan untuk MuMu
-  Anda tanpa ID klien.)
-- Di web, Google hanya memberi *access token* (bukan id token). Server
-  mendukung keduanya (`id_token` atau `access_token`).
-- Setelah memilih "Keluar", sesi Google di aplikasi ikut ditutup sehingga
-  pemilih akun muncul lagi pada percobaan berikutnya.
+- **Popup.** Di web, Google membuka jendela popup; pilih akun lalu *Continue*.
+  Selama popup terbuka tombol G menampilkan indikator memuat.
+- **Emulator MuMu** harus punya *Google Play Services* dan akun Google yang sudah masuk; sebagian
+  citra emulator tidak memilikinya. **Login Google di Android/MuMu belum dicoba** (yang terbukti
+  adalah di web/Chrome). Bila gagal di emulator, uji di Chrome atau HP asli.
+- Di web, Google hanya memberi *access token* (bukan id token); server mendukung keduanya
+  (`id_token` atau `access_token`).
+- Pada uji di web, foto profil Google tidak tampil (kemungkinan pembatasan CORS gambar Google
+  pada CanvasKit; penyebab pastinya belum diselidiki). Nama dan email tampil normal.
+- Setelah "Keluar", sesi Google di aplikasi ikut ditutup sehingga pemilih akun muncul lagi.
+- Pada mode debug, penyebab asli kegagalan login Google dicatat di konsol (`Login Google gagal: …`);
+  pengguna hanya melihat pesan umum.
 
-## 5. Yang sudah dan belum terbukti
+## 5. Bukti pengujian
 
 | Bagian | Status |
 | --- | --- |
 | Aplikasi: alur lokal dan server, dibatalkan, belum dikonfigurasi, gagal, ketukan ganda | Teruji otomatis dengan Google tiruan (`test/google_test.dart`, 18 tes) |
 | Server: akun baru, akun lama, status menunggu/ditolak, aud salah, email belum terverifikasi, token ditolak, tanpa client id, access token | Teruji otomatis dengan panggilan ke Google yang ditiru (`GoogleAuthApiTest`, 8 tes) |
-| Dialog pemilih akun Google sungguhan dan token sungguhan dari Google | **Belum teruji** — butuh ID klien Anda dan akun Google |
+| **Chrome, mode lokal, akun Google sungguhan** | Berhasil: masuk ke Beranda; Profil terisi nama dan email dari Google, nomor kosong |
+| **Chrome, mode server (Laravel + PostgreSQL asli), akun Google sungguhan** | Berhasil: server memeriksa access token ke Google, membuat akun jamaah (`status=1`, bukan admin, `no_hp` pengganti `google:…`, kata sandi acak ter-hash), Beranda memuat data masjid dari PostgreSQL. Akun uji itu dihapus lagi setelah pengecekan |
+| Token palsu ke server | 401 "Akun Google tidak dapat diverifikasi." (server menghubungi Google; bukan 503) |
+| Android / emulator MuMu / HP fisik | **Belum diuji** |
+
+Temuan selama uji: kegagalan pertama disebabkan **People API belum aktif** di project (plugin web
+memanggilnya setelah token diterbitkan); pesan umum aplikasi menyembunyikannya, sehingga log
+debug ditambahkan. Kegagalan kedua adalah server uji PHP satu utas (lihat
+`docs/PANDUAN_POSTGRESQL.md`, P-5), bukan Google.

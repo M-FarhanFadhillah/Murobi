@@ -66,10 +66,15 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
   ```bash
   "%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe" -s 127.0.0.1:16384 shell pm clear com.example.masjid
   ```
-- **Tombol Google** hanya berfungsi bila ID klien Google sudah dipasang
-  (`docs/LOGIN_GOOGLE.md`) dan butuh internet; bila belum, ia menampilkan pesan
-  "belum dikonfigurasi". **OTP** belum tersedia (butuh backend). Jangan didemokan
-  bila belum disiapkan.
+- **Tombol Google** sudah terpasang (ID klien ada di `launch.json`) dan terbukti di Chrome.
+  Selama aplikasi Google berstatus *Testing*, **hanya akun test user** (sekarang
+  `fadhillah28.mff@gmail.com`) yang boleh masuk, dan butuh internet. Di emulator MuMu
+  belum dicoba (butuh Google Play Services); untuk seminar demokan di **Chrome** (konfigurasi 2)
+  atau lewati. **OTP** belum tersedia (butuh backend).
+- **Demo mode server** (opsional): nyalakan PostgreSQL dan API dengan `scripts\postgres-mulai.bat`
+  lalu `scripts\server-laravel.bat`, kemudian konfigurasi 3 atau 4 (`docs/PANDUAN_POSTGRESQL.md`).
+  Layanan Windows PostgreSQL tidak mau start di komputer ini, jadi skrip itu perlu dijalankan
+  setiap komputer dinyalakan.
 - Akun yang dibuat lewat **Daftar** di mode lokal hanya hidup selama aplikasi terbuka.
 
 ## 5. Bila ada masalah
