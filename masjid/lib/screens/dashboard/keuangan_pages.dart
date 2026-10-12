@@ -5,7 +5,6 @@ import 'package:masjid/flutter_flow/flutter_flow_util.dart';
 import 'package:masjid/models/lapkeu_model.dart';
 import 'package:masjid/models/masjid_model.dart';
 import 'package:masjid/services/api_lapkeu_service.dart';
-import 'package:masjid/services/api_masjid_service.dart';
 import 'package:masjid/widget/_build.dart';
 
 class KeuanganPages extends StatefulWidget {
@@ -53,9 +52,9 @@ class _KeuanganPagesState extends State<KeuanganPages> {
     _getData(id_masjid);
   }
 
-  void _getData(String id_masjid) async {
+  void _getData(String idMasjid) async {
     // _apiMasjidModel = ApiMasjid.getApi(id_masjid);
-    _apiLapkeuModel = ApiLapkeu.getApi(id_masjid);
+    _apiLapkeuModel = ApiLapkeu.getApi(idMasjid);
     setState(() {});
   }
 
@@ -70,7 +69,7 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                 color: Colors.black,
               ),
         ),
-        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        backgroundColor:  const Color.fromRGBO(170, 245, 179, 1),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
@@ -329,12 +328,12 @@ class _KeuanganPagesState extends State<KeuanganPages> {
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return CircularProgressIndicator(); // Tampilkan indikator loading jika data masih dimuat.
+                              return const CircularProgressIndicator(); // Tampilkan indikator loading jika data masih dimuat.
                             } else if (snapshot.hasError) {
                               return Text('Error di Fronts: ${snapshot.error}');
                             } else if (!snapshot.hasData ||
                                 snapshot.data!.isEmpty) {
-                              return Text(
+                              return const Text(
                                   'Tidak ada data'); // Tampilkan pesan jika tidak ada data.
                             } else {
                               return SingleChildScrollView(

@@ -87,6 +87,9 @@ dependencies:
   data_tables: ^1.4.0
   http: ^0.13.6
   flutter_dotenv: ^5.1.0
+  google_sign_in: 6.1.6
+  just_audio: ^0.9.37
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:

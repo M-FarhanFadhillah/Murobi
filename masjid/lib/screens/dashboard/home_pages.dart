@@ -1,756 +1,263 @@
-import 'package:masjid/widget/_build.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import '../../models/home_model.dart';
-export '../../models/home_model.dart';
+import 'package:masjid/common/app_theme.dart';
+import 'package:masjid/common/app_widgets.dart';
+import 'package:masjid/screens/kegiatan/kegiatan_masjid_page.dart';
+import 'package:masjid/services/banner_store.dart';
+import 'package:masjid/services/kegiatan_store.dart';
+import 'package:masjid/services/masjid_store.dart';
+import 'package:masjid/services/profile_store.dart';
+import 'package:masjid/widget/banner_carousel.dart';
+import 'package:masjid/widget/hero_clock_card.dart';
+import 'package:masjid/widget/kegiatan_image.dart';
+import 'package:masjid/widget/prayer_times_row.dart';
 
+// Beranda (sesuai Figma "beranda"): header masjid, jam, jadwal sholat,
+// banner kegiatan, dan Kegiatan Masjid.
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({super.key});
+  const HomeWidget({super.key, this.onOpenProfile});
+
+  // Dipanggil saat foto profil di header diketuk.
+  final VoidCallback? onOpenProfile;
 
   @override
-  _HomeWidgetState createState() => _HomeWidgetState();
+  State<HomeWidget> createState() => _HomeWidgetState();
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  late HomeModel _model;
+  final MasjidStore _masjidStore = MasjidStore.instance;
+  final BannerStore _bannerStore = BannerStore.instance;
+  final KegiatanStore _kegiatan = KegiatanStore.instance;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  int _selectedMasjid = 0;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomeModel());
-
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    _start();
   }
 
-  @override
-  void dispose() {
-    _model.dispose();
+  // Memuat daftar masjid dan banner, lalu kegiatan masjid terpilih. Dengan
+  // [reload] semuanya diminta ulang (tombol "Coba lagi").
+  Future<void> _start({bool reload = false}) async {
+    final banners = reload ? _bannerStore.reload() : _bannerStore.load();
+    await (reload ? _masjidStore.reload() : _masjidStore.load());
+    if (!mounted) return;
+    _selectMasjid(_selectedMasjid.clamp(0, _masjidStore.masjids.length - 1));
+    await banners;
+  }
 
-    super.dispose();
+  void _selectMasjid(int index) {
+    setState(() => _selectedMasjid = index);
+    _kegiatan.selectMasjid(_masjidStore.masjids[index].id);
+  }
+
+  void _openKegiatan() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const KegiatanMasjidPage()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-    String namaMasjid = "Masjid As-Syifa";
-    String lokasiMasjid = "Kecamatan Rajabasa";
-    return Scaffold(
-      body: decorationBuilder(
-        context,
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-          child: Column(children: [
-            Row(
+    return SafeArea(
+      bottom: false,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+        child: ListenableBuilder(
+          listenable: Listenable.merge([_masjidStore, _bannerStore]),
+          builder: (context, _) {
+            final masjids = _masjidStore.masjids;
+            final selected = _selectedMasjid.clamp(0, masjids.length - 1);
+            final banners = _bannerStore.images;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Column(children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                  Text(""),
-                ]),
-                Container(
-                  margin: const EdgeInsets.only(left: 2.0, right: 0.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        namaMasjid,
-                        style: const TextStyle(
-                          fontFamily: 'poppins',
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 22,
-                          color: Color.fromARGB(255, 46, 62, 92),
-                        ),
-                      ),
-                      Text(
-                        lokasiMasjid,
-                        style: const TextStyle(
-                          fontFamily: 'poppins',
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 10,
-                          color: Color.fromARGB(255, 46, 62, 92),
-                        ),
-                      ),
-                    ],
-                  ),
+                _buildHeader(masjids[selected]),
+                const SizedBox(height: 16),
+                HeroClockCard(
+                  masjids: masjids,
+                  selectedIndex: selected,
+                  onSelected: _selectMasjid,
                 ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/profilepages');
-                  },
-                  child: ClipOval(
-                    child: Image.asset(
-                      "assets/prototype/images/facebook-1.png", // Replace with your image path
-                      width: 45, // Set the desired width
-                      height: 45, // Set the desired height
-                      fit: BoxFit.cover,
-                    ),
+                const SizedBox(height: 16),
+                const PrayerTimesRow(),
+                const SizedBox(height: 12),
+                if (banners.isNotEmpty) ...[
+                  BannerCarousel(
+                    key: ValueKey(banners.join('|')),
+                    images: banners,
                   ),
-                ),
+                  const SizedBox(height: 12),
+                ],
+                _buildKegiatan(),
               ],
-            ),
-            GestureDetector(
-              onTap: () => _model.unfocusNode.canRequestFocus
-                  ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                  : FocusScope.of(context).unfocus(),
-              child: SafeArea(
-                top: true,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(MasjidInfo masjid) {
+    return Row(
+      children: [
+        const Icon(
+          Icons.location_on_outlined,
+          color: AppPalette.primaryDark,
+          size: 28,
+        ),
+        const SizedBox(width: 6),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                masjid.nama,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: AppPalette.primaryDark,
+                ),
+              ),
+              Text(
+                masjid.kecamatanLabel,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppPalette.textMuted,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 8),
+        ListenableBuilder(
+          listenable: ProfileStore.instance,
+          builder: (context, _) {
+            final photo = ProfileStore.instance.photoImage;
+            return InkWell(
+              onTap: widget.onOpenProfile,
+              customBorder: const CircleBorder(),
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: CircleAvatar(
+                  radius: 22,
+                  backgroundColor: const Color(0xFFE3EEE6),
+                  backgroundImage: photo,
+                  onBackgroundImageError: photo == null ? null : (_, __) {},
+                  child: photo == null
+                      ? const Icon(
+                          Icons.person,
+                          color: AppPalette.textMuted,
+                          size: 28,
+                        )
+                      : null,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  // Menampilkan poster kegiatan terbaru; "Lihat lainnya" membuka daftar lengkap.
+  Widget _buildKegiatan() {
+    return AppCard(
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Text(
+                'Kegiatan Masjid',
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: AppPalette.primaryDark,
+                ),
+              ),
+              const Spacer(),
+              InkWell(
+                onTap: _openKegiatan,
+                borderRadius: BorderRadius.circular(8),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 16.0, 0.0),
-                            ),
-                          ],
-                        ),
+                      Text(
+                        'Lihat lainnya',
+                        style: TextStyle(fontSize: 12, color: AppPalette.link),
                       ),
-                      // StickyHeader(
-                      //   overlapHeaders: false,
-                      //   header: Container(
-                      //     width: double.infinity,
-                      //     height: 80.0,
-                      //     decoration: BoxDecoration(
-                      //       gradient: LinearGradient(
-                      //         colors: [
-                      //           Color.fromRGBO(29, 243, 250, 0.643),
-                      //           Color.fromRGBO(77, 238, 230, 0.294)
-                      //         ],
-                      //         stops: [0.0, 1.0],
-                      //         begin: AlignmentDirectional(0.0, -1.0),
-                      //         end: AlignmentDirectional(0, 1.0),
-                      //       ),
-                      //     ),
-                      //   ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 12.0, 12.0, 12.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondary,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 4.0,
-                                color: Color(0x34090F13),
-                                offset: Offset(0.0, 2.0),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                        "assets/images/left.png",
-                                        width: 50.0,
-                                        height: 50.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: const AlignmentDirectional(2.5, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '12:15:40',
-                                            style: FlutterFlowTheme.of(context)
-                                                .titleLarge
-                                                .override(
-                                                  fontFamily: 'Outfit',
-                                                  fontWeight: FontWeight.w800,
-                                                ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 4.0, 0.0, 0.0),
-                                            child: Text(
-                                              '27 Agustus 2023',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.asset(
-                                          'assets/images/right.png',
-                                          width: 50.0,
-                                          height: 50.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                        'assets/images/awan.png',
-                                        width: 120.0,
-                                        height: 80.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 20.0, 20.0, 0.0),
-                                        child: FlutterFlowDropDown<String>(
-                                          controller:
-                                              _model.dropDownValueController ??=
-                                                  FormFieldController<String>(
-                                            _model.dropDownValue ??=
-                                                'Masjid As-Syifa',
-                                          ),
-                                          options: const <String>[],
-                                          onChanged: (val) => setState(
-                                              () => _model.dropDownValue = val),
-                                          width: 150.0,
-                                          height: 30.0,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    fontSize: 10.0,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                          hintText: 'Masjid As-Syifa',
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                          fillColor: const Color(0xFF1D8B1D),
-                                          elevation: 2.0,
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .alternate,
-                                          borderWidth: 2.0,
-                                          borderRadius: 8.0,
-                                          margin:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 4.0, 16.0, 4.0),
-                                          hidesUnderline: true,
-                                          isOverButton: true,
-                                          isSearchable: false,
-                                          isMultiSelect: false,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                      Icon(
+                        Icons.chevron_right_rounded,
+                        size: 18,
+                        color: AppPalette.link,
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 12.0, 12.0, 12.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondary,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 4.0,
-                                color: Color(0x34090F13),
-                                offset: Offset(0.0, 2.0),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                        'assets/images/Screenshot_2024-01-18_065321.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 4.0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 270.0,
-                              decoration: const BoxDecoration(),
-                              child: ListView(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 12.0),
-                                    child: Container(
-                                      width: 220.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'assets/images/lomba.png',
-                                                      width: double.infinity,
-                                                      height: double.infinity,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 12.0),
-                                    child: Container(
-                                      width: 220.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'assets/images/infaq.png',
-                                                      width: double.infinity,
-                                                      height: double.infinity,
-                                                      fit: BoxFit.contain,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 12.0),
-                                    child: Container(
-                                      width: 220.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'assets/images/donor.png',
-                                                      width: double.infinity,
-                                                      height: double.infinity,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ].divide(const SizedBox(width: 16.0)),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 16.0, 0.0, 12.0),
-                                  child: Text(
-                                    'Kegiatan Masjid',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 44.0),
-                                  child: ListView(
-                                    padding: EdgeInsets.zero,
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(16.0, 0.0, 16.0, 0.0),
-                                        child: Container(
-                                          width: 220.0,
-                                          height: 190.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                blurRadius: 4.0,
-                                                color: Color(0x33000000),
-                                                offset: Offset(0.0, 2.0),
-                                              )
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.asset(
-                                                          'assets/images/isra.png',
-                                                          width:
-                                                              double.infinity,
-                                                          height:
-                                                              double.infinity,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ].divide(const SizedBox(height: 12.0)),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 44.0),
-                                  child: ListView(
-                                    padding: EdgeInsets.zero,
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(16.0, 0.0, 16.0, 0.0),
-                                        child: Container(
-                                          width: 220.0,
-                                          height: 190.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                blurRadius: 4.0,
-                                                color: Color(0x33000000),
-                                                offset: Offset(0.0, 2.0),
-                                              )
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.asset(
-                                                          'assets/images/isra.png',
-                                                          width:
-                                                              double.infinity,
-                                                          height:
-                                                              double.infinity,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ].divide(const SizedBox(height: 12.0)),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 44.0),
-                                  child: ListView(
-                                    padding: EdgeInsets.zero,
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(16.0, 0.0, 16.0, 0.0),
-                                        child: Container(
-                                          width: 220.0,
-                                          height: 190.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                blurRadius: 4.0,
-                                                color: Color(0x33000000),
-                                                offset: Offset(0.0, 2.0),
-                                              )
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(8.0, 8.0, 8.0, 8.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Stack(
-                                                    children: [
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.asset(
-                                                          'assets/images/isra.png',
-                                                          width:
-                                                              double.infinity,
-                                                          height:
-                                                              double.infinity,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ].divide(const SizedBox(height: 12.0)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      // ),
                     ],
                   ),
                 ),
               ),
-            ),
-          ]),
-        ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          ListenableBuilder(
+            listenable: _kegiatan,
+            builder: (context, _) {
+              final items = _kegiatan.items;
+              if (items.isEmpty) {
+                if (_kegiatan.loading) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 24),
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
+                final error = _kegiatan.error;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          error ?? 'Belum ada kegiatan.',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: AppPalette.textMuted),
+                        ),
+                        if (error != null)
+                          TextButton.icon(
+                            onPressed: () => _start(reload: true),
+                            icon: const Icon(Icons.refresh_rounded),
+                            label: const Text('Coba lagi'),
+                          ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              return InkWell(
+                onTap: _openKegiatan,
+                borderRadius: BorderRadius.circular(16),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: AspectRatio(
+                    aspectRatio: 1.92,
+                    child: KegiatanImage(kegiatan: items.first),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

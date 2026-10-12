@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:masjid/common/app_theme.dart';
 import 'package:masjid/screens/dashboard.dart';
-import 'package:masjid/screens/payment/payment.dart';
 import 'package:masjid/screens/profile/report_problem.dart';
 import 'package:masjid/screens/qurban/qurban.dart';
 import 'package:masjid/screens/splashscreen.dart';
@@ -9,7 +8,6 @@ import 'package:masjid/screens/ziswaf/detail_ziswaf_pages.dart';
 import 'package:masjid/screens/profile/profile_pages.dart';
 import 'package:masjid/login/login.dart';
 import 'package:masjid/login/sign_up.dart';
-import 'package:masjid/navigations/qiblah_compass.dart';
 import 'package:masjid/bloc/ayat/ayat_bloc.dart';
 import 'package:masjid/cubit/surat/surat_cubit.dart';
 import 'package:masjid/data/api_service.dart';
@@ -19,22 +17,25 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjid/ui/surat_page.dart';
 
-void main() async {
+void main() {
+  // Wajib sebelum AppTheme.light(): google_fonts memuat font Poppins lewat
+  // binding Flutter, yang baru siap setelah dipanggil di sini.
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: "../.env");
+
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Murobi',
+    theme: AppTheme.light(),
     home: const SplashScreen(),
     routes: {
       '/dashboard': (context) => const Dashboard(),
       '/zakatPage': (context) => const DetailZiswafPages(),
-      '/profilepages': (context) => ProfilePages(),
-      '/login': (context) => LoginWidget(),
-      '/signup': (context) => SignUpWidget(),
-      '/qiblat': (context) => QiblahCompass(),
-      '/reportproblem': (context) => ChatPage(),
-      '/qurban': (context) => Qurbandetail(),
-      '/Payment': (context) => PaymentPages(),
-      '/surat': (context) => SuratPage(),
+      '/profilepages': (context) => const ProfilePages(),
+      '/login': (context) => const LoginWidget(),
+      '/signup': (context) => const SignUpWidget(),
+      '/reportproblem': (context) => const ChatPage(),
+      '/qurban': (context) => const Qurbandetail(),
+      '/surat': (context) => const SuratPage(),
     },
   ));
 }
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
 // }
 
 // class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
+//   const MyApp({super.key});
 
 //   @override
 //   Widget build(BuildContext context) {

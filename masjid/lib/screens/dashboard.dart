@@ -1,76 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:masjid/common/app_widgets.dart';
 import 'package:masjid/screens/dashboard/edukasi_pages.dart';
-import 'package:masjid/screens/dashboard/ibadah_pages.dart';
-import 'package:masjid/screens/dashboard/ziswaf_pages.dart';
-import 'package:masjid/screens/dashboard/qurban_pages.dart';
-import 'package:masjid/screens/dashboard/keuangan_pages.dart';
 import 'package:masjid/screens/dashboard/home_pages.dart';
-import 'package:masjid/ui/surat_page.dart';
-import 'package:masjid/navigations/qiblah_compass.dart';
+import 'package:masjid/screens/profile/profile_pages.dart';
+import 'package:masjid/ui/quran_tab.dart';
 
+// Fitur di luar cakupan skripsi (Ziswaf, Qurban, Laporan) tidak ditampilkan di
+// navigasi. File-nya tetap ada agar bisa dikembangkan lagi nanti.
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
 
   @override
-  _DashboardState createState() => _DashboardState();
+  State<Dashboard> createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 0; // Define the selected index
+  static const int _profileIndex = 3;
+
+  static const List<AppNavItem> _navItems = [
+    AppNavItem(
+      label: 'Beranda',
+      icon: Icons.home_outlined,
+      activeIcon: Icons.home_rounded,
+    ),
+    AppNavItem(
+      label: 'Edukasi',
+      icon: Icons.school_outlined,
+      activeIcon: Icons.school_rounded,
+    ),
+    AppNavItem(
+      label: "Al-Qur'an",
+      icon: Icons.auto_stories_outlined,
+      activeIcon: Icons.auto_stories_rounded,
+    ),
+    AppNavItem(
+      label: 'Profil',
+      icon: Icons.person_outline_rounded,
+      activeIcon: Icons.person_rounded,
+    ),
+  ];
+
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; // Handle item selection here
+      _selectedIndex = index;
     });
   }
 
-  final List<Widget> _pages = [
-    const HomeWidget(),
-    const EdukasiWidget(),
-    const QiblahCompass(),
-    const ZiswafPages(),
-    const QurbanPages(),
-    const KeuanganPages(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final pages = <Widget>[
+      HomeWidget(onOpenProfile: () => _onItemTapped(_profileIndex)),
+      const EdukasiWidget(),
+      const QuranTab(),
+      const ProfilePages(),
+    ];
+
     return Scaffold(
-      body: SafeArea(
-        child: _pages[_selectedIndex],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.black,
-        showUnselectedLabels: true,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard_customize_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cast_for_education_rounded),
-            label: 'Edukasi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mosque_outlined),
-            label: 'qiblat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wallet_outlined),
-            label: 'Ziswaf',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store_mall_directory_outlined),
-            label: 'Qurban',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_outlined),
-            label: 'Laporan',
-          ),
-        ],
+      body: AppBackground(
+        child: Column(
+          children: [
+            Expanded(
+              // IndexedStack menjaga state tiap tab (mis. posisi gulir).
+              child: IndexedStack(index: _selectedIndex, children: pages),
+            ),
+            AppBottomNav(
+              items: _navItems,
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
+          ],
+        ),
       ),
     );
   }

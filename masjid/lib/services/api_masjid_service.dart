@@ -5,13 +5,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiMasjid {
-  static Future<List<MasjidModel>> getApi(String id_masjid) async {
+  static Future<List<MasjidModel>> getApi(String idMasjid) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.endPoint_masjid + '/8');
+      var url = Uri.parse('${ApiConstants.baseUrl}${ApiConstants.endPoint_masjid}/8');
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        List<MasjidModel> _apiMasjidModel = List.from(json.decode(response.body)).map((item) => MasjidModel.fromJson(item)).toList();
-        return _apiMasjidModel;
+        List<MasjidModel> apiMasjidModel = List.from(json.decode(response.body)).map((item) => MasjidModel.fromJson(item)).toList();
+        return apiMasjidModel;
       } 
       else {
         throw Exception(

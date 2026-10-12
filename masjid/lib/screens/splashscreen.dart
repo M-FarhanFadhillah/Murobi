@@ -1,18 +1,46 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:masjid/login/login.dart';
+import 'package:masjid/services/account_service.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key, this.accountService});
+
+  // Dapat diganti saat pengujian; bawaannya AccountService.instance.
+  final AccountService? accountService;
 
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _continue();
+  }
+
+  // Splash tampil minimal 2 detik. Dengan server, sesi yang tersimpan dipulihkan
+  // lebih dulu: berhasil -> beranda, selain itu -> halaman masuk.
+  Future<void> _continue() async {
+    final service = widget.accountService ?? AccountService.instance;
+    final restoring = service.restore();
+    await Future<void>.delayed(const Duration(seconds: 2));
+    final restored = await restoring;
+    if (!mounted) return;
+
+    if (restored) {
+      Navigator.of(context).pushReplacementNamed('/dashboard');
+    } else {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginWidget()),
       );
-    });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: SafeArea(

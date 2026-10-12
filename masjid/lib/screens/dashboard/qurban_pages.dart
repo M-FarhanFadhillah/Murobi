@@ -22,7 +22,7 @@ class _QurbanPagesState extends State<QurbanPages> {
                 color: Colors.black,
               ),
         ),
-        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        backgroundColor:  const Color.fromRGBO(170, 245, 179, 1),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),

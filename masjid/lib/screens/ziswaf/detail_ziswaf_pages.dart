@@ -27,7 +27,7 @@ class _DetailZiswafPagesState extends State<DetailZiswafPages> {
               ),
         ),
         centerTitle: true,
-        backgroundColor:  Color.fromRGBO(170, 245, 179, 1),
+        backgroundColor:  const Color.fromRGBO(170, 245, 179, 1),
         elevation: 0,
       ),
       body: SafeArea(

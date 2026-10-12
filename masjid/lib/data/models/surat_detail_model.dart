@@ -48,9 +48,10 @@ class SuratDetailModel {
         ayat: json["ayat"] == null
             ? []
             : List<Ayat>.from(json["ayat"]!.map((x) => Ayat.fromJson(x))),
-        suratSelanjutnya: json["surat_selanjutnya"] == null
-            ? null
-            : SuratSelanjutnya.fromJson(json["surat_selanjutnya"]),
+        // Pada surat terakhir (An-Nas) API mengirim `false`, bukan objek.
+        suratSelanjutnya: json["surat_selanjutnya"] is Map<String, dynamic>
+            ? SuratSelanjutnya.fromJson(json["surat_selanjutnya"])
+            : null,
         // suratSebelumnya: json["surat_sebelumnya"],
       );
 
@@ -125,7 +126,7 @@ class SuratSelanjutnya {
     this.audio,
   });
 
-  int? id;
+  String? id;
   int? nomor;
   String? nama;
   String? namaLatin;
