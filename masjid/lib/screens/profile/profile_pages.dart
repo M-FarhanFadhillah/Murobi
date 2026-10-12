@@ -11,7 +11,7 @@ import 'package:masjid/services/auth_session.dart';
 import 'package:masjid/services/profile_store.dart';
 
 // Halaman Profil (sesuai Figma "Profil" dan "edit foto profil"): data diri,
-// ubah data, ubah foto, bahasa, laporan masalah, dan keluar.
+// ubah data, ubah foto, laporan masalah, dan keluar.
 class ProfilePages extends StatefulWidget {
   const ProfilePages({super.key, this.accountService});
 
@@ -195,8 +195,6 @@ class _ProfilePagesState extends State<ProfilePages> {
                 _buildPhotoCard(),
                 const SizedBox(height: 14),
                 _buildDataCard(),
-                const SizedBox(height: 14),
-                _buildLanguageCard(),
                 const SizedBox(height: 14),
                 _buildMenuCard(),
               ],
@@ -388,31 +386,6 @@ class _ProfilePagesState extends State<ProfilePages> {
     );
   }
 
-  Widget _buildLanguageCard() {
-    return const AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Bahasa', style: TextStyle(color: AppPalette.textMuted)),
-          SizedBox(height: 6),
-          Row(
-            children: [
-              Icon(Icons.translate_rounded, color: AppPalette.primaryDark),
-              SizedBox(width: 10),
-              Text(
-                'Bahasa Indonesia',
-                style: TextStyle(
-                  color: AppPalette.link,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildMenuCard() {
     return AppCard(
       padding: const EdgeInsets.symmetric(vertical: 6),
@@ -438,7 +411,12 @@ class _ProfilePagesState extends State<ProfilePages> {
               Icons.flag_outlined,
               color: AppPalette.primaryDark,
             ),
-            title: const Text('Laporkan Permasalahan'),
+            // Admin membaca laporan dari jamaah; jamaah menulis laporan.
+            title: Text(
+              AuthSession.isAdmin
+                  ? 'Laporan Masalah Jamaah'
+                  : 'Laporkan Permasalahan',
+            ),
             trailing: const Icon(Icons.chevron_right_rounded),
             onTap: () => Navigator.pushNamed(context, '/reportproblem'),
           ),

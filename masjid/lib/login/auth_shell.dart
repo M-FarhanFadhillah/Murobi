@@ -260,9 +260,16 @@ class AuthPrimaryButton extends StatelessWidget {
 
 // Pemisah "atau" dan tombol Google (Facebook sudah dihapus).
 class AuthSocialRow extends StatelessWidget {
-  const AuthSocialRow({super.key, required this.onGoogle});
+  const AuthSocialRow({
+    super.key,
+    required this.onGoogle,
+    this.loading = false,
+  });
 
   final VoidCallback onGoogle;
+
+  // True selama menunggu akun Google dipilih/diperiksa.
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -272,7 +279,7 @@ class AuthSocialRow extends StatelessWidget {
         const Text('atau', style: TextStyle(color: AppPalette.textMuted)),
         const SizedBox(height: 10),
         InkWell(
-          onTap: onGoogle,
+          onTap: loading ? null : onGoogle,
           customBorder: const CircleBorder(),
           child: Container(
             width: 50,
@@ -283,12 +290,18 @@ class AuthSocialRow extends StatelessWidget {
               border: Border.all(color: Colors.black12),
               boxShadow: AppPalette.softShadow,
             ),
-            child: const Center(
-              child: FaIcon(
-                FontAwesomeIcons.google,
-                size: 22,
-                color: Color(0xFFDB4437),
-              ),
+            child: Center(
+              child: loading
+                  ? const SizedBox(
+                      width: 22,
+                      height: 22,
+                      child: CircularProgressIndicator(strokeWidth: 2.5),
+                    )
+                  : const FaIcon(
+                      FontAwesomeIcons.google,
+                      size: 22,
+                      color: Color(0xFFDB4437),
+                    ),
             ),
           ),
         ),

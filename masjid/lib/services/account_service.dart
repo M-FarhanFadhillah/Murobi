@@ -4,7 +4,9 @@ import 'package:masjid/data/api/api_client.dart';
 import 'package:masjid/data/api/api_config.dart';
 import 'package:masjid/data/api/murobi_api.dart';
 import 'package:masjid/services/auth_session.dart';
+import 'package:masjid/services/google_auth.dart';
 import 'package:masjid/services/profile_store.dart';
+import 'package:masjid/services/report_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Hasil operasi akun: berhasil (dengan pesan opsional) atau gagal dengan pesan
@@ -23,8 +25,9 @@ class AuthResult {
 // Semua operasi akun (masuk, daftar, profil, kata sandi, keluar). Tanpa alamat
 // server memakai akun dummy di perangkat; dengan server memakai API Murobi.
 class AccountService {
-  AccountService({MurobiApi? api, bool? remote})
+  AccountService({MurobiApi? api, bool? remote, GoogleAuthClient? google})
       : _api = api ?? MurobiApi.instance,
+        _google = google ?? DeviceGoogleAuth(),
         remote = remote ?? ApiConfig.enabled;
 
   static final AccountService instance = AccountService();
@@ -32,6 +35,7 @@ class AccountService {
   static const String _tokenKey = 'api_token_v1';
 
   final MurobiApi _api;
+  final GoogleAuthClient _google;
 
   // True jika memakai server.
   final bool remote;
@@ -47,6 +51,57 @@ class AccountService {
 
     try {
       final result = await _api.login(id.trim(), password);
+      _api.token = result.token;
+      await _saveToken(result.token);
+      final account = UserAccount.fromApi(result.user);
+      AuthSession.startRemote(account);
+      await ProfileStore.instance.loadFor(account);
+      return const AuthResult.ok();
+    } on ApiException catch (error) {
+      return AuthResult.error(error.message);
+    }
+  }
+
+  // Masuk (atau mendaftar sekaligus) dengan akun Google. Dengan server, token
+  // Google diperiksa server lalu akun dicocokkan/dibuat lewat email. Tanpa
+  // server, profil Google dipakai langsung sebagai akun jamaah di perangkat.
+  Future<AuthResult> signInWithGoogle() async {
+    final GoogleProfile? profile;
+    try {
+      profile = await _google.signIn();
+    } on GoogleNotConfigured {
+      return const AuthResult.error(
+        'Login Google belum dikonfigurasi (GOOGLE_CLIENT_ID belum diisi).',
+      );
+    } catch (_) {
+      return const AuthResult.error(
+        'Login Google gagal. Periksa koneksi internet lalu coba lagi.',
+      );
+    }
+    if (profile == null) {
+      return const AuthResult.error('Login Google dibatalkan.');
+    }
+
+    if (!remote) {
+      final email = profile.email.trim().toLowerCase();
+      final account = UserAccount(
+        id: 'google-$email',
+        nama: profile.name.isEmpty ? email.split('@').first : profile.name,
+        email: email,
+        phone: '',
+        role: UserRole.jamaah,
+        photoUrl: profile.photoUrl,
+      );
+      AuthSession.startLocal(account);
+      await ProfileStore.instance.loadFor(account);
+      return const AuthResult.ok();
+    }
+
+    try {
+      final result = await _api.loginWithGoogle(
+        idToken: profile.idToken,
+        accessToken: profile.accessToken,
+      );
       _api.token = result.token;
       await _saveToken(result.token);
       final account = UserAccount.fromApi(result.user);
@@ -187,6 +242,7 @@ class AccountService {
       }
     }
     await _forgetSession();
+    await _google.signOut();
   }
 
   // Kegagalan operasi yang butuh token: sesi yang kedaluwarsa mengakhiri sesi
@@ -200,6 +256,7 @@ class AccountService {
     _api.token = null;
     AuthSession.logout();
     ProfileStore.instance.clear();
+    ReportStore.instance.reset();
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_tokenKey);

@@ -91,6 +91,11 @@ class AuthSession {
     _current = account;
   }
 
+  // Akun lokal dari login Google (tanpa server): hanya hidup selama sesi ini.
+  static void startLocal(UserAccount account) {
+    _current = account;
+  }
+
   // Mencocokkan ID (atau email / nomor HP) dan kata sandi dengan akun dummy.
   static bool login(String id, String password) {
     final normalizedId = id.trim().toLowerCase();

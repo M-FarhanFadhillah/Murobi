@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:masjid/common/app_theme.dart';
 import 'package:masjid/login/auth_shell.dart';
 import 'package:masjid/services/account_service.dart';
-import 'package:masjid/services/api_auth_service.dart';
 
 // Halaman Masuk (sesuai Figma "Masuk Akun"). Tanpa alamat server memakai akun
 // dummy; dengan server, masuk lewat API.
@@ -20,12 +19,12 @@ class _LoginWidgetState extends State<LoginWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final ApiAuthService _authService = ApiAuthService();
   late final AccountService _account =
       widget.accountService ?? AccountService.instance;
 
   bool _obscure = true;
   bool _loading = false;
+  bool _googleLoading = false;
 
   @override
   void dispose() {
@@ -60,18 +59,17 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Future<void> _onGoogleSignIn() async {
-    try {
-      final ok = await _authService.signInWithGoogle();
-      if (!mounted) return;
-      if (ok) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/dashboard', (_) => false);
-      } else {
-        _snack('Login Google dibatalkan atau gagal.');
-      }
-    } catch (_) {
-      if (!mounted) return;
-      _snack('Login Google belum dikonfigurasi.');
+    if (_googleLoading || _loading) return;
+    setState(() => _googleLoading = true);
+
+    final result = await _account.signInWithGoogle();
+    if (!mounted) return;
+    setState(() => _googleLoading = false);
+
+    if (result.ok) {
+      Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (_) => false);
+    } else {
+      _snack(result.error!);
     }
   }
 
@@ -151,7 +149,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               loading: _loading,
               onPressed: _onSignIn,
             ),
-            AuthSocialRow(onGoogle: _onGoogleSignIn),
+            AuthSocialRow(onGoogle: _onGoogleSignIn, loading: _googleLoading),
             const SizedBox(height: 18),
             Center(
               child: GestureDetector(

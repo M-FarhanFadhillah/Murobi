@@ -82,6 +82,22 @@ class MurobiApi {
     return LoginResult(_userFrom(json), token);
   }
 
+  // Masuk dengan akun Google: salah satu dari [idToken] (Android) atau
+  // [accessToken] (web). Server memeriksanya langsung ke Google.
+  Future<LoginResult> loginWithGoogle({
+    String? idToken,
+    String? accessToken,
+  }) async {
+    final json = _asMap(await _client.post('auth/google', body: {
+      if (idToken != null) 'id_token': idToken,
+      if (idToken == null && accessToken != null) 'access_token': accessToken,
+      'device_name': 'murobi-app',
+    }));
+    final token = json['token'];
+    if (token is! String || token.isEmpty) throw _unexpected();
+    return LoginResult(_userFrom(json), token);
+  }
+
   // Mengembalikan pesan sukses dari server.
   Future<String> register({
     required String name,
@@ -136,6 +152,37 @@ class MurobiApi {
       'old_password': oldPassword,
       'new_password': newPassword,
     });
+  }
+
+  // ---- Laporan masalah ----
+
+  Future<ApiReport> sendReport(String message) async {
+    final json = _asMap(await _client.post('reports', body: {'message': message}));
+    return ApiReport.fromJson(json);
+  }
+
+  // Laporan milik akun yang sedang masuk.
+  Future<List<ApiReport>> myReports() async {
+    final list = _asList(await _client.get('reports/mine'));
+    return list.map(ApiReport.fromJson).toList();
+  }
+
+  // Admin: laporan dari semua jamaah.
+  Future<List<ApiReport>> allReports() async {
+    final list = _asList(await _client.get('reports'));
+    return list.map(ApiReport.fromJson).toList();
+  }
+
+  // Admin: [done] true = sudah ditangani.
+  Future<ApiReport> setReportDone(int id, {required bool done}) async {
+    final json = _asMap(await _client.patch('reports/$id', body: {
+      'status': done ? 1 : 0,
+    }));
+    return ApiReport.fromJson(json);
+  }
+
+  Future<void> deleteReport(int id) async {
+    await _client.delete('reports/$id');
   }
 
   // ---- Kelola konten (admin) ----

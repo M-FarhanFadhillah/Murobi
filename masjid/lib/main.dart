@@ -33,7 +33,7 @@ void main() {
       '/profilepages': (context) => const ProfilePages(),
       '/login': (context) => const LoginWidget(),
       '/signup': (context) => const SignUpWidget(),
-      '/reportproblem': (context) => const ChatPage(),
+      '/reportproblem': (context) => const ReportProblemPage(),
       '/qurban': (context) => const Qurbandetail(),
       '/surat': (context) => const SuratPage(),
     },

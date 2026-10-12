@@ -154,3 +154,33 @@ class ApiEdukasi {
   final bool isVideo;
   final String? contentUrl;
 }
+
+// Laporan masalah dari jamaah (admin melihat semuanya, jamaah hanya miliknya).
+class ApiReport {
+  const ApiReport({
+    required this.id,
+    required this.userName,
+    required this.userEmail,
+    required this.message,
+    required this.status,
+    required this.createdAt,
+  });
+
+  factory ApiReport.fromJson(Map<String, dynamic> json) => ApiReport(
+        id: _asInt(json['id']),
+        userName: _asString(json['user_name']),
+        userEmail: _asString(json['user_email']),
+        message: _asString(json['message']),
+        status: _asInt(json['status']),
+        createdAt: _asDate(json['created_at']),
+      );
+
+  final int id;
+  final String userName;
+  final String userEmail;
+  final String message;
+
+  // 0 = baru, 1 = sudah ditangani.
+  final int status;
+  final DateTime createdAt;
+}

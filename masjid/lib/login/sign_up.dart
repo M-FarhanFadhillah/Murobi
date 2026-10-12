@@ -3,7 +3,6 @@ import 'package:masjid/common/app_theme.dart';
 import 'package:masjid/common/validators.dart';
 import 'package:masjid/login/auth_shell.dart';
 import 'package:masjid/services/account_service.dart';
-import 'package:masjid/services/api_auth_service.dart';
 
 // Halaman Daftar (sesuai Figma "Daftar Akun"). Tanpa alamat server akun
 // disimpan sementara di memori; dengan server, akun didaftarkan lewat API dan
@@ -25,13 +24,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmController = TextEditingController();
-  final ApiAuthService _authService = ApiAuthService();
   late final AccountService _account =
       widget.accountService ?? AccountService.instance;
 
   bool _obscurePassword = true;
   bool _obscureConfirm = true;
   bool _loading = false;
+  bool _googleLoading = false;
 
   @override
   void dispose() {
@@ -78,19 +77,19 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       ..showSnackBar(SnackBar(content: Text(result.message ?? 'Akun dibuat.')));
   }
 
+  // Daftar dengan Google sama dengan masuk: akun dibuat bila belum ada.
   Future<void> _onGoogleSignUp() async {
-    try {
-      final ok = await _authService.signInWithGoogle();
-      if (!mounted) return;
-      if (ok) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/dashboard', (_) => false);
-      } else {
-        _snack('Daftar dengan Google dibatalkan atau gagal.');
-      }
-    } catch (_) {
-      if (!mounted) return;
-      _snack('Daftar dengan Google belum dikonfigurasi.');
+    if (_googleLoading || _loading) return;
+    setState(() => _googleLoading = true);
+
+    final result = await _account.signInWithGoogle();
+    if (!mounted) return;
+    setState(() => _googleLoading = false);
+
+    if (result.ok) {
+      Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (_) => false);
+    } else {
+      _snack(result.error!);
     }
   }
 
@@ -164,7 +163,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               loading: _loading,
               onPressed: _onSignUp,
             ),
-            AuthSocialRow(onGoogle: _onGoogleSignUp),
+            AuthSocialRow(onGoogle: _onGoogleSignUp, loading: _googleLoading),
             const SizedBox(height: 18),
             Center(
               child: GestureDetector(
