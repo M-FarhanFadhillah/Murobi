@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\EducationController;
+use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\LapkeuController;
 use App\Http\Controllers\Api\MasjidController;
 use App\Http\Controllers\Api\userController;
@@ -26,3 +29,29 @@ Route::get('/masjid', [MasjidController::class, 'index']);
 Route::get('/masjid/{id}', [MasjidController::class, 'masjid']);
 Route::get('/user/{id}', [userController::class, 'user']);
 
+// ---- Ditambahkan untuk aplikasi mobile (lihat docs/API.md) ----
+Route::get('/activity', [ActivityController::class, 'index']);
+Route::get('/files/{path}', [FileController::class, 'show'])->where('path', '.*');
+
+Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:10,1');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::patch('/me', [AuthController::class, 'updateMe']);
+    Route::post('/me/photo', [AuthController::class, 'updatePhoto']);
+    Route::post('/me/password', [AuthController::class, 'changePassword']);
+
+    // Kelola konten dari aplikasi: hanya admin. Pembaruan memakai POST (multipart)
+    // karena PHP tidak membaca berkas pada PATCH/PUT.
+    Route::middleware('admin')->group(function () {
+        Route::post('/activity', [ActivityController::class, 'store']);
+        Route::post('/activity/{id}', [ActivityController::class, 'update'])->whereNumber('id');
+        Route::delete('/activity/{id}', [ActivityController::class, 'destroy'])->whereNumber('id');
+
+        Route::post('/edu', [EducationController::class, 'store']);
+        Route::post('/edu/{id}', [EducationController::class, 'update'])->whereNumber('id');
+        Route::delete('/edu/{id}', [EducationController::class, 'destroy'])->whereNumber('id');
+    });
+});

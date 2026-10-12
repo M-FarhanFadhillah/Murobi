@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class BannerController extends Controller
 {
     public function banner(){
-        $banner = \App\Models\banner::where('status', true)->get();
+        $banner = \App\Models\banner::where('status', true)->get()
+            ->map(fn ($item) => array_merge($item->toArray(), [
+                'cover_url' => \App\Support\FileUrl::for($item->cover),
+            ]));
         return response()->json($banner);
 
     }
