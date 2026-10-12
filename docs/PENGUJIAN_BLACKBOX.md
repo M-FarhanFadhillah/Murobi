@@ -20,7 +20,7 @@ bagian "Keterbatasan", bukan ditandai berhasil.
 
 | Jenis bukti | Kode | Jumlah | Hasil |
 | --- | --- | --- | --- |
-| Tes otomatis Flutter (`flutter test`) | **F** | 253 tes | 253 lulus |
+| Tes otomatis Flutter (`flutter test`) | **F** | 266 tes | 266 lulus |
 | Tes otomatis Laravel (`php artisan test`) | **L** | 41 tes (39 API + 2 bawaan) | 41 lulus |
 | Uji langsung `curl` ke Laravel lokal (SQLite sementara): endpoint laporan | **C** | 9 permintaan | sesuai |
 | Pengamatan langsung di emulator MuMu | **A** | lihat tabel | sesuai |
@@ -29,7 +29,8 @@ bagian "Keterbatasan", bukan ditandai berhasil.
 
 Rincian tes Flutter per berkas: `account_test` 18, `api_test` 75, `api_ui_test`
 25, `auth_test` 11, `edukasi_test` 32, `google_test` 18, `kegiatan_test` 11,
-`quran_library_test` 22, `quran_test` 18, `report_test` 22, `widget_test` 1.
+`prayer_test` 13, `quran_library_test` 22, `quran_test` 18, `report_test` 22,
+`widget_test` 1.
 
 ## 3. Kasus uji
 
@@ -81,6 +82,9 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | BRD-03 | Banner dari server | Hanya banner aktif yang punya gambar; tanpa banner, carousel disembunyikan | Sesuai | F `api_test`; A; W |
 | BRD-04 | Kegiatan masjid terpilih | Poster terbaru tampil; gagal memuat: pesan + "Coba lagi" | Sesuai | F `api_ui`; W |
 | BRD-05 | Gambar gagal dimuat | Placeholder berisi ikon dan judul, bukan layar rusak | Sesuai | W |
+| BRD-06 | Jadwal sholat tanpa internet, ada jadwal tersimpan (maks. 7 hari) | Lima waktu tetap tampil; bila dari hari lain ada catatan "Jadwal tersimpan (dd/MM)" | Sesuai | F `prayer_test` |
+| BRD-07 | Jadwal sholat tanpa internet dan tanpa jadwal tersimpan / tersimpan > 7 hari / jam perangkat mundur / data rusak | Pesan "Jadwal sholat belum tersedia" + tombol muat ulang yang berfungsi | Sesuai | F `prayer_test` |
+| BRD-08 | Respons Aladhan bukan 200, bukan JSON, atau koneksi menggantung (10 detik) | Memakai jadwal tersimpan, tidak menggantung | Sesuai | F `prayer_test` |
 
 ### 3.4 Kegiatan masjid
 
@@ -171,6 +175,8 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | T-8 | Tes backend memakai `RefreshDatabase`; tanpa pengaturan, tes dapat memakai koneksi `.env` (PostgreSQL asli) dan menghapus tabelnya | `phpunit.xml` memaksa SQLite memori dan tes menolak berjalan bila koneksi bukan SQLite |
 | T-9 | Kata sandi lama di data asli berupa teks polos | Diterima apa adanya (agar panel web tetap berfungsi) dan tidak diubah; risiko dicatat di `docs/API.md` |
 | T-10 | Kolom `users.no_hp` wajib dan unik, sedangkan akun Google tidak punya nomor HP | Disimpan nilai pengganti `google:<id>` yang disembunyikan dari aplikasi (tampil kosong); jamaah mengisi nomor asli lewat Profil. Tanpa mengubah skema tabel `users` |
+| T-11 | Tombol "Muat ulang" pada kartu jadwal sholat memicu assertion di mode debug (`setState` mengembalikan Future) | `setState` memakai blok; ada tes yang mengetuk tombol itu |
+| T-12 | Pesan "Jadwal sholat belum tersedia" + tombol dapat meluap pada layar sempit / huruf besar | Teks dibungkus `Flexible` |
 
 ## 5. Keterbatasan (belum terbukti)
 

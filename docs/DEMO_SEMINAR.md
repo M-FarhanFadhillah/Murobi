@@ -50,9 +50,12 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
 
 ## 4. Yang perlu disiapkan sebelum seminar
 
-- **Internet.** Jadwal sholat diambil dari internet setiap Beranda dibuka dan
-  belum punya cadangan offline (tanpa internet muncul "Jadwal sholat belum
-  tersedia"). Al-Qur'an tersimpan di perangkat setelah sebuah surah dibuka
+- **Internet.** Jadwal sholat diambil dari internet dan **disimpan di perangkat**:
+  asal Beranda pernah dibuka sekali dengan internet (maksimal 7 hari
+  sebelumnya), jadwal tetap tampil tanpa internet, dengan catatan tanggalnya bila
+  bukan hari ini. **Buka Beranda sekali dengan internet sebelum seminar.** Tanpa
+  jadwal tersimpan sama sekali muncul "Jadwal sholat belum tersedia".
+  Al-Qur'an tersimpan di perangkat setelah sebuah surah dibuka
   sekali; bacaan audio, gambar mini dan pemutaran YouTube butuh internet.
   Siapkan hotspot HP sebagai cadangan.
 - **Buka sekali** surah yang akan didemokan saat ada internet.
@@ -78,7 +81,7 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
 | Build gagal soal Java / Gradle | Pastikan JDK 17 ada di `C:\Program Files\Java\jdk-17.0.4` (dipakai oleh `.vscode/settings.json` dan `launch.json`) |
 | Pesan `errno = 1224` / berkas `.dart_tool` terkunci | Hentikan sesi debug lain (Shift+F5), tutup terminal yang menjalankan `flutter`, lalu ulangi |
 | Aplikasi putih / tidak merespons setelah lama | Hot restart (Ctrl+Shift+F5) atau jalankan ulang (F5) |
-| Jadwal sholat kosong | Periksa internet, lalu ketuk ikon muat ulang di kartu jadwal |
+| Jadwal sholat kosong | Periksa internet, lalu ketuk ikon muat ulang di kartu jadwal (jadwal tersimpan dipakai otomatis bila ada) |
 
 Tes otomatis dapat dijalankan dari **Terminal → Run Task → "Flutter: jalankan
-semua tes"** (253 tes).
+semua tes"** (266 tes).
