@@ -6,18 +6,28 @@ import 'package:masjid/services/api_prayer_service.dart';
 // Baris jadwal sholat di beranda (Subuh, Dzuhur, Ashar, Maghrib, Isya').
 // Waktu sholat berikutnya diberi sorotan.
 class PrayerTimesRow extends StatefulWidget {
-  const PrayerTimesRow({super.key});
+  const PrayerTimesRow({super.key, this.service});
+
+  // Dapat diganti saat pengujian; bawaannya ApiPrayerService().
+  final ApiPrayerService? service;
 
   @override
   State<PrayerTimesRow> createState() => _PrayerTimesRowState();
 }
 
 class _PrayerTimesRowState extends State<PrayerTimesRow> {
-  late Future<PrayerTimes> _future = ApiPrayerService().fetchToday();
+  late final ApiPrayerService _service = widget.service ?? ApiPrayerService();
+  late Future<PrayerTimes> _future = _service.fetchToday();
 
   void _reload() {
-    setState(() => _future = ApiPrayerService().fetchToday());
+    // Blok (bukan "=>"): setState tidak boleh mengembalikan Future.
+    setState(() {
+      _future = _service.fetchToday();
+    });
   }
+
+  static String _ddMm(DateTime d) =>
+      '${d.day.toString().padLeft(2, '0')}/${d.month.toString().padLeft(2, '0')}';
 
   int _minutes(String clock) {
     final parts = clock.split(':');
@@ -54,7 +64,12 @@ class _PrayerTimesRowState extends State<PrayerTimesRow> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Jadwal sholat belum tersedia'),
+                  const Flexible(
+                    child: Text(
+                      'Jadwal sholat belum tersedia',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   IconButton(
                     onPressed: _reload,
                     icon: const Icon(Icons.refresh),
@@ -81,15 +96,55 @@ class _PrayerTimesRowState extends State<PrayerTimesRow> {
         ];
         final next = _nextIndex(prayers);
 
+        final staleSince = times.staleSince;
+
         return AppCard(
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              for (var i = 0; i < prayers.length; i++)
-                Expanded(
-                  child: _PrayerTile(
-                    prayer: prayers[i],
-                    highlighted: i == next,
+              Row(
+                children: [
+                  for (var i = 0; i < prayers.length; i++)
+                    Expanded(
+                      child: _PrayerTile(
+                        prayer: prayers[i],
+                        highlighted: i == next,
+                      ),
+                    ),
+                ],
+              ),
+              // Tanpa internet: jadwal tersimpan dari hari sebelumnya.
+              if (staleSince != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 8, right: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          'Jadwal tersimpan (${_ddMm(staleSince)}). '
+                          'Sambungkan internet untuk memperbarui.',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: AppPalette.textMuted,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: _reload,
+                        customBorder: const CircleBorder(),
+                        child: const Padding(
+                          padding: EdgeInsets.all(4),
+                          child: Icon(
+                            Icons.refresh,
+                            size: 16,
+                            color: AppPalette.textMuted,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
             ],
