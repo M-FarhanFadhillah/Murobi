@@ -1,0 +1,47 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "1. Demo lokal - Emulator MuMu (disarankan)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "127.0.0.1:16384",
+            "preLaunchTask": "MuMu: sambungkan adb",
+            "env": {
+                "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17.0.4"
+            }
+        },
+        {
+            "name": "2. Demo lokal - Chrome (cadangan)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "chrome"
+        },
+        {
+            "name": "3. Dengan server Laravel - Emulator MuMu",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "127.0.0.1:16384",
+            "preLaunchTask": "MuMu: sambungkan adb",
+            "args": [
+                "--dart-define=API_BASE_URL=http://10.0.2.2:8000"
+            ],
+            "env": {
+                "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17.0.4"
+            }
+        },
+        {
+            "name": "4. Dengan server Laravel - Chrome",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "chrome",
+            "args": [
+                "--dart-define=API_BASE_URL=http://127.0.0.1:8000"
+            ]
+        }
+    ]
+}

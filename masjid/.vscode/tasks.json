@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "MuMu: sambungkan adb",
+            "type": "process",
+            "command": "${env:LOCALAPPDATA}\\Android\\Sdk\\platform-tools\\adb.exe",
+            "args": [
+                "connect",
+                "127.0.0.1:16384"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "Flutter: jalankan semua tes",
+            "type": "shell",
+            "command": "flutter test",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Flutter: analisis kode",
+            "type": "shell",
+            "command": "flutter analyze",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
