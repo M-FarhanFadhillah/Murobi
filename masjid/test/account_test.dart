@@ -29,6 +29,13 @@ void main() {
       expect(Validators.email(' budi@contoh.com '), isNull);
     });
 
+    test('email opsional (Profil): kosong boleh, bila diisi harus valid', () {
+      expect(Validators.optionalEmail(''), isNull);
+      expect(Validators.optionalEmail('   '), isNull);
+      expect(Validators.optionalEmail('bukan-email'), 'Format email tidak valid');
+      expect(Validators.optionalEmail('budi@contoh.com'), isNull);
+    });
+
     test('nomor telepon: format Indonesia dan label pesan', () {
       expect(Validators.phone(''), 'Nomor telepon wajib diisi');
       expect(Validators.phone('', label: 'Nomor handphone'),
@@ -110,10 +117,9 @@ void main() {
       AuthSession.register(
         nama: 'Budi',
         phone: '081311112222',
-        email: 'budi@contoh.com',
         password: 'Rahasia#123',
       );
-      AuthSession.login('budi@contoh.com', 'Rahasia#123');
+      AuthSession.login('081311112222', 'Rahasia#123');
 
       expect(
         AuthSession.changePassword(
@@ -123,7 +129,7 @@ void main() {
         isNull,
       );
       AuthSession.logout();
-      expect(AuthSession.login('budi@contoh.com', 'Baru#12345'), isTrue);
+      expect(AuthSession.login('081311112222', 'Baru#12345'), isTrue);
     });
   });
 
@@ -228,17 +234,27 @@ void main() {
       WidgetTester tester, {
       String nama = 'Budi Santoso',
       String phone = '081311112222',
-      String email = 'budi@contoh.com',
       String password = 'Rahasia#123',
       String confirm = 'Rahasia#123',
     }) async {
       final fields = find.byType(TextFormField);
       await tester.enterText(fields.at(0), nama);
       await tester.enterText(fields.at(1), phone);
-      await tester.enterText(fields.at(2), email);
-      await tester.enterText(fields.at(3), password);
-      await tester.enterText(fields.at(4), confirm);
+      await tester.enterText(fields.at(2), password);
+      await tester.enterText(fields.at(3), confirm);
     }
+
+    testWidgets('hanya nama, nomor telepon, dan kata sandi (tanpa email)',
+        (tester) async {
+      await pumpSignUp(tester);
+
+      expect(find.byType(TextFormField), findsNWidgets(4));
+      expect(find.text('Nama'), findsOneWidget);
+      expect(find.text('No. Telepon'), findsOneWidget);
+      expect(find.text('Kata sandi'), findsOneWidget);
+      expect(find.text('Konfirmasi kata sandi'), findsOneWidget);
+      expect(find.text('Email'), findsNothing);
+    });
 
     testWidgets('formulir kosong menampilkan pesan validasi', (tester) async {
       await pumpSignUp(tester);
@@ -248,7 +264,7 @@ void main() {
 
       expect(find.text('Nama wajib diisi'), findsOneWidget);
       expect(find.text('Nomor telepon wajib diisi'), findsOneWidget);
-      expect(find.text('Email wajib diisi'), findsOneWidget);
+      expect(find.text('Email wajib diisi'), findsNothing);
       expect(find.text('Kata sandi minimal 8 karakter'), findsOneWidget);
       expect(find.text('LOGIN'), findsNothing);
     });
@@ -274,14 +290,19 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('LOGIN'), findsOneWidget);
-      expect(AuthSession.login('budi@contoh.com', 'Rahasia#123'), isTrue);
+      expect(
+        find.text('Akun berhasil dibuat. Silakan masuk dengan nomor telepon Anda.'),
+        findsOneWidget,
+      );
+      expect(AuthSession.login('081311112222', 'Rahasia#123'), isTrue);
+      expect(AuthSession.current!.nama, 'Budi Santoso');
+      expect(AuthSession.current!.email, isEmpty);
     });
 
-    testWidgets('email yang sudah terdaftar ditolak', (tester) async {
+    testWidgets('nomor telepon yang sudah terdaftar ditolak', (tester) async {
       AuthSession.register(
         nama: 'Budi Lama',
-        phone: '081399990000',
-        email: 'budi@contoh.com',
+        phone: '081311112222',
         password: 'Rahasia#123',
       );
       await pumpSignUp(tester);
@@ -290,7 +311,7 @@ void main() {
       await tester.tap(daftarButton);
       await tester.pump();
 
-      expect(find.text('Email sudah terdaftar.'), findsOneWidget);
+      expect(find.text('Nomor telepon sudah terdaftar.'), findsOneWidget);
       expect(find.text('LOGIN'), findsNothing);
     });
   });

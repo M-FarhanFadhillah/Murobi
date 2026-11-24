@@ -22,6 +22,12 @@ class Validators {
     return null;
   }
 
+  // Email boleh dikosongkan (mis. di Profil); bila diisi formatnya diperiksa.
+  static String? optionalEmail(String? value) {
+    if ((value ?? '').trim().isEmpty) return null;
+    return email(value);
+  }
+
   static String? phone(String? value, {String label = 'Nomor telepon'}) {
     final text = (value ?? '').trim();
     if (text.isEmpty) return '$label wajib diisi';

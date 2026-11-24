@@ -54,34 +54,37 @@ void main() {
       expect(AuthSession.isAdmin, isFalse);
     });
 
-    test('akun baru dapat masuk dengan email; email dan nomor ganda ditolak',
+    test('akun baru (tanpa email) masuk dengan nomor telepon; nomor ganda ditolak',
         () {
       final error = AuthSession.register(
         nama: 'Budi Santoso',
-        phone: '081311112222',
-        email: 'Budi@Contoh.com',
+        phone: ' 081311112222 ',
         password: 'Rahasia#123',
       );
       expect(error, isNull);
 
-      expect(AuthSession.login('budi@contoh.com', 'Rahasia#123'), isTrue);
+      expect(AuthSession.login('081311112222', 'Rahasia#123'), isTrue);
       expect(AuthSession.current?.nama, 'Budi Santoso');
+      expect(AuthSession.current?.email, isEmpty);
       expect(AuthSession.isAdmin, isFalse);
+      AuthSession.logout();
+
+      // Email kosong tidak bisa dipakai sebagai ID.
+      expect(AuthSession.login('', 'Rahasia#123'), isFalse);
 
       expect(
         AuthSession.register(
           nama: 'Budi Lain',
-          phone: '081399990000',
-          email: 'budi@contoh.com',
+          phone: '081311112222',
           password: 'Rahasia#123',
         ),
-        'Email sudah terdaftar.',
+        'Nomor telepon sudah terdaftar.',
       );
+      // Nomor milik akun bawaan juga tidak bisa dipakai lagi.
       expect(
         AuthSession.register(
           nama: 'Budi Lain',
-          phone: '081311112222',
-          email: 'lain@contoh.com',
+          phone: AuthSession.builtInAccount('jamaah')!.phone,
           password: 'Rahasia#123',
         ),
         'Nomor telepon sudah terdaftar.',

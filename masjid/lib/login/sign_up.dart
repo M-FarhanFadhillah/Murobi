@@ -3,10 +3,12 @@ import 'package:masjid/common/app_theme.dart';
 import 'package:masjid/common/validators.dart';
 import 'package:masjid/login/auth_shell.dart';
 import 'package:masjid/services/account_service.dart';
+import 'package:masjid/services/auth_session.dart';
 
-// Halaman Daftar (sesuai Figma "Daftar Akun"). Tanpa alamat server akun
-// disimpan sementara di memori; dengan server, akun didaftarkan lewat API dan
-// menunggu persetujuan admin.
+// Halaman Daftar (sesuai Figma "Daftar Akun"), cukup nama, nomor telepon, dan
+// kata sandi; tanpa email. Tanpa alamat server akun disimpan di perangkat dan
+// dipakai masuk dengan nomor telepon; dengan server, akun didaftarkan lewat API
+// dan menunggu persetujuan admin.
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({super.key, this.accountService});
 
@@ -21,7 +23,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmController = TextEditingController();
   late final AccountService _account =
@@ -36,7 +37,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   void dispose() {
     _namaController.dispose();
     _phoneController.dispose();
-    _emailController.dispose();
     _passwordController.dispose();
     _confirmController.dispose();
     super.dispose();
@@ -57,7 +57,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     final result = await _account.signUp(
       nama: _namaController.text,
       phone: _phoneController.text,
-      email: _emailController.text,
       password: _passwordController.text,
     );
     if (!mounted) return;
@@ -77,6 +76,25 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       ..showSnackBar(SnackBar(content: Text(result.message ?? 'Akun dibuat.')));
   }
 
+  // Halaman ini dibuka dari Profil: setelah berhasil, tutup dan kembali ke
+  // Profil (yang langsung menampilkan akun). Bila menjadi halaman pertama,
+  // buka Beranda.
+  void _finish() {
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final nama = AuthSession.current?.nama;
+    if (navigator.canPop()) {
+      navigator.pop();
+    } else {
+      navigator.pushNamedAndRemoveUntil('/dashboard', (_) => false);
+    }
+    if (nama != null && nama.isNotEmpty) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text('Selamat datang, $nama.')));
+    }
+  }
+
   // Daftar dengan Google sama dengan masuk: akun dibuat bila belum ada.
   Future<void> _onGoogleSignUp() async {
     if (_googleLoading || _loading) return;
@@ -87,7 +105,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     setState(() => _googleLoading = false);
 
     if (result.ok) {
-      Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (_) => false);
+      _finish();
     } else {
       _snack(result.error!);
     }
@@ -115,13 +133,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
               validator: Validators.phone,
-            ),
-            AuthField(
-              label: 'Email',
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              validator: Validators.email,
             ),
             AuthField(
               label: 'Kata sandi',

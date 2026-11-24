@@ -51,6 +51,17 @@ class ApiUser {
   // 0 = menunggu persetujuan, 1 = aktif, 2 = ditolak.
   final int status;
   final String? photoUrl;
+
+  // Bentuk yang sama dengan respons server, untuk disimpan di perangkat.
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'email': email,
+        'no_hp': noHp,
+        'is_admin': isAdmin,
+        'status': status,
+        'profil_pict_url': photoUrl,
+      };
 }
 
 class ApiMasjid {

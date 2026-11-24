@@ -39,10 +39,17 @@ Konfigurasi lain:
 
 Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
 
-1. **Masuk sebagai jamaah** → Beranda: jam, jadwal sholat, banner, pilih masjid, kegiatan masjid.
+Aplikasi **bisa dipakai tanpa akun** (memudahkan jamaah lansia): splash langsung
+membuka Beranda. Masuk dan daftar ada di **Profil** (ikon profil di pojok kanan
+atas Beranda). Yang sudah pernah masuk tetap masuk saat aplikasi dibuka lagi.
+
+1. **Buka aplikasi tanpa masuk** → Beranda: jam, jadwal sholat, banner, pilih masjid, kegiatan masjid.
 2. **Edukasi**: kategori, buka artikel, buka video lalu "Tonton Video" (membuka YouTube).
 3. **Al-Qur'an**: daftar surah, Juz, Bookmark; buka surah, zoom, mode "Arab saja", putar bacaan.
-4. **Profil**: ubah data, ganti foto dari galeri, ubah kata sandi, keluar.
+   Teks 114 surah ada di dalam aplikasi, jadi tetap bisa dibaca tanpa internet (murotal butuh internet).
+4. **Profil sebagai tamu**: kartu "Anda belum masuk" → **Masuk** (jamaah) atau **Daftar Akun**.
+   Setelah masuk kembali ke Profil: ubah data, ganti foto dari galeri, ubah kata sandi, keluar
+   (setelah keluar tetap di aplikasi).
 5. **Laporan masalah**: sebagai jamaah buka Profil → **Laporkan Permasalahan**, tulis
    laporan, kirim. Keluar, masuk sebagai admin → Profil → **Laporan Masalah Jamaah**: laporan tadi muncul; coba **Tandai selesai** dan hapus.
 6. **Masuk sebagai admin** → Profil → **Kelola Kegiatan Masjid** (unggah dan geser-hapus poster).
@@ -55,10 +62,15 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
   sebelumnya), jadwal tetap tampil tanpa internet, dengan catatan tanggalnya bila
   bukan hari ini. **Buka Beranda sekali dengan internet sebelum seminar.** Tanpa
   jadwal tersimpan sama sekali muncul "Jadwal sholat belum tersedia".
-  Al-Qur'an tersimpan di perangkat setelah sebuah surah dibuka
-  sekali; bacaan audio, gambar mini dan pemutaran YouTube butuh internet.
+  Teks Al-Qur'an (114 surah: Arab, Latin, terjemahan) sudah ada di dalam
+  aplikasi dan selalu bisa dibaca tanpa internet. Murotal (audio), gambar mini
+  dan pemutaran YouTube butuh internet; murotal tanpa internet menampilkan
+  "Audio tidak dapat diputar. Periksa koneksi internet.".
   Siapkan hotspot HP sebagai cadangan.
-- **Buka sekali** surah yang akan didemokan saat ada internet.
+- **Demo Al-Qur'an tanpa internet** (opsional): matikan Wi-Fi dari panel cepat
+  MuMu (tarik bilah status ke bawah). Selama Wi-Fi MuMu mati, **adb dan VS Code
+  ikut terputus** dari emulator (aplikasi tetap berjalan). Setelah demo, nyalakan
+  Wi-Fi lagi lalu **Terminal → Run Task → "MuMu: sambungkan adb"**.
 - **Gambar untuk diunggah.** Taruh beberapa gambar poster di galeri MuMu
   (seret berkasnya ke jendela MuMu).
 - **Data bersih.** Perubahan admin (kegiatan, materi) dan foto profil tersimpan
@@ -75,18 +87,26 @@ Akun dummy: **jamaah / jamaah123** dan **admin / admin123**.
   lalu `scripts\server-laravel.bat`, kemudian konfigurasi 3 atau 4 (`docs/PANDUAN_POSTGRESQL.md`).
   Layanan Windows PostgreSQL tidak mau start di komputer ini, jadi skrip itu perlu dijalankan
   setiap komputer dinyalakan.
-- Akun yang dibuat lewat **Daftar** di mode lokal hanya hidup selama aplikasi terbuka.
+- **Daftar** cukup nama, nomor telepon, dan kata sandi (tanpa email). Di mode lokal
+  akun tersimpan di perangkat (kata sandi dalam bentuk hash), masuk dengan **nomor
+  telepon**, dan tetap bisa dipakai setelah aplikasi ditutup. Email boleh diisi
+  belakangan di Profil (opsional).
+- **Daftar di mode server belum bisa**: server Laravel masih mewajibkan email, jadi
+  pendaftaran dari aplikasi ditolak ("email wajib diisi."). Untuk demo mode server,
+  pakai akun yang sudah ada atau login Google.
 
 ## 5. Bila ada masalah
 
 | Gejala | Tindakan |
 | --- | --- |
 | Emulator tidak muncul / "Device not found" | Pastikan MuMu menyala; **Terminal → Run Task → "MuMu: sambungkan adb"**; bila masih gagal pakai konfigurasi 2 (Chrome) |
-| Layar emulator miring (landscape) | Putar lewat pengaturan MuMu; ukuran layar emulator bisa berubah antar-sesi, itu normal |
+| Layar emulator miring (landscape) | Aplikasi dikunci tegak (potret): saat Murobi dibuka, layar MuMu ikut tegak dan banner tampil dengan proporsi benar |
 | Build gagal soal Java / Gradle | Pastikan JDK 17 ada di `C:\Program Files\Java\jdk-17.0.4` (dipakai oleh `.vscode/settings.json` dan `launch.json`) |
 | Pesan `errno = 1224` / berkas `.dart_tool` terkunci | Hentikan sesi debug lain (Shift+F5), tutup terminal yang menjalankan `flutter`, lalu ulangi |
+| Saat build muncul `Parameter format not correct -` | Aman diabaikan: berasal dari skrip bawaan Flutter SDK 3.13 (perintah Windows `attrib`), tidak memengaruhi aplikasi |
+| Saat build muncul `WARNING: [Processor] ... media2-session` atau `Note: Some input files use or override a deprecated API` | Aman diabaikan: peringatan dari pustaka pihak ketiga (audio), build tetap berhasil |
 | Aplikasi putih / tidak merespons setelah lama | Hot restart (Ctrl+Shift+F5) atau jalankan ulang (F5) |
 | Jadwal sholat kosong | Periksa internet, lalu ketuk ikon muat ulang di kartu jadwal (jadwal tersimpan dipakai otomatis bila ada) |
 
 Tes otomatis dapat dijalankan dari **Terminal → Run Task → "Flutter: jalankan
-semua tes"** (266 tes).
+semua tes"** (320 tes).

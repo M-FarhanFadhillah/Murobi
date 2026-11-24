@@ -87,6 +87,7 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | BRD-06 | Jadwal sholat tanpa internet, ada jadwal tersimpan (maks. 7 hari) | Lima waktu tetap tampil; bila dari hari lain ada catatan "Jadwal tersimpan (dd/MM)" | Sesuai | F `prayer_test` |
 | BRD-07 | Jadwal sholat tanpa internet dan tanpa jadwal tersimpan / tersimpan > 7 hari / jam perangkat mundur / data rusak | Pesan "Jadwal sholat belum tersedia" + tombol muat ulang yang berfungsi | Sesuai | F `prayer_test` |
 | BRD-08 | Respons Aladhan bukan 200, bukan JSON, atau koneksi menggantung (10 detik) | Memakai jadwal tersimpan, tidak menggantung | Sesuai | F `prayer_test` |
+| BRD-09 | Banner di layar sempit (HP) dan lebar / emulator mendatar | Aplikasi dikunci tegak (potret); tinggi banner mengikuti lebar layar dengan proporsi gambar 1,92 : 1, tidak tertarik | Sesuai | F `quran_offline_test` (lebar 360 dan 900 px); A (26 Okt 2026, MuMu 1080×1920) |
 
 ### 3.4 Kegiatan masjid
 
@@ -124,8 +125,10 @@ Kolom **Hasil**: *Sesuai* berarti hasil aktual sama dengan yang diharapkan.
 | QRN-03 | Baca surah | Arab, Latin, terjemahan; mode "Arab saja"; zoom 80–200% | Sesuai | F `quran_test` |
 | QRN-04 | Putar bacaan surah | Tombol putar memulai, jeda menghentikan | Sesuai (pemutar tiruan) | F `quran_test` |
 | QRN-05 | Tanda (bookmark) dan terakhir dibaca | Tersimpan di perangkat, membuka ayat tersimpan | Sesuai | F `quran_library_test` |
-| QRN-06 | Tanpa internet | Memakai salinan tersimpan, atau pesan ramah + "Coba lagi" | Sesuai | F `quran_test` (ApiService) |
-| QRN-07 | Surat terakhir (An-Nas) | Tampil tanpa error | Sesuai | F `quran_test` (temuan sebelumnya, sudah diperbaiki) |
+| QRN-06 | Tanpa internet | Daftar 114 surah dan isi semua surah (6236 ayat: Arab, Latin, terjemahan) tampil dari data bawaan aplikasi, tanpa permintaan jaringan | Sesuai | F `quran_offline_test`; A (26 Okt 2026: Wi-Fi MuMu dimatikan, daftar surah dan Al-Anfal yang belum pernah dibuka tampil) |
+| QRN-07 | Surat terakhir (An-Nas) | Tampil tanpa error | Sesuai | F `quran_test` (temuan sebelumnya, sudah diperbaiki); F `quran_offline_test` |
+| QRN-08 | Putar murotal tanpa internet | Pesan "Audio tidak dapat diputar. Periksa koneksi internet.", aplikasi tidak crash | Sesuai | A (26 Okt 2026) |
+| QRN-09 | Data bawaan tidak ada (jalur internet) | Mengambil dari equran.id, menyimpan salinan, atau pesan ramah + "Coba lagi" | Sesuai | F `quran_test`, `quran_library_test` (tanpa data bawaan) |
 
 ### 3.7 Ketahanan jaringan dan mode lokal
 

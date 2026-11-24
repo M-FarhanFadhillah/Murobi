@@ -64,10 +64,9 @@ void main() {
       AuthSession.register(
         nama: 'Budi',
         phone: '081311112222',
-        email: 'budi@contoh.com',
         password: 'Rahasia#123',
       );
-      AuthSession.login('budi@contoh.com', 'Rahasia#123');
+      AuthSession.login('081311112222', 'Rahasia#123');
       expect(store.items, isEmpty);
       await store.send('Bacaan audio berhenti sendiri');
       expect(store.items.length, 1);

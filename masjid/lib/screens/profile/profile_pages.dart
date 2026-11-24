@@ -4,6 +4,8 @@ import 'package:masjid/common/app_theme.dart';
 import 'package:masjid/common/app_widgets.dart';
 import 'package:masjid/common/image_source_sheet.dart';
 import 'package:masjid/common/validators.dart';
+import 'package:masjid/login/login.dart';
+import 'package:masjid/login/sign_up.dart';
 import 'package:masjid/screens/kegiatan/kegiatan_masjid_page.dart';
 import 'package:masjid/screens/profile/change_password_dialog.dart';
 import 'package:masjid/services/account_service.dart';
@@ -11,7 +13,8 @@ import 'package:masjid/services/auth_session.dart';
 import 'package:masjid/services/profile_store.dart';
 
 // Halaman Profil (sesuai Figma "Profil" dan "edit foto profil"): data diri,
-// ubah data, ubah foto, laporan masalah, dan keluar.
+// ubah data, ubah foto, laporan masalah, dan keluar. Aplikasi bisa dipakai
+// tanpa akun; bila belum masuk, halaman ini mengajak tamu masuk atau mendaftar.
 class ProfilePages extends StatefulWidget {
   const ProfilePages({super.key, this.accountService});
 
@@ -60,11 +63,20 @@ class _ProfilePagesState extends State<ProfilePages> {
     setState(() => _editing = false);
   }
 
-  // Sesi berakhir (token ditolak server): kembali ke halaman masuk.
-  bool _leaveIfSignedOut() {
-    if (AuthSession.current != null) return false;
-    Navigator.of(context).pushNamedAndRemoveUntil('/login', (_) => false);
-    return true;
+  // Sesi berakhir (token ditolak server): halaman ini kembali ke tampilan
+  // tamu dengan sendirinya (mendengarkan AuthSession.changes).
+  bool _leaveIfSignedOut() => AuthSession.current == null;
+
+  // Masuk/daftar dibuka di atas aplikasi; setelah berhasil halaman itu
+  // ditutup dan Profil langsung menampilkan akunnya.
+  void _openAuthPage({required bool login}) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => login
+            ? LoginWidget(accountService: widget.accountService)
+            : SignUpWidget(accountService: widget.accountService),
+      ),
+    );
   }
 
   Future<void> _save() async {
@@ -144,7 +156,10 @@ class _ProfilePagesState extends State<ProfilePages> {
       builder: (dialogContext) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Text('Keluar dari akun?'),
-        content: const Text('Anda perlu masuk lagi untuk memakai aplikasi.'),
+        content: const Text(
+          'Aplikasi tetap bisa dipakai tanpa akun. Masuk lagi untuk melihat '
+          'profil dan melaporkan masalah.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
@@ -165,7 +180,8 @@ class _ProfilePagesState extends State<ProfilePages> {
 
     await _account.signOut();
     if (!mounted) return;
-    Navigator.of(context).pushNamedAndRemoveUntil('/login', (_) => false);
+    _editing = false;
+    _snack('Anda telah keluar.');
   }
 
   @override
@@ -174,9 +190,15 @@ class _ProfilePagesState extends State<ProfilePages> {
       child: SafeArea(
         bottom: false,
         child: ListenableBuilder(
-          listenable: _store,
+          listenable: Listenable.merge([_store, AuthSession.changes]),
           builder: (context, _) => SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            // Ruang di bawah untuk navigasi yang melayang (Dashboard).
+            padding: EdgeInsets.fromLTRB(
+              16,
+              8,
+              16,
+              16 + MediaQuery.paddingOf(context).bottom,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -192,11 +214,18 @@ class _ProfilePagesState extends State<ProfilePages> {
                     ),
                   ),
                 ),
-                _buildPhotoCard(),
-                const SizedBox(height: 14),
-                _buildDataCard(),
-                const SizedBox(height: 14),
-                _buildMenuCard(),
+                if (AuthSession.current == null)
+                  _GuestCard(
+                    onLogin: () => _openAuthPage(login: true),
+                    onSignUp: () => _openAuthPage(login: false),
+                  )
+                else ...[
+                  _buildPhotoCard(),
+                  const SizedBox(height: 14),
+                  _buildDataCard(),
+                  const SizedBox(height: 14),
+                  _buildMenuCard(),
+                ],
               ],
             ),
           ),
@@ -310,7 +339,9 @@ class _ProfilePagesState extends State<ProfilePages> {
               controller: _emailController,
               editing: _editing,
               keyboardType: TextInputType.emailAddress,
-              validator: Validators.email,
+              // Akun hasil daftar tidak punya email; boleh diisi bila mau.
+              validator: Validators.optionalEmail,
+              hint: 'Opsional',
             ),
             _ProfileField(
               label: 'Nomor handphone',
@@ -436,6 +467,97 @@ class _ProfilePagesState extends State<ProfilePages> {
   }
 }
 
+// Tampilan Profil untuk tamu (belum masuk): ajakan masuk atau mendaftar.
+// Fitur lain (Beranda, Edukasi, Al-Qur'an, dll.) tetap bisa dipakai tanpa akun.
+class _GuestCard extends StatelessWidget {
+  const _GuestCard({required this.onLogin, required this.onSignUp});
+
+  final VoidCallback onLogin;
+  final VoidCallback onSignUp;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                gradient: AppPalette.heroGradient,
+                shape: BoxShape.circle,
+              ),
+              child: const CircleAvatar(
+                radius: 48,
+                backgroundColor: Color(0xFFE3EEE6),
+                child: Icon(Icons.person, size: 64, color: AppPalette.textMuted),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'Anda belum masuk',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: AppPalette.primaryDark,
+            ),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            'Masuk untuk melihat profil dan melaporkan masalah. Fitur lain '
+            'tetap bisa dipakai tanpa akun.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: AppPalette.textMuted, height: 1.4),
+          ),
+          const SizedBox(height: 20),
+          FilledButton(
+            key: const ValueKey('profil-masuk'),
+            onPressed: onLogin,
+            style: FilledButton.styleFrom(
+              backgroundColor: AppPalette.primary,
+              minimumSize: const Size.fromHeight(50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+            child: const Text(
+              'Masuk',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          const SizedBox(height: 10),
+          OutlinedButton(
+            key: const ValueKey('profil-daftar'),
+            onPressed: onSignUp,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppPalette.primary,
+              side: const BorderSide(color: AppPalette.primary, width: 1.5),
+              minimumSize: const Size.fromHeight(50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+            child: const Text(
+              'Daftar Akun',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          const SizedBox(height: 14),
+          const Text(
+            'Admin masjid juga masuk di sini.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12, color: AppPalette.textMuted),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 // Baris data profil: teks biasa saat dilihat, kolom isian saat mengedit.
 class _ProfileField extends StatelessWidget {
   const _ProfileField({
@@ -445,6 +567,7 @@ class _ProfileField extends StatelessWidget {
     required this.editing,
     required this.keyboardType,
     required this.validator,
+    this.hint,
   });
 
   final String label;
@@ -453,6 +576,9 @@ class _ProfileField extends StatelessWidget {
   final bool editing;
   final TextInputType keyboardType;
   final FormFieldValidator<String> validator;
+
+  // Petunjuk di kolom saat mengedit (mis. "Opsional").
+  final String? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -471,10 +597,11 @@ class _ProfileField extends StatelessWidget {
               controller: controller,
               keyboardType: keyboardType,
               validator: validator,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(vertical: 8),
-                focusedBorder: UnderlineInputBorder(
+                hintText: hint,
+                contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: AppPalette.primary, width: 2),
                 ),
               ),
@@ -487,10 +614,12 @@ class _ProfileField extends StatelessWidget {
                 border: Border(bottom: BorderSide(color: Colors.black26)),
               ),
               child: Text(
-                value,
-                style: const TextStyle(
+                value.isEmpty ? '-' : value,
+                style: TextStyle(
                   fontSize: 15,
-                  color: AppPalette.textDark,
+                  color: value.isEmpty
+                      ? AppPalette.textMuted
+                      : AppPalette.textDark,
                 ),
               ),
             ),

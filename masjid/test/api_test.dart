@@ -431,35 +431,33 @@ void main() {
       final result = await serviceFor(server).signUp(
         nama: ' Budi Santoso ',
         phone: '081311112222',
-        email: 'budi@contoh.com',
         password: 'Rahasia#123',
       );
 
       expect(result.ok, isTrue);
       expect(result.message, contains('menunggu persetujuan admin'));
+      // Formulir daftar tanpa email: email tidak dikirim.
       expect(server.lastBody, {
         'name': 'Budi Santoso',
-        'email': 'budi@contoh.com',
         'no_hp': '081311112222',
         'password': 'Rahasia#123',
       });
       expect(AuthSession.current, isNull); // belum masuk sebelum disetujui
     });
 
-    test('daftar dengan email yang sudah ada menampilkan pesan server', () async {
+    test('daftar ditolak server menampilkan pesan server', () async {
       final server = FakeServer((_) => jsonResponse({
             'message': 'invalid',
-            'errors': {'email': ['Email sudah terdaftar.']},
+            'errors': {'no_hp': ['Nomor telepon sudah terdaftar.']},
           }, 422));
 
       final result = await serviceFor(server).signUp(
         nama: 'Budi',
         phone: '081311112222',
-        email: 'budi@contoh.com',
         password: 'Rahasia#123',
       );
 
-      expect(result.error, 'Email sudah terdaftar.');
+      expect(result.error, 'Nomor telepon sudah terdaftar.');
     });
 
     test('pulihkan sesi dari token tersimpan', () async {
@@ -527,6 +525,29 @@ void main() {
       expect(ProfileStore.instance.nama, 'Ahmad Fadhillah');
       expect(ProfileStore.instance.phone, '+6281999999999');
       expect(AuthSession.current!.nama, 'Ahmad Fadhillah');
+    });
+
+    test('ubah data diri dengan email dikosongkan: email tidak dikirim', () async {
+      final server = FakeServer((request) {
+        if (request.url.path == '/api/login') {
+          return jsonResponse({'token': 't', 'user': userJson()});
+        }
+        // Server tetap memakai email yang tersimpan.
+        return jsonResponse({'user': userJson(name: 'Ahmad')});
+      });
+      final service = serviceFor(server);
+      await service.signIn('ahmad@gmail.com', 'x');
+
+      final result = await service.updateProfile(
+        nama: 'Ahmad',
+        email: '',
+        phone: '081994851234',
+      );
+
+      expect(result.ok, isTrue);
+      expect(server.lastBody.containsKey('email'), isFalse);
+      expect(server.lastBody['name'], 'Ahmad');
+      expect(ProfileStore.instance.email, 'ahmad@gmail.com');
     });
 
     test('ubah data diri ditolak: profil tidak berubah, pesan dari server',
@@ -696,13 +717,13 @@ void main() {
         (await service.signUp(
           nama: 'Budi',
           phone: '081311112222',
-          email: 'budi@contoh.com',
           password: 'Rahasia#123',
         ))
             .ok,
         isTrue,
       );
-      expect(await service.restore(), isFalse);
+      // Sesi lokal dipulihkan dari perangkat, tetap tanpa memanggil server.
+      expect(await service.restore(), isTrue);
       expect(server.requests, isEmpty);
     });
   });

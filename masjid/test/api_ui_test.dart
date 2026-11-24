@@ -63,17 +63,19 @@ void main() {
       );
     }
 
-    testWidgets('petunjuk akun demo disembunyikan', (tester) async {
+    testWidgets('petunjuk akun demo tidak tampil (mode server)', (tester) async {
       final server = _accountServer();
       await pumpLogin(tester, AccountService(api: server.api, remote: true));
 
       expect(find.textContaining('Akun demo'), findsNothing);
     });
 
-    testWidgets('petunjuk akun demo tampil pada mode lokal', (tester) async {
+    testWidgets('petunjuk akun demo juga tidak tampil pada mode lokal', (tester) async {
       await pumpLogin(tester, AccountService(remote: false));
 
-      expect(find.textContaining('Akun demo'), findsOneWidget);
+      expect(find.textContaining('Akun demo'), findsNothing);
+      expect(find.textContaining('jamaah123'), findsNothing);
+      expect(find.textContaining('admin123'), findsNothing);
     });
 
     testWidgets('masuk berhasil membuka dashboard dengan data dari server',
@@ -123,9 +125,8 @@ void main() {
       final fields = find.byType(TextFormField);
       await tester.enterText(fields.at(0), 'Budi Santoso');
       await tester.enterText(fields.at(1), '081311112222');
-      await tester.enterText(fields.at(2), 'budi@contoh.com');
+      await tester.enterText(fields.at(2), 'Rahasia#123');
       await tester.enterText(fields.at(3), 'Rahasia#123');
-      await tester.enterText(fields.at(4), 'Rahasia#123');
     }
 
     Future<void> pumpSignUp(WidgetTester tester, AccountService service) async {
@@ -156,13 +157,14 @@ void main() {
       expect(find.text('LOGIN'), findsOneWidget);
       expect(find.textContaining('menunggu persetujuan admin'), findsOneWidget);
       expect(server.lastBody['no_hp'], '081311112222');
+      expect(server.lastBody.containsKey('email'), isFalse);
     });
 
     testWidgets('ditolak server: tetap di halaman daftar dengan pesan kolom',
         (tester) async {
       final server = FakeServer((_) => jsonResponse({
             'message': 'invalid',
-            'errors': {'email': ['Email sudah terdaftar.']},
+            'errors': {'no_hp': ['Nomor telepon sudah terdaftar.']},
           }, 422));
       await pumpSignUp(tester, AccountService(api: server.api, remote: true));
 
@@ -170,7 +172,7 @@ void main() {
       await tester.tap(daftarButton);
       await tester.pumpAndSettle();
 
-      expect(find.text('Email sudah terdaftar.'), findsOneWidget);
+      expect(find.text('Nomor telepon sudah terdaftar.'), findsOneWidget);
       expect(find.text('LOGIN'), findsNothing);
     });
   });
@@ -286,7 +288,7 @@ void main() {
       expect(find.text('SIMPAN'), findsOneWidget); // masih mengedit
     });
 
-    testWidgets('sesi berakhir saat menyimpan: kembali ke halaman masuk',
+    testWidgets('sesi berakhir saat menyimpan: Profil kembali ke tampilan tamu',
         (tester) async {
       await pumpProfile(
         tester,
@@ -298,11 +300,13 @@ void main() {
       await tester.tap(find.text('SIMPAN'));
       await tester.pumpAndSettle();
 
-      expect(find.text('LOGIN'), findsOneWidget);
+      // Tetap di aplikasi (tidak dilempar ke halaman masuk).
+      expect(find.text('LOGIN'), findsNothing);
+      expect(find.text('Anda belum masuk'), findsOneWidget);
       expect(AuthSession.current, isNull);
     });
 
-    testWidgets('keluar mencabut token lalu kembali ke halaman masuk',
+    testWidgets('keluar mencabut token dan Profil kembali ke tampilan tamu',
         (tester) async {
       final service = await pumpProfile(
         tester,
@@ -314,9 +318,13 @@ void main() {
       await tester.tap(find.widgetWithText(TextButton, 'Keluar'));
       await tester.pumpAndSettle();
 
-      expect(find.text('LOGIN'), findsOneWidget);
+      expect(find.text('LOGIN'), findsNothing);
+      expect(find.text('Anda belum masuk'), findsOneWidget);
+      expect(find.text('Anda telah keluar.'), findsOneWidget);
       expect(AuthSession.current, isNull);
       expect(service.remote, isTrue);
+      expect((await SharedPreferences.getInstance()).getString('api_token_v1'),
+          isNull);
     });
   });
 
@@ -342,14 +350,16 @@ void main() {
       expect(ProfileStore.instance.nama, 'Ahmad Al Farizi');
     });
 
-    testWidgets('token ditolak membuka halaman masuk', (tester) async {
+    testWidgets('token ditolak: tetap membuka beranda sebagai tamu',
+        (tester) async {
       SharedPreferences.setMockInitialValues({'api_token_v1': 'dicabut'});
       final server = FakeServer((_) => jsonResponse({'message': 'x'}, 401));
 
       await pumpSplash(tester, AccountService(api: server.api, remote: true));
 
-      expect(find.text('DASHBOARD'), findsNothing);
-      expect(masukButton, findsOneWidget);
+      expect(find.text('DASHBOARD'), findsOneWidget);
+      expect(masukButton, findsNothing);
+      expect(AuthSession.current, isNull);
     });
   });
 

@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:masjid/data/api/api_client.dart';
 import 'package:masjid/data/api/api_config.dart';
+import 'package:masjid/data/api/api_models.dart';
 import 'package:masjid/data/api/murobi_api.dart';
 import 'package:masjid/services/auth_session.dart';
 import 'package:masjid/services/google_auth.dart';
@@ -35,6 +37,16 @@ class AccountService {
 
   static const String _tokenKey = 'api_token_v1';
 
+  // Data akun server terakhir; dipakai bila aplikasi dibuka tanpa internet.
+  static const String _userKey = 'api_user_v1';
+
+  // Sesi mode lokal (tanpa kata sandi), agar tidak perlu masuk ulang.
+  static const String _localSessionKey = 'local_session_v1';
+
+  // Akun hasil "Daftar" pada mode lokal (kata sandi berupa hash). Sengaja tidak
+  // ikut dihapus saat keluar: akunnya tetap ada untuk dipakai masuk lagi.
+  static const String _localAccountsKey = 'local_accounts_v1';
+
   final MurobiApi _api;
   final GoogleAuthClient _google;
 
@@ -43,9 +55,11 @@ class AccountService {
 
   Future<AuthResult> signIn(String id, String password) async {
     if (!remote) {
+      await _loadLocalAccounts();
       if (!AuthSession.login(id, password)) {
         return const AuthResult.error('ID atau kata sandi salah.');
       }
+      await _saveLocalSession(AuthSession.current!);
       await ProfileStore.instance.loadFor(AuthSession.current!);
       return const AuthResult.ok();
     }
@@ -54,6 +68,7 @@ class AccountService {
       final result = await _api.login(id.trim(), password);
       _api.token = result.token;
       await _saveToken(result.token);
+      await _saveUser(result.user);
       final account = UserAccount.fromApi(result.user);
       AuthSession.startRemote(account);
       await ProfileStore.instance.loadFor(account);
@@ -97,6 +112,7 @@ class AccountService {
         photoUrl: profile.photoUrl,
       );
       AuthSession.startLocal(account);
+      await _saveLocalSession(account);
       await ProfileStore.instance.loadFor(account);
       return const AuthResult.ok();
     }
@@ -108,6 +124,7 @@ class AccountService {
       );
       _api.token = result.token;
       await _saveToken(result.token);
+      await _saveUser(result.user);
       final account = UserAccount.fromApi(result.user);
       AuthSession.startRemote(account);
       await ProfileStore.instance.loadFor(account);
@@ -117,30 +134,29 @@ class AccountService {
     }
   }
 
+  // Pendaftaran jamaah tanpa email: nama, nomor telepon, dan kata sandi.
   Future<AuthResult> signUp({
     required String nama,
     required String phone,
-    required String email,
     required String password,
   }) async {
     if (!remote) {
+      await _loadLocalAccounts();
       final error = AuthSession.register(
         nama: nama,
         phone: phone,
-        email: email,
         password: password,
       );
-      return error == null
-          ? const AuthResult.ok(
-              'Akun berhasil dibuat. Silakan masuk dengan email Anda.',
-            )
-          : AuthResult.error(error);
+      if (error != null) return AuthResult.error(error);
+      await _saveLocalAccounts();
+      return const AuthResult.ok(
+        'Akun berhasil dibuat. Silakan masuk dengan nomor telepon Anda.',
+      );
     }
 
     try {
       final message = await _api.register(
         name: nama.trim(),
-        email: email.trim(),
         noHp: phone.trim(),
         password: password,
       );
@@ -150,26 +166,67 @@ class AccountService {
     }
   }
 
-  // Memulihkan sesi dari token yang tersimpan. True jika berhasil masuk.
+  // Memulihkan sesi yang tersimpan saat aplikasi dibuka, supaya pengguna yang
+  // sudah masuk tidak perlu masuk ulang. True jika berhasil masuk.
   Future<bool> restore() async {
-    if (!remote) return false;
+    if (!remote) return _restoreLocal();
     final token = await _readToken();
     if (token == null) return false;
 
     _api.token = token;
     try {
-      final account = UserAccount.fromApi(await _api.me());
+      final user = await _api.me();
+      await _saveUser(user);
+      final account = UserAccount.fromApi(user);
       AuthSession.startRemote(account);
       await ProfileStore.instance.loadFor(account);
       return true;
     } on ApiException catch (error) {
-      // Token ditolak (dicabut atau akun tidak lagi aktif): hapus. Gangguan
-      // jaringan: token dipertahankan agar bisa dicoba lagi nanti.
+      // Token ditolak (dicabut atau akun tidak lagi aktif): sesi dihapus.
       if (error.isUnauthorized || error.statusCode == 403) {
         await _forgetSession();
-      } else {
-        _api.token = null;
+        return false;
       }
+      // Gangguan jaringan atau server: token dipertahankan. Bila data akun
+      // terakhir tersimpan, pengguna tetap masuk (konten dimuat dari cache dan
+      // diperbarui saat server terjangkau lagi).
+      final cached = await _readUser();
+      if (cached == null) {
+        _api.token = null;
+        return false;
+      }
+      final account = UserAccount.fromApi(cached);
+      AuthSession.startRemote(account);
+      await ProfileStore.instance.loadFor(account);
+      return true;
+    }
+  }
+
+  // Mode lokal: akun dummy bawaan dipulihkan apa adanya (termasuk peran
+  // admin); akun lain (hasil daftar atau Google) selalu sebagai jamaah.
+  Future<bool> _restoreLocal() async {
+    await _loadLocalAccounts();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString(_localSessionKey);
+      if (raw == null) return false;
+      final json = jsonDecode(raw) as Map<String, dynamic>;
+      final id = json['id'] as String;
+      final account = AuthSession.localAccount(id) ??
+          UserAccount(
+            id: id,
+            nama: json['nama'] as String? ?? '',
+            email: json['email'] as String? ?? '',
+            phone: json['phone'] as String? ?? '',
+            role: UserRole.jamaah,
+            photoUrl: json['photoUrl'] as String?,
+          );
+      AuthSession.startLocal(account);
+      await ProfileStore.instance.loadFor(account);
+      return true;
+    } catch (_) {
+      // Data rusak atau penyimpanan tidak tersedia: masuk seperti biasa.
+      await _forgetSession();
       return false;
     }
   }
@@ -186,6 +243,7 @@ class AccountService {
 
     try {
       final user = await _api.updateMe(name: nama, email: email, noHp: phone);
+      await _saveUser(user);
       final account = UserAccount.fromApi(user);
       AuthSession.startRemote(account);
       ProfileStore.instance.applyRemote(account);
@@ -203,6 +261,7 @@ class AccountService {
 
     try {
       final user = await _api.uploadPhoto(bytes);
+      await _saveUser(user);
       final account = UserAccount.fromApi(user);
       AuthSession.startRemote(account);
       ProfileStore.instance
@@ -223,7 +282,10 @@ class AccountService {
         oldPassword: oldPassword,
         newPassword: newPassword,
       );
-      return error == null ? const AuthResult.ok() : AuthResult.error(error);
+      if (error != null) return AuthResult.error(error);
+      // Akun hasil daftar: hash kata sandi baru disimpan di perangkat.
+      await _saveLocalAccounts();
+      return const AuthResult.ok();
     }
 
     try {
@@ -264,7 +326,69 @@ class AccountService {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_tokenKey);
+      await prefs.remove(_userKey);
+      await prefs.remove(_localSessionKey);
     } catch (_) {}
+  }
+
+  Future<void> _loadLocalAccounts() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString(_localAccountsKey);
+      if (raw == null) return;
+      AuthSession.loadRegistered(jsonDecode(raw) as List<dynamic>);
+    } catch (_) {
+      // Data rusak atau penyimpanan tidak tersedia: hanya akun bawaan.
+    }
+  }
+
+  Future<void> _saveLocalAccounts() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+        _localAccountsKey,
+        jsonEncode(AuthSession.registeredToJson()),
+      );
+    } catch (_) {
+      // Tanpa penyimpanan, akun hasil daftar hanya hidup selama aplikasi terbuka.
+    }
+  }
+
+  // Tanpa kata sandi: hanya identitas akun yang perlu ditampilkan.
+  Future<void> _saveLocalSession(UserAccount account) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+        _localSessionKey,
+        jsonEncode({
+          'id': account.id,
+          'nama': account.nama,
+          'email': account.email,
+          'phone': account.phone,
+          'photoUrl': account.photoUrl,
+        }),
+      );
+    } catch (_) {
+      // Tanpa penyimpanan, sesi hanya bertahan selama aplikasi terbuka.
+    }
+  }
+
+  Future<void> _saveUser(ApiUser user) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_userKey, jsonEncode(user.toJson()));
+    } catch (_) {}
+  }
+
+  Future<ApiUser?> _readUser() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString(_userKey);
+      if (raw == null) return null;
+      return ApiUser.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<void> _saveToken(String token) async {

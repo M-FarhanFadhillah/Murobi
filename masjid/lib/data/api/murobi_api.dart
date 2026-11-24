@@ -98,16 +98,17 @@ class MurobiApi {
     return LoginResult(_userFrom(json), token);
   }
 
-  // Mengembalikan pesan sukses dari server.
+  // Mengembalikan pesan sukses dari server. Email hanya dikirim bila diisi
+  // (formulir daftar di aplikasi tidak lagi memintanya).
   Future<String> register({
     required String name,
-    required String email,
+    String? email,
     required String noHp,
     required String password,
   }) async {
     final json = _asMap(await _client.post('register', body: {
       'name': name,
-      'email': email,
+      if (email != null && email.isNotEmpty) 'email': email,
       'no_hp': noHp,
       'password': password,
     }));
@@ -121,6 +122,7 @@ class MurobiApi {
     await _client.post('logout');
   }
 
+  // Email kosong tidak dikirim: server tetap memakai email yang tersimpan.
   Future<ApiUser> updateMe({
     required String name,
     required String email,
@@ -128,7 +130,7 @@ class MurobiApi {
   }) async {
     final json = _asMap(await _client.patch('me', body: {
       'name': name,
-      'email': email,
+      if (email.isNotEmpty) 'email': email,
       'no_hp': noHp,
     }));
     return _userFrom(json);
