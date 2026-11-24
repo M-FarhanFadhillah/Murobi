@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:masjid/common/app_theme.dart';
 import 'package:masjid/login/auth_shell.dart';
 import 'package:masjid/services/account_service.dart';
+import 'package:masjid/services/auth_session.dart';
 
-// Halaman Masuk (sesuai Figma "Masuk Akun"). Tanpa alamat server memakai akun
-// dummy; dengan server, masuk lewat API.
+// Halaman Masuk (sesuai Figma "Masuk Akun"), dibuka dari Profil. Tanpa alamat
+// server memakai akun lokal; dengan server, masuk lewat API.
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key, this.accountService});
 
@@ -39,7 +40,26 @@ class _LoginWidgetState extends State<LoginWidget> {
       ..showSnackBar(SnackBar(content: Text(message)));
   }
 
-  // ID/email/nomor HP dan kata sandi dicocokkan dengan akun dummy atau server.
+  // Halaman ini dibuka dari Profil: setelah berhasil, tutup dan kembali ke
+  // Profil (yang langsung menampilkan akun). Bila menjadi halaman pertama,
+  // buka Beranda.
+  void _finish() {
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final nama = AuthSession.current?.nama;
+    if (navigator.canPop()) {
+      navigator.pop();
+    } else {
+      navigator.pushNamedAndRemoveUntil('/dashboard', (_) => false);
+    }
+    if (nama != null && nama.isNotEmpty) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text('Selamat datang, $nama.')));
+    }
+  }
+
+  // ID/email/nomor HP dan kata sandi dicocokkan dengan akun lokal atau server.
   Future<void> _onSignIn() async {
     if (_loading) return;
     if (!(_formKey.currentState?.validate() ?? false)) return;
@@ -52,7 +72,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     setState(() => _loading = false);
 
     if (result.ok) {
-      Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (_) => false);
+      _finish();
     } else {
       _snack(result.error!);
     }
@@ -67,7 +87,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     setState(() => _googleLoading = false);
 
     if (result.ok) {
-      Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (_) => false);
+      _finish();
     } else {
       _snack(result.error!);
     }
@@ -169,21 +189,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
               ),
             ),
-            const SizedBox(height: 14),
-            // Petunjuk akun dummy; tidak relevan saat memakai server.
-            if (!_account.remote)
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: AppPalette.primary.withOpacity(0.08),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Text(
-                  'Akun demo\nJamaah: jamaah / jamaah123\nAdmin: admin / admin123',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 11, color: AppPalette.textMuted),
-                ),
-              ),
+            const SizedBox(height: 6),
           ],
         ),
       ),

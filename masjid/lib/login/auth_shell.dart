@@ -5,7 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:masjid/common/app_theme.dart';
 
 // Kerangka halaman Masuk dan Daftar (sesuai Figma): latar hijau berornamen,
-// judul, tab Masuk/Daftar, dan kartu putih berisi formulir.
+// judul, tab Masuk/Daftar, dan kartu putih berisi formulir. Bila dibuka dari
+// Profil, ada tombol kembali agar tamu bisa batal tanpa masuk.
 class AuthShell extends StatelessWidget {
   const AuthShell({
     super.key,
@@ -52,6 +53,18 @@ class AuthShell extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (Navigator.of(context).canPop())
+                        Transform.translate(
+                          offset: const Offset(-12, 0),
+                          child: IconButton(
+                            onPressed: () => Navigator.of(context).maybePop(),
+                            tooltip: 'Kembali',
+                            icon: const Icon(
+                              Icons.arrow_back_rounded,
+                              color: AppPalette.textDark,
+                            ),
+                          ),
+                        ),
                       Text(
                         isLogin ? 'Masuk Akun' : 'Daftar Akun',
                         style: const TextStyle(
@@ -69,38 +82,56 @@ class AuthShell extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 28),
-                      Row(
+                      // Tab di belakang, kartu di depan. Tab yang tidak aktif
+                      // (putih pudar) memanjang ke bawah kartu sehingga warnanya
+                      // mengisi celah di balik sudut kartu yang membulat.
+                      Stack(
                         children: [
-                          Expanded(
-                            child: _AuthTab(
-                              label: 'Masuk',
-                              selected: isLogin,
-                              onTap: () => _openTab(context, true),
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: _AuthTab(
+                                  label: 'Masuk',
+                                  selected: isLogin,
+                                  onTap: () => _openTab(context, true),
+                                ),
+                              ),
+                              Expanded(
+                                child: _AuthTab(
+                                  label: 'Daftar',
+                                  selected: !isLogin,
+                                  onTap: () => _openTab(context, false),
+                                ),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child: _AuthTab(
-                              label: 'Daftar',
-                              selected: !isLogin,
-                              onTap: () => _openTab(context, false),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: _AuthTab.height),
+                            child: Container(
+                              key: const ValueKey('auth-card'),
+                              width: double.infinity,
+                              padding:
+                                  const EdgeInsets.fromLTRB(24, 24, 24, 20),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                    isLogin ? 0 : _AuthTab.cardRadius,
+                                  ),
+                                  topRight: Radius.circular(
+                                    isLogin ? _AuthTab.cardRadius : 0,
+                                  ),
+                                  bottomLeft: const Radius.circular(20),
+                                  bottomRight: const Radius.circular(20),
+                                ),
+                                boxShadow: AppPalette.softShadow,
+                              ),
+                              child: child,
                             ),
                           ),
                         ],
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(isLogin ? 0 : 20),
-                            topRight: Radius.circular(isLogin ? 20 : 0),
-                            bottomLeft: const Radius.circular(20),
-                            bottomRight: const Radius.circular(20),
-                          ),
-                          boxShadow: AppPalette.softShadow,
-                        ),
-                        child: child,
                       ),
                     ],
                   ),
@@ -137,6 +168,13 @@ class _AuthTab extends StatelessWidget {
     required this.onTap,
   });
 
+  // Tinggi bagian tab yang terlihat di atas kartu.
+  static const double height = 48;
+
+  // Radius sudut atas kartu di sisi tab yang tidak aktif. Tab tidak aktif
+  // memanjang sejauh ini ke belakang kartu untuk mengisi celah sudutnya.
+  static const double cardRadius = 20;
+
   final String label;
   final bool selected;
   final VoidCallback onTap;
@@ -147,18 +185,23 @@ class _AuthTab extends StatelessWidget {
       onTap: onTap,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       child: Container(
-        height: 48,
-        alignment: Alignment.center,
+        height: selected ? height : height + cardRadius,
+        alignment: Alignment.topCenter,
         decoration: BoxDecoration(
           color: selected ? Colors.white : Colors.white.withOpacity(0.35),
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-            color: selected ? AppPalette.textDark : AppPalette.textMuted,
+        child: SizedBox(
+          height: height,
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                color: selected ? AppPalette.textDark : AppPalette.textMuted,
+              ),
+            ),
           ),
         ),
       ),

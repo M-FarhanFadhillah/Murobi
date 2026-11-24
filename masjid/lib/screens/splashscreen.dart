@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:masjid/login/login.dart';
 import 'package:masjid/services/account_service.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,23 +19,18 @@ class _SplashScreenState extends State<SplashScreen> {
     _continue();
   }
 
-  // Splash tampil minimal 2 detik. Dengan server, sesi yang tersimpan dipulihkan
-  // lebih dulu: berhasil -> beranda, selain itu -> halaman masuk.
+  // Splash tampil minimal 2 detik lalu selalu membuka Beranda: aplikasi bisa
+  // dipakai tanpa akun (mis. jamaah lansia). Sesi yang tersimpan dipulihkan
+  // lebih dulu, jadi pengguna yang pernah masuk tetap masuk. Masuk/daftar ada
+  // di halaman Profil.
   Future<void> _continue() async {
     final service = widget.accountService ?? AccountService.instance;
     final restoring = service.restore();
     await Future<void>.delayed(const Duration(seconds: 2));
-    final restored = await restoring;
+    await restoring;
     if (!mounted) return;
 
-    if (restored) {
-      Navigator.of(context).pushReplacementNamed('/dashboard');
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginWidget()),
-      );
-    }
+    Navigator.of(context).pushReplacementNamed('/dashboard');
   }
 
   @override

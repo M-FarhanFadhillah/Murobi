@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:masjid/flutter_flow/flutter_flow_theme.dart';
 import 'package:masjid/flutter_flow/flutter_flow_util.dart';
 import 'package:masjid/models/lapkeu_model.dart';
-import 'package:masjid/models/masjid_model.dart';
 import 'package:masjid/services/api_lapkeu_service.dart';
 import 'package:masjid/widget/_build.dart';
 
@@ -19,7 +18,6 @@ class _KeuanganPagesState extends State<KeuanganPages> {
   final double width = 7;
   final String id_masjid = '8';
 
-  late Future<List<MasjidModel>> _apiMasjidModel;
   late Future<List<LapkeuModel>> _apiLapkeuModel;
 
   late List<BarChartGroupData> rawBarGroups;

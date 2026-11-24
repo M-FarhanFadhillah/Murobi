@@ -93,13 +93,20 @@ class _EdukasiWidgetState extends State<EdukasiWidget> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
+      // Posisi FAB tidak ikut padding bawah MediaQuery, jadi diangkat manual
+      // setinggi navigasi Dashboard yang melayang agar tidak tertutup.
       floatingActionButton: admin
-          ? FloatingActionButton.extended(
-              onPressed: _addItem,
-              backgroundColor: AppPalette.primary,
-              foregroundColor: Colors.white,
-              icon: const Icon(Icons.add_rounded),
-              label: const Text('Tambah materi'),
+          ? Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.paddingOf(context).bottom,
+              ),
+              child: FloatingActionButton.extended(
+                onPressed: _addItem,
+                backgroundColor: AppPalette.primary,
+                foregroundColor: Colors.white,
+                icon: const Icon(Icons.add_rounded),
+                label: const Text('Tambah materi'),
+              ),
             )
           : null,
       body: AppBackground(
@@ -163,8 +170,15 @@ class _EdukasiWidgetState extends State<EdukasiWidget> {
                       onRefresh: _store.refresh,
                       child: ListView.separated(
                         physics: const AlwaysScrollableScrollPhysics(),
-                        padding:
-                            EdgeInsets.fromLTRB(16, 8, 16, admin ? 96 : 16),
+                        // Ruang untuk tombol Tambah (admin) dan navigasi
+                        // yang melayang (padding bawah MediaQuery).
+                        padding: EdgeInsets.fromLTRB(
+                          16,
+                          8,
+                          16,
+                          (admin ? 96 : 16) +
+                              MediaQuery.paddingOf(context).bottom,
+                        ),
                         itemCount: items.length,
                         separatorBuilder: (_, __) => const SizedBox(height: 12),
                         itemBuilder: (context, index) =>

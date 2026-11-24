@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:masjid/common/app_theme.dart';
 import 'package:masjid/screens/dashboard.dart';
 import 'package:masjid/screens/profile/report_problem.dart';
@@ -17,10 +18,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:masjid/ui/surat_page.dart';
 
-void main() {
+Future<void> main() async {
   // Wajib sebelum AppTheme.light(): google_fonts memuat font Poppins lewat
   // binding Flutter, yang baru siap setelah dipanggil di sini.
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Aplikasi dirancang untuk ponsel potret. Dikunci agar tampilan sama di HP
+  // dan di emulator yang layarnya mendatar (mis. MuMu): banner dan kartu tidak
+  // menjadi terlalu pipih.
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,

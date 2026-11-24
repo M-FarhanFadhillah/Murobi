@@ -304,7 +304,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.textContaining('mendahulukan kaki kanan'), findsOneWidget);
-      expect(find.text('Oleh Admin Masjid • 2 hari lalu'), findsOneWidget);
+      // Halaman memakai jam sungguhan, jadi teks harapan dihitung saat tes jalan.
+      expect(
+        find.text(
+          'Oleh Admin Masjid • ${waktuRelatif(_now.subtract(const Duration(days: 2)))}',
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('admin: tombol Tambah dan geser-hapus dengan konfirmasi',

@@ -24,7 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.masjid"
-    compileSdkVersion flutter.compileSdkVersion
+    // google_sign_in_android membutuhkan SDK 34 untuk dikompilasi.
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {

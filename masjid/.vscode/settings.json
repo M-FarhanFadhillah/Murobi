@@ -3,5 +3,20 @@
     "cmake.sourceDirectory": "D:/Tugas Kuliah/Enlight/super-app-masjid/masjid/windows",
     "dart.env": {
         "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17.0.4"
-    }
+    },
+    // Folder android/ dibangun oleh Flutter (Gradle 7.5 + JDK 17). Ekstensi Java
+    // (Red Hat) tidak perlu mengimpornya: impor itu memakai Java 21/25 bawaannya,
+    // gagal ("Unsupported class file major version"), dan menandai berkas merah.
+    "java.import.gradle.enabled": false,
+    "java.import.maven.enabled": false,
+    "java.gradle.buildServer.enabled": "off",
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "java.import.exclusion": [
+        "**/android/**",
+        "**/build/**",
+        "**/.dart_tool/**",
+        "**/node_modules/**"
+    ],
+    // Bila impor Gradle dinyalakan lagi, pakai JDK 17 yang cocok dengan Gradle 7.5.
+    "java.import.gradle.java.home": "C:\\Program Files\\Java\\jdk-17.0.4"
 }

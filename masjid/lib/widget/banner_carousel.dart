@@ -6,6 +6,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // Carousel banner kegiatan di beranda, berpindah otomatis tiap 4 detik.
 // [images] berisi jalur aset ("assets/...") atau alamat gambar ("http...").
+// Tinggi banner mengikuti lebar layar dengan proporsi gambar banner, sehingga
+// gambar tidak tampak tertarik atau terpotong di layar sempit maupun lebar.
 class BannerCarousel extends StatefulWidget {
   const BannerCarousel({super.key, required this.images});
 
@@ -16,7 +18,16 @@ class BannerCarousel extends StatefulWidget {
 }
 
 class _BannerCarouselState extends State<BannerCarousel> {
-  final PageController _controller = PageController(viewportFraction: 0.9);
+  static const double _viewportFraction = 0.9;
+
+  // Proporsi gambar banner (lebar : tinggi), mis. 1719x894 dan 2031x1056.
+  static const double _imageAspectRatio = 1.92;
+
+  // Jarak di sekeliling tiap banner (lihat Padding di itemBuilder).
+  static const double _gap = 6;
+
+  final PageController _controller =
+      PageController(viewportFraction: _viewportFraction);
   Timer? _timer;
   int _page = 0;
 
@@ -76,24 +87,30 @@ class _BannerCarouselState extends State<BannerCarousel> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 176,
-          child: PageView.builder(
-            controller: _controller,
-            itemCount: widget.images.length,
-            onPageChanged: (index) => _page = index,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-              child: Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: AppPalette.softShadow,
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final imageWidth =
+                constraints.maxWidth * _viewportFraction - _gap * 2;
+            return SizedBox(
+              height: imageWidth / _imageAspectRatio + _gap * 2,
+              child: PageView.builder(
+                controller: _controller,
+                itemCount: widget.images.length,
+                onPageChanged: (index) => _page = index,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.all(_gap),
+                  child: Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(22),
+                      boxShadow: AppPalette.softShadow,
+                    ),
+                    child: _image(widget.images[index]),
+                  ),
                 ),
-                child: _image(widget.images[index]),
               ),
-            ),
-          ),
+            );
+          },
         ),
         const SizedBox(height: 8),
         SmoothPageIndicator(

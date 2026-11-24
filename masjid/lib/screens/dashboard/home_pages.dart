@@ -63,7 +63,14 @@ class _HomeWidgetState extends State<HomeWidget> {
     return SafeArea(
       bottom: false,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+        // Padding bawah MediaQuery = tinggi navigasi yang melayang (Dashboard),
+        // supaya kartu terakhir bisa digulir sampai terlihat penuh.
+        padding: EdgeInsets.fromLTRB(
+          16,
+          8,
+          16,
+          16 + MediaQuery.paddingOf(context).bottom,
+        ),
         child: ListenableBuilder(
           listenable: Listenable.merge([_masjidStore, _bannerStore]),
           builder: (context, _) {
@@ -179,15 +186,20 @@ class _HomeWidgetState extends State<HomeWidget> {
         children: [
           Row(
             children: [
-              const Text(
-                'Kegiatan Masjid',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  color: AppPalette.primaryDark,
+              // Expanded: judul menyempit (elipsis) pada layar sempit atau huruf
+              // besar, bukan membuat baris meluap.
+              const Expanded(
+                child: Text(
+                  'Kegiatan Masjid',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    color: AppPalette.primaryDark,
+                  ),
                 ),
               ),
-              const Spacer(),
               InkWell(
                 onTap: _openKegiatan,
                 borderRadius: BorderRadius.circular(8),

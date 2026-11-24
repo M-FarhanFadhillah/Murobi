@@ -1,5 +1,7 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    // Pustaka AndroidX/plugin dikompilasi dengan Kotlin 1.8; versi lebih lama
+    // memunculkan pesan "incompatible version of Kotlin" saat build.
+    ext.kotlin_version = '1.8.22'
     repositories {
         google()
         mavenCentral()
