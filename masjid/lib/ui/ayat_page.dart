@@ -499,6 +499,7 @@ class _AyatCard extends StatelessWidget {
                 style: TextStyle(
                   color: AppPalette.primary,
                   fontSize: _textSize * scale,
+                  fontFamilyFallback: AppFonts.latinFallback,
                 ),
               ),
             ),

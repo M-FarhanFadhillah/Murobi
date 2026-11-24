@@ -14,6 +14,7 @@ import 'package:masjid/widget/quran_audio_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/fake_audio_player.dart';
+import 'support/no_bundled_quran.dart';
 
 const String _audioUrl =
     'https://cdn.equran.id/audio-full/Misyari-Rasyid-Al-Afasi/001.mp3';
@@ -163,8 +164,9 @@ void main() {
 
   group('ApiService', () {
     test('data yang berhasil diambil disalin ke perangkat', () async {
-      final service =
-          ApiService(client: MockClient((_) async => _detailResponse()));
+      final service = ApiService(
+          bundle: noBundledQuran,
+          client: MockClient((_) async => _detailResponse()));
       final result = await service.getDetailSurat(1);
 
       expect(result.isRight(), isTrue);
@@ -173,10 +175,12 @@ void main() {
     });
 
     test('tanpa internet memakai salinan tersimpan', () async {
-      await ApiService(client: MockClient((_) async => _detailResponse()))
-          .getDetailSurat(1);
+      await ApiService(
+          bundle: noBundledQuran,
+          client: MockClient((_) async => _detailResponse())).getDetailSurat(1);
 
       final offline = ApiService(
+        bundle: noBundledQuran,
         client: MockClient((_) async => throw http.ClientException('offline')),
       );
       final result = await offline.getDetailSurat(1);
@@ -191,6 +195,7 @@ void main() {
     test('tanpa internet dan tanpa salinan: pesan ramah, bukan exception',
         () async {
       final offline = ApiService(
+        bundle: noBundledQuran,
         client: MockClient((_) async => throw http.ClientException('offline')),
       );
       final result = await offline.getDetailSurat(2);
@@ -201,6 +206,7 @@ void main() {
 
     test('status selain 200 dianggap gagal', () async {
       final service = ApiService(
+        bundle: noBundledQuran,
         client: MockClient((_) async => http.Response('error', 500)),
       );
       final result = await service.getDetailSurat(3);
@@ -210,12 +216,14 @@ void main() {
 
     test('surat terakhir (surat_selanjutnya false) dapat dibaca', () async {
       final service = ApiService(
+        bundle: noBundledQuran,
         client: MockClient((_) async => _detailResponse(lastSurah: true)),
       );
       final result = await service.getDetailSurat(114);
 
       expect(result.isRight(), isTrue);
-      expect(result.fold((_) => 'x', (detail) => detail.suratSelanjutnya), isNull);
+      expect(
+          result.fold((_) => 'x', (detail) => detail.suratSelanjutnya), isNull);
     });
   });
 
@@ -232,7 +240,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider(
-            create: (_) => AyatBloc(ApiService(client: client)),
+            create: (_) =>
+                AyatBloc(ApiService(bundle: noBundledQuran, client: client)),
             child: AyatPage(
               surat: _surat,
               settings: settings ?? QuranSettings(),

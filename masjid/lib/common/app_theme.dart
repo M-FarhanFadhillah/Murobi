@@ -44,6 +44,18 @@ class AppPalette {
       ];
 }
 
+// Font untuk huruf Latin bertanda pada transliterasi Al-Qur'an (ā ī ū ḍ ḥ ṣ ṭ ẓ).
+// Poppins tidak memuat ḍ ḥ ṣ ṭ ẓ ṡ; tanpa font cadangan, huruf itu tampil
+// sebagai kotak di perangkat yang tidak punya font sistem pengganti (mis.
+// emulator MuMu). Font ini disertakan di aplikasi (assets/fonts/) supaya
+// tampil benar juga tanpa internet.
+class AppFonts {
+  AppFonts._();
+
+  static const String latinExtended = 'RobotoStatic';
+  static const List<String> latinFallback = [latinExtended];
+}
+
 class AppTheme {
   AppTheme._();
 

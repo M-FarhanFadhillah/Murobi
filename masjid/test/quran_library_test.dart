@@ -18,6 +18,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/fake_audio_player.dart';
+import 'support/no_bundled_quran.dart';
 
 const Map<int, int> _ayatCount = {1: 7, 2: 286, 3: 200};
 
@@ -36,7 +37,8 @@ Map<String, dynamic> _suratJson(
       'tempat_turun': tempat,
       'arti': arti,
       'deskripsi': 'x',
-      'audio': 'https://cdn.equran.id/audio-full/Misyari-Rasyid-Al-Afasi/00$nomor.mp3',
+      'audio':
+          'https://cdn.equran.id/audio-full/Misyari-Rasyid-Al-Afasi/00$nomor.mp3',
     };
 
 final List<Map<String, dynamic>> _suratList = [
@@ -234,8 +236,12 @@ void main() {
       MaterialApp(
         home: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => SuratCubit(ApiService(client: client))),
-            BlocProvider(create: (_) => AyatBloc(ApiService(client: client))),
+            BlocProvider(
+                create: (_) => SuratCubit(
+                    ApiService(bundle: noBundledQuran, client: client))),
+            BlocProvider(
+                create: (_) => AyatBloc(
+                    ApiService(bundle: noBundledQuran, client: client))),
           ],
           child: SuratPage(
             readingStore: reading,
@@ -381,7 +387,8 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: BlocProvider(
-            create: (_) => AyatBloc(ApiService(client: _client())),
+            create: (_) =>
+                AyatBloc(ApiService(bundle: noBundledQuran, client: _client())),
             child: AyatPage(
               surat: surat2,
               initialAyat: initialAyat,
@@ -436,8 +443,7 @@ void main() {
       expect(find.byTooltip('Hapus tanda ayat'), findsOneWidget);
     });
 
-    testWidgets('menggulir memperbarui posisi terakhir dibaca',
-        (tester) async {
+    testWidgets('menggulir memperbarui posisi terakhir dibaca', (tester) async {
       final store = await pumpAyat(tester);
       expect(store.lastRead?.ayatNomor, 1);
 
